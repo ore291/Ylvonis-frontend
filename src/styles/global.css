@@ -1,0 +1,70 @@
+@tailwind base;
+
+a {
+  @apply text-blue-700;
+}
+
+body {
+  background-color: #000;
+  font-family: "Poppins", sans-serif;
+}
+
+a:hover {
+  @apply border-b border-brand;
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+.content p {
+  @apply my-6;
+}
+
+.content ul {
+  @apply my-6;
+}
+
+.gradButton {
+  @apply bg-gradient-to-r from-brand to-endBrand text-white text-xl font-medium;
+}
+
+.gradText {
+  background: linear-gradient(87.99deg, #a823bc 7.14%, #bc238b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.hr-lines {
+  position: relative;
+  max-width: 500px;
+  margin: 2px auto;
+  text-align: center;
+  color: #9A9A9A;
+}
+
+.hr-lines:before {
+  content: " ";
+  height: 2px;
+  width: 160px;
+  background: #9A9A9A;
+
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.hr-lines:after {
+  content: " ";
+  height: 2px;
+  width: 160px;
+  background: #9A9A9A;
+
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
