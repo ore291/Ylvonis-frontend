@@ -1,7 +1,13 @@
 @tailwind base;
 
 a {
-  @apply text-blue-700;
+  @apply text-blue-700 decoration-transparent;
+}
+
+a {
+text-decoration:none;
+ border:none;
+ color:inherit
 }
 
 body {
@@ -27,6 +33,24 @@ a:hover {
 
 .gradButton {
   @apply bg-gradient-to-r from-brand to-endBrand text-white text-xl font-medium;
+}
+.gradLink{
+@apply   font-bold  to-purple-800 text-purple-700  bg-clip-text 
+
+}
+.text-xsm{
+@apply text-[10px] mt-1
+}
+.overflow-scroll::-webkit-scrollbar{
+display:none
+
+}
+
+.row-container{
+@apply flex justify-between items-center 
+}
+.col-container{
+@apply flex justify-between items-center flex-col
 }
 
 .gradText {
@@ -67,4 +91,34 @@ a:hover {
   position: absolute;
   top: 50%;
   right: 0;
+}
+
+
+
+
+
+.rce-mbox-left-notch{
+  display:none !important
+}
+.rce-mbox-right-notch{
+display:none !important
+}
+
+.rce-mbox{
+ @apply !bg-chatGray text-white capitalize
+}
+.rce-mbox-received>div{
+@apply bg-gradient-to-r from-brand to-endBrand text-white !capitalize ;
+}
+ .rce-citem{
+  @apply !bg-chatGray !capitalize text-white 
+ }
+ .rce-citem-body--top-time{
+  @apply !text-white
+ }
+ .rce-citem-body--bottom-status >span{
+   @apply !bg-gradient-to-r !from-brand !to-endBrand text-white text-xl font-medium;
+ } 
+.rce-mbox-sent{
+  background:transparent !important
 }

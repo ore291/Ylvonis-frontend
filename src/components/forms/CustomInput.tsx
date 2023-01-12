@@ -1,17 +1,18 @@
 import React from 'react'
 
-import { Formik, Form, useField, ErrorMessage } from "formik";
+import {  useField, ErrorMessage } from "formik";
 
 type CustomInputProps = {
   name: string;
   label : string;
-  type? : string ;
+  type?: string;
+  props?:any
 }; 
 
 const CustomInput = ({ name  , label,type,  ...props } : CustomInputProps )  => {
   const [field, meta] = useField(name);
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-full">
       <label className="block text-gray-400 text-sm pb-1 font-medium" htmlFor={field.name}>
         {label}
       </label>
