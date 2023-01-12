@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import RecentSongs from './recent';
+import LikedSongs from './liked';
 function MainPage() {
   return (
     <div>
@@ -16,7 +17,7 @@ function MainPage() {
        <RecentSongs />
       </TabPanel>
       <TabPanel>
-
+          <LikedSongs />
         </TabPanel>
         <TabPanel>
 

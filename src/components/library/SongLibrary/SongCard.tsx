@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { MdOutlinePlaylistPlay } from 'react-icons/md'
 import Link from 'next/link'
+import { SlOptionsVertical } from 'react-icons/sl'
 
 
 // 
@@ -21,11 +22,15 @@ function SongCard(props: SongPropTypes) {
           <div className='w-1/4'>
             <MdOutlinePlaylistPlay size={32} />
           </div>
-          <div className='w-2/4 capitalize'>
+          <div className='w-2/4 capitalize flex-col flex'>
             <span>{props.songName}</span>
             <span className='text-sm text-utilGray'>{props.artist }</span>
           </div>
-          <div className='w-1/4'></div>
+          <div className='w-1/4 ml-auto'>
+            <div className='flex justify-end '>
+              <SlOptionsVertical size={25} className='text-white' />
+            </div>
+          </div>
         </div>
         {/* desktop playlist view */}
         <div className='hidden md:block w-auto'>

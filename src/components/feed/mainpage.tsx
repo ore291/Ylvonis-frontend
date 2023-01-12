@@ -84,7 +84,7 @@ function MainPage() {
       </section>
 
       {/* suggested artists/users */}
-      <section className="w-4/12">
+      <section className="w-4/12 hidden md:block">
         <Tabs defaultFocus={true} selectedTabClassName={'bg-transparent focused-tab !relative'}>
           <TabList className={'bg-bgGray flex items-center justify-between text-utilGray whitespace-nowrap py-1 md:py-3 md:items-start md:justify-start'}>
             <Tab>Suggested Artists </Tab>

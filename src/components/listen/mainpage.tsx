@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Music from './music';
+import Podcasts from './podcasts';
 import Trending from './trending';
 
 function MainPage() {
@@ -11,7 +12,7 @@ function MainPage() {
         <Tab>Music</Tab>
           <Tab>Trending</Tab>
           {/* the third page in the design didnt have anything, so i didn't do anything */}
-          <Tab>Title 2</Tab>
+          <Tab>Podcasts</Tab>
       </TabList>
 
       <TabPanel>
@@ -21,7 +22,7 @@ function MainPage() {
       <Trending />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+            <Podcasts />
         </TabPanel>
       </Tabs>
     </div>

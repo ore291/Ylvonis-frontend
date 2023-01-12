@@ -29,7 +29,7 @@ function MainPage() {
     {
       title: 'artists',
       icon: <FaUserCheck size={30} />,
-      link: ''
+      link: '/library/artists'
     }]
   return (
     <div className='w-full md:hidden'>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
 import PlayListCard from './PlayListCard'
-import Link from 'next/link'
 
 
 export default function RecentPlayLists() {
@@ -28,7 +27,7 @@ export default function RecentPlayLists() {
 
         </div>
       </section>
-      <section className='grid  cursor-pointer  mb-2 md:mb-0 '>
+      <section className='grid  cursor-pointer  mb-2 md:mb-0 max-h-[60vh] mt-2 overflow-scroll'>
         <div className='md:grid md:grid-cols-5 gap-2'>
           {playlists.length === 0 ? <header className='text-xl text-center col-span-5 w-full mt-2 text-bold'>No Playlists Found</header> :
             playlists?.map((playlist, index) => (
