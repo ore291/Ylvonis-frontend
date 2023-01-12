@@ -12,6 +12,9 @@ function MainPage() {
   const user = {
     profileImg: "/ckay1.png",
     name: "ckay ckay",
+    posts:'',
+    followers: '',
+    following:''
   };
 
   const settings = [

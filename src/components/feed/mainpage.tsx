@@ -4,7 +4,7 @@ import { AiOutlinePicture } from 'react-icons/ai'
 import PostCard from "./PostCard";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import ArtististsListItem from '../ArtististsListItem';
+import ArtististsListItem from '../utils/ArtististsListItem';
 
 
 function MainPage() {

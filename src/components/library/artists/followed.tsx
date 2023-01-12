@@ -1,4 +1,4 @@
-import ArtististsListItem from '@/components/ArtististsListItem';
+import ArtististsListItem from '@/components/utils/ArtististsListItem';
 import React from 'react'
 import { BsListUl } from 'react-icons/bs';
 
