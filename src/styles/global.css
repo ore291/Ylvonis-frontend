@@ -1,7 +1,12 @@
 @tailwind base;
 
 a {
-  @apply text-blue-700;
+  @apply text-blue-700 decoration-transparent;
+}
+
+a {
+text-decoration:none;
+border:none
 }
 
 body {
@@ -27,6 +32,17 @@ a:hover {
 
 .gradButton {
   @apply bg-gradient-to-r from-brand to-endBrand text-white text-xl font-medium;
+}
+.gradLink{
+@apply   font-bold  to-purple-800 text-purple-700  bg-clip-text 
+
+}
+.text-xsm{
+@apply text-[10px] mt-1
+}
+.overflow-scroll::-webkit-scrollbar{
+display:none
+
 }
 
 .gradText {

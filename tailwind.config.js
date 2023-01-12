@@ -19,6 +19,8 @@ module.exports = {
         brand : '#bc238b',
         endBrand : '#A823BC',
         inputBg: '#202020',
+        utilGray: '#9A9A9A',
+        bgGray:'#202020',
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',

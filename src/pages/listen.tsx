@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router';
-
+import MainPage from '@/components/listen/mainpage';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
-const Index = () => {
-  const router = useRouter();
-
+function Listen() {
   return (
     <Main
       meta={
@@ -14,11 +11,12 @@ const Index = () => {
           description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
         />
       }
-      title='Home'
+      title='Listen'
     >
-    
-    </Main>
-  );
-};
+      <MainPage />
 
-export default Index;
+    </Main>
+  )
+}
+
+export default Listen
