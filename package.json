@@ -14,7 +14,7 @@
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
     "commit": "cz",
-    "prepare": "husky install",
+
     "postbuild": "next-sitemap"
   },
   "dependencies": {

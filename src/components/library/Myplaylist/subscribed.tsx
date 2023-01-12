@@ -16,7 +16,7 @@ function SubscribedPlaylists() {
       <section>
         <nav className='flex w-full justify-between px-4  py-2 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none '>
           <div className='capitalize text-utilGray'>{numOfPlaylist} playlists </div>
-          <div> <BsListUl size={30} className='text-utilGray' />  </div>
+          <button> <BsListUl size={30} className='text-utilGray' />  </button>
         </nav>
         <div className='py-2 flex gap-4 px-4 md:py-4 items-center border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none '>
           <button className='btn btn-block gradButton p-2 text-xl rounded-md'>
