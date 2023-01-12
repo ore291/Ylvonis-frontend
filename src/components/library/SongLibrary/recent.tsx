@@ -24,9 +24,9 @@ function RecentSongs() {
       </nav>
       <div>
         {songs.length === 0 ? <header className='text-xl text-center col-span-5 w-full mt-2 text-bold'>No Songs Found</header> :
-          songs?.map((playlist, index) => (
+          songs?.map((song, index) => (
             <div key={index}>
-              <SongCard img={playlist?.img} songName={playlist?.name} artist={playlist.artists } />
+              <SongCard img={song?.img} songName={song?.name} artist={song.artists } />
             </div>
 
           ))
