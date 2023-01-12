@@ -17,7 +17,7 @@ type IMainProps = {
 const Main = (props: IMainProps) => (
   <div className="w-full  px-1 text-white antialiased">
     {props.meta}
-    <Header fixed={true} title={props.title} nested={props?.nested} />
+    <Header  title={props.title} nested={props?.nested} />
    
 
     <div className="mx-auto max-w-screen-lg relative  md:grid md:grid-cols-3 w-full">

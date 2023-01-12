@@ -7,7 +7,7 @@ import { SlBell } from 'react-icons/sl'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-export default function Menu({ fixed, title,nested }: { fixed: boolean, title: any,nested?:boolean }) {
+export default function Menu({ title,nested }: { title: any,nested?:boolean }) {
   {
     const [menuOpen, setMenuOpen] = React.useState(false)
     const router = useRouter()
