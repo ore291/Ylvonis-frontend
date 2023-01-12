@@ -10,7 +10,7 @@ import * as yup from "yup";
 
 function MainPage() {
   const user = {
-    profileImg: "/ckay1.png",
+    profileImg: "/ckay2.png",
     name: "ckay ckay",
   };
 

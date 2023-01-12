@@ -5,18 +5,18 @@ import { BsListUl } from 'react-icons/bs';
 function LikedArtists() {
   const numOfArtists = 50;
   const artists = [
-    { name: 'fave', followers: '320', following: 1, img: 'ckay1.png' },
-    { name: 'id', followers: '459', following: 1, img: 'ckay1.png' },
-    { name: 'mercy chinwe', followers: '909', following: 1, img: 'ckay1.png' },
-    { name: 'victony', followers: '1', following: 1, img: 'ckay1.png' },
-    { name: 'davido', followers: '100', following: 1, img: 'ckay1.png' },
-    { name: 'zadok', followers: '40', following: 1, img: 'ckay1.png' },
-    { name: 'sasaki', followers: '80', following: 1, img: 'ckay1.png' },
-    { name: 'aurora', followers: '90', following: 1, img: 'ckay1.png' },
-    { name: 'yui', followers: '678', following: 1, img: 'ckay1.png' },
-    { name: 'kori', followers: '78', following: 1, img: 'ckay1.png' },
-    { name: 'kori', followers: '78', following: 1, img: 'ckay1.png' },
-    { name: 'kori', followers: '78', following: 1, img: 'ckay1.png' },]
+    { name: 'fave', followers: '320', following: 1, img: 'ckay2.png' },
+    { name: 'id', followers: '459', following: 1, img: 'ckay2.png' },
+    { name: 'mercy chinwe', followers: '909', following: 1, img: 'ckay2.png' },
+    { name: 'victony', followers: '1', following: 1, img: 'ckay2.png' },
+    { name: 'davido', followers: '100', following: 1, img: 'ckay2.png' },
+    { name: 'zadok', followers: '40', following: 1, img: 'ckay2.png' },
+    { name: 'sasaki', followers: '80', following: 1, img: 'ckay2.png' },
+    { name: 'aurora', followers: '90', following: 1, img: 'ckay2.png' },
+    { name: 'yui', followers: '678', following: 1, img: 'ckay2.png' },
+    { name: 'kori', followers: '78', following: 1, img: 'ckay2.png' },
+    { name: 'kori', followers: '78', following: 1, img: 'ckay2.png' },
+    { name: 'kori', followers: '78', following: 1, img: 'ckay2.png' },]
   return (
     <main>
       <section>

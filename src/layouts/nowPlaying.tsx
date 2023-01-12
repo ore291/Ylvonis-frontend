@@ -72,7 +72,7 @@ function NowPlaying() {
         </header>
         <main className='grid gap-3'>
           <section className='mx-auto rounded h-[100%] align-top  w-[95vw] '>
-            <Image src={'/Ckay1.png'} alt='' fill 
+            <Image src={'/ckay2.png'} alt='' fill 
               objectFit="contain" className='rounded mt-5 z-[90]  !relative' />
           </section>
 
