@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ChatItems from './ChatItem';
 import ChatArea from './ChatArea';
 import { useState } from "react";
-import Draggable from "react-draggable";
+
 
 // don't know how the data is coming but i defined types for it,which may end up not being used
 export type ChatTypes= {
