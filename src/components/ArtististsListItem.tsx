@@ -4,10 +4,11 @@ import Image from 'next/image'
 function ArtististsListItem(props:{name:string,followers:string,following:number,img:string}) {
   const [following, setFollowing] = useState(props.following)
   return (
+    // also used for users too
     <div>
       <nav className='flex gap-3 w-full items-center relative pb-1'>
-        <div className='relativ max-h-[50px] h-[50px]'>
-          <Image src={`/${props.img}`} fill style={{objectFit:'contain'}} className='rounded' alt='' />
+        <div className='relative max-h-[50px] h-[50px]'>
+          <Image src={`/${props.img}`} height={50} width={50} style={{objectFit:'contain'}} className='rounded' alt='' />
         </div>
       
         <div className='flex-col flex max-w-5/12'>

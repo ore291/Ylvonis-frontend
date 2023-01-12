@@ -1,10 +1,9 @@
-'use client'
+
 
 
 import { ChatItem } from "react-chat-elements";
 
 import { useRouter } from 'next/router';
-import { useState } from "react";
 
 
 // chat-item props types,change when you get the chat data
@@ -25,18 +24,7 @@ function ChatItems(props: ChatPropTypes) {
   const windowWidth = typeof window !== 'undefined' ? window.innerWidth :'680'
  
 
-  const useDeviceSize = () => {
-
-    const [width, setWidth] = useState(0)
-    const [height, setHeight] = useState(0)
-
-   
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-   
-
-    return{width,height}
-  }
+  
   
  
 
