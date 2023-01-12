@@ -15,15 +15,16 @@ function MainPage() {
   
 
 
-  const routes: RoutesType[] = [{
+  const routes: RoutesType[] = [
+    {
     title: 'my playlist',
     icon: <MdOutlinePlaylistPlay size={32} />,
-    link:''
+    link:'/library/myplaylists'
   },
     {
       title: 'song library',
       icon: <IoLibrary size={28} />,
-      link: ''
+      link: '/library/songlibrary'
     },
     {
       title: 'artists',
@@ -31,7 +32,7 @@ function MainPage() {
       link: ''
     }]
   return (
-    <div className='w-full'>
+    <div className='w-full md:hidden'>
       {routes.map((route:RoutesType,index:number) => (
         <Link href={route.link} key={index}>
           <div className='flex w-full border-y justify-between items-center border-solid border-slate-700'>

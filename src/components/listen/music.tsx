@@ -34,7 +34,7 @@ function Music() {
 
 
   return (
-    <main className='overflow-scroll h-[70vh] mb-[15vh]'>
+    <main className='overflow-scroll h-[70vh] md:h-ful mb-[5vh'>
       <section className='grid gap-4'>
         <h1 className='font-semibold text-lg p-2'>Recently played</h1>
 

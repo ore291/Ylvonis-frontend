@@ -51,13 +51,13 @@ function Trending() {
   ]
 
   return (
-    <main className='overflow-scroll h-[70vh] mb-[15vh]'>
+    <main className=' h-[70vh] mb-[5vh] max-w-screen overflow-scroll mx-auto'>
       <section>
         <h1 className='font-semibold text-xl my-2  p-2'>Trending</h1>
-        <div className='grid grid-cols-3 max-w-[100vw] justify-start mx-2  items-center gap-5 overflow-scroll scroll-m-0 '>
+        <div className='grid grid-cols-3 max-w-[100vw] justify-start mx-2  items-center gap-5  '>
 
           {recent.map((song, index) => (
-            <div key={index}>
+            <div key={index} className=''>
               <SongCard img={song.img} songTitle={song.songTitle} artist={song.artist} />
             </div>
 

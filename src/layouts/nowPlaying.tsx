@@ -13,13 +13,15 @@ function NowPlaying() {
   const [favourited, setFavourited] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
 
+
+  // for the small player at the bottom
   const NowPlayingMini:()=>JSX.Element = () => {
     return (
       <div className='flex flex-col bg-bgGray  bottom-0 p- items-center justify-center'>
-        <div className='w-full text-center flex justify-center' onMouseDown={(e) => {
+        <button className='w-full text-center md:hidden flex justify-center' onMouseDown={(e) => {
           e.preventDefault()
           setShowLarge(true)
-        }}><div className='text-utilGray '><BsDashLg /> </div></div>
+        }}><div className='text-utilGray '><BsDashLg /> </div></button>
 
         <nav className='flex justify-around w-full items-center pb-1'>
           <Image src={'/ckay.png'} height={25} width={35} className='rounded' alt='' />
@@ -29,7 +31,6 @@ function NowPlaying() {
           </div>
           <button className=' ' onMouseDown={(e) => {
             e.preventDefault()
-            
             e.stopPropagation()
             setFavourited((prev) => !prev)
           }}>
@@ -38,9 +39,7 @@ function NowPlaying() {
             </button>
           <button onMouseDown={(e) => {
             e.preventDefault()
-           
             setIsPaused((prev) => !prev)
-           
           }}>{isPaused ? <BsPlayCircle size={30} className='text-purple-500' /> : <BsPauseCircle size={30} className='text-purple-700 text-whit bg-clip-text' />}</button>
           <div><SlOptionsVertical size={25}/></div>
 
@@ -60,7 +59,7 @@ function NowPlaying() {
   const NowPlayingLarge:()=>JSX.Element = () => {
     
     return (
-      <div  className='max-h-screen w-full h-full fixed top-0 left-0 bg-black z-50 '>
+      <div  className='max-h-screen w-full h-full fixed top-0 left-0 bg-black z-50 md:hidden '>
 
         <header className='flex justify-between items-center p-3 mt-1 '>
           <button onMouseDown={(e) => {

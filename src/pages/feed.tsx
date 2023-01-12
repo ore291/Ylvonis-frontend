@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
+import MainPage from '@/components/feed/mainpage';
 
 function Feed() {
   return (
@@ -13,7 +14,7 @@ function Feed() {
       }
       title='Feed'
     >
-
+<MainPage />
     </Main>
   )
 }

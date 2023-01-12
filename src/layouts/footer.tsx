@@ -4,9 +4,12 @@ import React, { ReactNode ,useEffect} from "react";
 import { TiHome } from "react-icons/ti";
 import { BsNewspaper, BsChat } from "react-icons/bs";
 import { TbPlaylist } from "react-icons/tb";
-import { MdOutlineLibraryMusic } from "react-icons/md";
+import { MdOutlineLibraryMusic, MdOutlinePlaylistPlay } from "react-icons/md";
 import Link from "next/link";
 import { RoutesType } from "@/components/library/mainpage";
+import Settings from '../pages/settings/index';
+import { FaUserCheck } from "react-icons/fa";
+import { IoLibrary } from "react-icons/io5";
 
 export const ActiveLink = ({
   children,
@@ -19,9 +22,9 @@ export const ActiveLink = ({
 
   
 
-  const className = router.asPath == href + '/' || router.asPath === href
-    ? "gradLink  "
-    : "text-gray-500  ";
+  const className = router.asPath.includes(`${href}/`)  || router.asPath === href
+    ? "gradLink md:flex  "
+    : "text-gray-500 md:flex ";
 
 
 
@@ -34,9 +37,62 @@ export const ActiveLink = ({
   );
 };
 
+const routes: RoutesType[] = [
+
+  {
+    title: 'Home',
+    icon: <TiHome size={30} className="mx-auto" />,
+    link: '/'
+  },
+  {
+    title: 'feed',
+    icon: <BsNewspaper size={30} className="mx-auto" />,
+    link: '/feed'
+  },
+  {
+    title: 'chat',
+    icon: <BsChat size={30} className="mx-auto" />,
+    link: '/chat'
+  },
+  {
+    title: 'listen',
+    icon: <TbPlaylist size={30} className='mx-auto' />,
+    link: '/listen'
+  },
+  {
+    title: 'library',
+    icon: <MdOutlineLibraryMusic size={30} className="mx-auto" />,
+    link: '/library'
+  },
+
+  
+
+
+
+]
+
 export const Sidebar = () => {
   return (
-    <aside></aside>
+    <aside className="w-full ">
+      <div className="flex flex-col  h-full  relative    h-full justify-between ">
+        {routes.map((route: RoutesType, index: number) => (
+          <div
+            key={index}
+          >
+            {route.title === 'chat' ? (<span
+              className={` absolute text-xsm text-white right-0 bg-red-500 rounded-full top-0  px-1 z-40 hover:scale-105 cursor-pointer `}
+            >
+              13
+            </span>) : ''}
+            <ActiveLink href={route.link} >
+              {route.icon}
+              <span className="   capitalize">{route.title}</span>
+            </ActiveLink>
+          </div>
+        ))}
+
+      </div>
+    </aside>
   )
 }
 
@@ -52,39 +108,7 @@ function Footer() {
     router.prefetch('/listen')
   }, [])
 
-  const routes: RoutesType[] = [
-    
-    {
-    title: 'my playlist',
-    icon: <TiHome size={30} className="mx-auto" />,
-    link: '/'
-    },
-    {
-      title: 'feed',
-      icon: <BsNewspaper size={30} className="mx-auto" />,
-      link: '/feed'
-    },
-    {
-      title: 'chat',
-      icon: <BsChat size={30} className="mx-auto" />,
-      link: '/chat'
-    },
-    {
-      title: 'listen',
-      icon: <TbPlaylist size={30} className='mx-auto' />,
-      link: '/listen'
-    },
-    {
-      title: 'library',
-      icon: <MdOutlineLibraryMusic size={30} className="mx-auto" />,
-      link: '/library'
-    },
-
-
-
-
-
-  ]
+ 
   return (
     <div className="flex justify-center">
       {" "}
@@ -96,16 +120,16 @@ function Footer() {
         {routes.map((route:RoutesType,index:number) => (
           <div
             key={index}
-            className="flex flex-col relative  justify-between text-xsm  "
+            className="flex flex-col relative  justify-between text-xsm "
           >
             {route.title === 'chat' ? (<span
-              className={` absolute text-xsm text-white right-0 bg-red-500 rounded-full top-0  px-1 z-40 hover:scale-105 cursor-pointer `}
+              className={` absolute text-xsm  text-white right-0 bg-red-500 rounded-full top-0  px-1 z-40 hover:scale-105 cursor-pointer `}
             >
               13
             </span>):''}
             <ActiveLink href={route.link}>
              {route.icon}
-              <span className=" text-xsm  capitalize">{route.title}</span>
+              <span className=" text-xsm   capitalize">{route.title}</span>
             </ActiveLink>
           </div>
           

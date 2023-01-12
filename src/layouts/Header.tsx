@@ -1,12 +1,16 @@
 import Image from 'next/image'
 import React from 'react'
-import { FaGlobe, FaCog } from "react-icons/fa"
+import {  FaCog } from "react-icons/fa"
 import { BiSearchAlt } from 'react-icons/bi'
+import { BsChevronLeft } from 'react-icons/bs'
 import { SlBell } from 'react-icons/sl'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
-export default function Menu({ fixed, title }: { fixed: boolean, title: any }) {
+export default function Menu({ fixed, title,nested }: { fixed: boolean, title: any,nested?:boolean }) {
   {
     const [menuOpen, setMenuOpen] = React.useState(false)
+    const router = useRouter()
     return (
       <>
         <div className="flex flex-wrap py-2 border-b border-solid border-slate-700">
@@ -20,11 +24,19 @@ export default function Menu({ fixed, title }: { fixed: boolean, title: any }) {
                   >
                     pink Starter Menu
                   </a> */}
-               
-                  <div className="flex items-start space-x-2">
+
+                  {nested ? <div className="flex items-center space-x-2">
+
+
+                    <BsChevronLeft size={28} onClick={()=> router.back()} />
+                    <h1 className='text-white font-bold text-xl'>{title}</h1>
+                  </div> :
+                    <div className="flex items-start space-x-2">
                     <Image src="/logo.svg" width={30} height={30} className=' rounded-full object-contain' alt='' />
+                   
                     <h1 className='gradText font-bold text-xl'>{title}</h1>
-                  </div>
+                  </div>}
+
 
                   <button
                     className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -38,7 +50,7 @@ export default function Menu({ fixed, title }: { fixed: boolean, title: any }) {
                   <ul className='flex justify-evenly gap-3'>
                     <li><BiSearchAlt size={'30px'} /></li>
                     <li className='bg-white  bg-clip-text'><SlBell className='text-whit' size={'28px'} /></li>
-                    <li><FaCog size={'30px'}/></li>
+                    <li><Link href={'/settings'}><FaCog size={'30px'} /></Link></li>
                   </ul>
                 </div>
                 {/* <div

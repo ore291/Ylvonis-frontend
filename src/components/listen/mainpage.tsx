@@ -7,9 +7,10 @@ function MainPage() {
   return (
     <div>
       <Tabs defaultFocus={true} selectedTabClassName={'bg-transparent focused-tab !relative'}>
-        <TabList className={'bg-bgGray flex items-center justify-between text-utilGray  py-1'}>
+        <TabList className={'bg-bgGray flex items-center justify-between w-full text-utilGray  py-1'}>
         <Tab>Music</Tab>
-        <Tab>Title 2</Tab>
+          <Tab>Trending</Tab>
+          {/* the third page in the design didnt have anything, so i didn't do anything */}
           <Tab>Title 2</Tab>
       </TabList>
 
