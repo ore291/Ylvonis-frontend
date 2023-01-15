@@ -148,8 +148,9 @@ function MainPage() {
           </div>
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              username: "",
+              hometown: "",
+              biography:""
             }}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}

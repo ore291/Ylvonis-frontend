@@ -1,15 +1,11 @@
 import { useRouter } from "next/router";
 import React, { ReactNode ,useEffect} from "react";
-//import { AiOutlineHome } from "react-icons/ai";
 import { TiHome } from "react-icons/ti";
 import { BsNewspaper, BsChat } from "react-icons/bs";
 import { TbPlaylist } from "react-icons/tb";
-import { MdOutlineLibraryMusic, MdOutlinePlaylistPlay } from "react-icons/md";
+import { MdOutlineLibraryMusic } from "react-icons/md";
 import Link from "next/link";
 import { RoutesType } from "@/components/library/mainpage";
-import Settings from '../pages/settings/index';
-import { FaUserCheck } from "react-icons/fa";
-import { IoLibrary } from "react-icons/io5";
 
 export const ActiveLink = ({
   children,
@@ -71,30 +67,6 @@ const routes: RoutesType[] = [
 
 ]
 
-export const Sidebar = () => {
-  return (
-    <aside className="w-full ">
-      <div className="flex flex-col  h-full  relative    h-full justify-between ">
-        {routes.map((route: RoutesType, index: number) => (
-          <div
-            key={index}
-          >
-            {route.title === 'chat' ? (<span
-              className={` absolute text-xsm text-white right-0 bg-red-500 rounded-full top-0  px-1 z-40 hover:scale-105 cursor-pointer `}
-            >
-              13
-            </span>) : ''}
-            <ActiveLink href={route.link} >
-              {route.icon}
-              <span className="   capitalize">{route.title}</span>
-            </ActiveLink>
-          </div>
-        ))}
-
-      </div>
-    </aside>
-  )
-}
 
 
 

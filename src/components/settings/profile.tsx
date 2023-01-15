@@ -42,25 +42,25 @@ function MainPage() {
           </div>
           <div className='flex gap-10 w-1/4 ml-auto'>
 
-            <div className='flex flex-col justify-start gap-1'>
-              <h1 className='font-bold text-white text-xl'>
+            <div className='flex flex-col justify-start gap-1 '>
+              <h1 className='font-bold text-white text-lg md:text-2xl'>
                 {user.posts}
               </h1>
               <span className='text-sm text-utilGray '>Posts</span>
 
             </div>
               <div className='flex flex-col justify-start gap-1'>
-              <h1 className='font-bold text-white text-lg'>
+              <h1 className='font-bold text-white text-lg md:text-2xl'>
                 {user.followers}
               </h1>
               <span className='text-sm text-utilGray '>Followers</span>
 
             </div>
               <div className='flex flex-col justify-start gap-1'>
-              <h1 className='font-bold text-white text-lg'>
+              <h1 className='font-bold text-white text-lg md:text-2xl'>
                 {user.following}
               </h1>
-              <span className='text-sm text-utilGray '>Fllowing</span>
+              <span className='text-sm text-utilGray '>Following</span>
             </div>
           </div>
           </div>
@@ -82,8 +82,8 @@ function MainPage() {
         </div>
       
 
-        <div className='flex max-w-[100vw] justify-start mx-2  items-center gap-5 overflow-scroll scroll-m-0 '>
-          {suggestedUsers.map((suggestedUser, index) => (
+        <div className='flex max-w-[100vw] justify-start mx-2 md:max-h-fit items-center gap-5 overflow-scroll scroll-m-0 md:grid md:mx-0 md:grid-cols-5'>
+          {suggestedUsers.slice(0,5).map((suggestedUser, index) => (
             <div key={index}><SuggestedPeopleCard img={suggestedUser.img} name={suggestedUser.name} following={suggestedUser.following} nation={suggestedUser.nation } /></div>
 
           ))}

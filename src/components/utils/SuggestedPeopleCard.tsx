@@ -8,7 +8,7 @@ function SuggestedPeopleCard(props: { img: string, nation?: string, name: string
 
    <div className="!w-[150px] max-h-[190px]  border border-gray-200 rounded-lg shadow-md ">
       <div className='relative w-full h-[100px] rounded-t-lg rounded-t-l '>
-        <Image className="" fill src={`/${props.img}` } alt='' style={{objectFit:'cover'}}/>
+        <Image  fill src={`/${props.img}` } alt='' className='rounded-t-lg' style={{objectFit:'cover'} }/>
   </div>
   <div className="p-1 text-center">
   

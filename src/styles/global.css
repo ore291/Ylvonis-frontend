@@ -27,6 +27,8 @@ a:hover {
   @apply my-6;
 }
 
+
+
 .content ul {
   @apply my-6;
 }
@@ -39,7 +41,10 @@ a:hover {
 
 }
 .text-xsm{
-@apply text-[10px] mt-1
+@apply mt-1
+}
+.gradSVG{
+color :#B223A4 !important;
 }
 .overflow-scroll::-webkit-scrollbar{
 display:none
