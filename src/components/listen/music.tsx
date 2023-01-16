@@ -35,10 +35,10 @@ function Music() {
 
   return (
     <main className='overflow-scroll h-[70vh] md:h-ful mb-[5vh'>
-      <section className='grid gap-4'>
+      <section className='grid gap-4 '>
         <h1 className='font-semibold text-lg p-2'>Recently played</h1>
 
-        <div className='flex max-w-[100vw] justify-start mx-2  items-center gap-5 overflow-scroll scroll-m-0 '>
+        <div className='flex max-w-[100vw] justify-start  mx-2  items-center gap-5 overflow-scroll scroll-m-0 '>
           {recent.map((song, index) => (
             <div key={index}><SongCard img={song.img} songTitle={song.songTitle} artist={song.artist} /></div>
             

@@ -46,13 +46,13 @@ function ChatArea(props) {
         <div className="py-2 px-3 ">
             <div className="flex justify-center mb-2">
               <div className="rounded py-2 px-4">
-                <p className="text-sm text-white uppercase">{props.date}</p>
+              <p className="text-sm text-white uppercase">{props.date.toDateString()}</p>
               </div>
             </div>
           <div className="flex justify-center items-end mb-4"></div>
             {props.messages?.map((message:{message:string,status:string}, index:number) => (
               <div key={index}>
-                {/* im controlling the css for this  component in global.css   */}
+                {/* im forcing controll of the css for this  component in global.css   */}
                 <MessageBox
                   type="text"
                   title={ ''}

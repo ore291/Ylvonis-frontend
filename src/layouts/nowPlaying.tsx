@@ -1,6 +1,6 @@
 import {  useState } from 'react'
 import Image from 'next/image'
-import { BsDashLg, BsHeart, BsFillHeartFill, BsPlayCircle, BsPauseCircle, BsChevronDown, BsFillPlayFill, BsPauseFill } from 'react-icons/bs'
+import { BsDashLg, BsHeart, BsFillHeartFill, BsPlayCircle, BsPauseCircle, BsChevronDown, BsFillPlayFill } from 'react-icons/bs'
 import { SlOptionsVertical } from 'react-icons/sl'
 import { TbPlaylist } from 'react-icons/tb'
 import { CiShuffle, CiRepeat } from 'react-icons/ci';

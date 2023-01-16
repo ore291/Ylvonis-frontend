@@ -26,7 +26,7 @@ function RecentSongs() {
           </button>
         </nav>
       </section>
-      <section className="max-h-[60vh] mt-2 overflow-scroll">
+      <section className="max-h-[70vh]  overflow-scroll">
         <div className="md:grid md:grid-cols-5 gap-2">
           {songs.length === 0 ? (
             <header className="text-xl text-center col-span-5 w-full mt-2 text-bold">

@@ -1,6 +1,7 @@
-import React from 'react'
+import {useState} from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
 import PlayListCard from './PlayListCard'
+import AddNew from './AddNew'
 
 function LikedPlaylists() {
   const numOfPlaylist = 5
@@ -11,16 +12,18 @@ function LikedPlaylists() {
     // { img: 'praise.png', name: 'Worships' },
     // { img: 'worship.png', name: 'Worships' },
   ]
+  const [showAddNew, setShowAddNew] = useState(false)
   return (
-    // ignore some of the tailwind classws i dont know what's working
+    // ignore some of the tailwind classes i dont know what's working
     <main className='h-[70vh] mb-[5vh] max-w-screen overflow-scroll'>
+       <AddNew show={showAddNew } setShow={setShowAddNew} />
       <section>
         <nav className='flex w-full justify-between px-4  py-2 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none '>
           <div className='capitalize text-utilGray'>{numOfPlaylist} playlists </div>
           <button> <BsListUl size={30} className='text-utilGray' />  </button>
         </nav>
         <div className='py-2 flex gap-4 px-4 md:py-4 items-center border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none '>
-          <button className='btn btn-block gradButton p-2 text-xl rounded-md'>
+          <button className='btn btn-block gradButton p-2 text-xl rounded-md' onClick={()=>setShowAddNew((prev)=>!prev)}>
             <BsPlus size={35} />
           </button>
           <h1>Add new playlist</h1>

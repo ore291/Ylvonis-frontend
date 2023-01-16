@@ -1,10 +1,8 @@
-
+import React from 'react'
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
-import MainPage from '@/components/listen/mainpage';
-
-function Listen() {
+function Notifications() {
   return (
     <Main
       meta={
@@ -13,12 +11,14 @@ function Listen() {
           description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
         />
       }
-      title='Listen'
+      title='Notifications'
+      nested={true}
     >
-      <MainPage />
+      <h1 className='text-2xl p-4 hidden md:block'>Notifications</h1>
+      {/* <MainPage /> */}
 
     </Main>
   )
 }
 
-export default Listen
+export default Notifications

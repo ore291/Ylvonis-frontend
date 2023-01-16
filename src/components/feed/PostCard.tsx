@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import Image from 'next/image'
-import { BsFillPlayFill, BsHeart, BsHeartFill, BsUpload } from 'react-icons/bs'
+import { BsFillPlayFill, BsHeartFill, BsUpload } from 'react-icons/bs'
 import { SlOptionsVertical } from 'react-icons/sl'
 import { TfiCommentAlt } from 'react-icons/tfi'
 import { RiRepeat2Fill } from 'react-icons/ri'

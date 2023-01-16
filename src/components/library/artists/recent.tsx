@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsListUl } from 'react-icons/bs'
-import ArtististsListItem from '@/components/ArtististsListItem';
+import ArtistsCard from '@/components/utils/ArtistsCard';
 
 function RecentArtists() {
   const numOfArtists = 50;
@@ -28,11 +28,11 @@ function RecentArtists() {
           </button>
         </nav>
       </section>
-      <section className="max-h-[60vh] mt-2 overflow-scroll">
-        <div>
+      <section className="max-h-[60vh] mt-2 overflow-scroll mb-10">
+        <div className='md:grid md:grid-cols-5'>
           {artists.map((artist, index) => (
             <div key={index}>
-              <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
+              <ArtistsCard name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
             </div>
 
           ))}

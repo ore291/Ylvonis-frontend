@@ -18,7 +18,7 @@ function SongCard(props:SongCardProps) {
     <div className='bg-transparent relative max-h-56 w-28'>
       <Link href={''}></Link>
       <div className='card-img relative h-32 w-28'>
-        {/*  */}
+        {/* for the ylvonis logo in the design */}
         {/* <div className="relative"> <Image src="/logo.svg" width={15} height={30} className=' rounded-full absolute  top-1 left-1 z-10 object-contain' alt='' /></div>    */}
         <Image src={`/${props.img}`} alt='song image' fill className=' shadow-md object-cover h-28 rounded-md' />
       </div>

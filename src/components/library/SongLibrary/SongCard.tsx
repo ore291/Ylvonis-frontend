@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { MdOutlinePlaylistPlay } from 'react-icons/md'
+import { BsMusicNoteBeamed } from 'react-icons/bs'
 import Link from 'next/link'
 import { SlOptionsVertical } from 'react-icons/sl'
 
@@ -20,7 +20,7 @@ function SongCard(props: SongPropTypes) {
         {/* mobile playlist view */}
         <div className='md:hidden w-full flex justify-between items-center border-b-[0.5px] border-solid border-utilGray py-4 px-1'>
           <div className='w-1/4'>
-            <MdOutlinePlaylistPlay size={32} />
+            <BsMusicNoteBeamed size={32} />
           </div>
           <div className='w-2/4 capitalize flex-col flex'>
             <span>{props.songName}</span>
