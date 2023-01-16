@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Header from "../layouts/header/Header";
 import Footer from "@/layouts/footer";
-
 import Sidebar from "@/layouts/sidebar";
 import NowPlaying from "@/layouts/nowPlaying";
 
@@ -17,7 +16,7 @@ type IMainProps = {
 const Main = (props: IMainProps) => (
   <div className="w-full  px-1 text-white antialiased relative">
     {props.meta}
-    <Header fixed={true} title={props.title} nested={props?.nested} />
+    <Header  title={props.title} nested={props?.nested} />
    
     <div className="mx-auto max-w-screen-l relative  md:grid md:grid-cols-5  w-full">
       <Sidebar />

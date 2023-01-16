@@ -3,12 +3,10 @@ import MobileHeader from "./MobileHeader";
 import DesktopHeader from "./DesktopHeader";
 
 
-export default function Menu({
-  fixed,
+export default function Header({
   title,
   nested,
-}: {
-  fixed: boolean;
+}: { 
   title: any;
   nested?: boolean;
 }) {

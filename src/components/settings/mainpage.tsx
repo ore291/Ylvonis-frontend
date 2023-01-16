@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsChevronRight } from "react-icons/bs";
 import CustomInput from "../forms/CustomInput";
-
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 

@@ -1,6 +1,8 @@
-import MainPage from '@/components/listen/mainpage';
+
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
+
+import MainPage from '@/components/listen/mainpage';
 
 function Listen() {
   return (

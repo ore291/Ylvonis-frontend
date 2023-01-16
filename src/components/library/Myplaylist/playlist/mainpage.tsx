@@ -11,8 +11,7 @@ function MainPage(props:{img:string}) {
     <main>
       {/* desktop plylist view,i had an idea but i decided not to do it  */}
       <section className='hidden md:block'>
-        <Image src={'/erik.jpg'} alt={''} fill style={{ objectFit: 'cover', objectPosition:'center'}} className='z-0 max-h-72 bl ' />
-
+       
       </section>
       {/* mobile playlist view */}
       <section className='md:hidden'>

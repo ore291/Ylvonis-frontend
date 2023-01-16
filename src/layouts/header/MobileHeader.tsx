@@ -8,11 +8,11 @@ import { FaCog } from 'react-icons/fa'
 import { SlBell } from 'react-icons/sl'
 
 function MobileHeader({
-  fixed,
+  
   title,
   nested,
 }: {
-  fixed?: boolean;
+
   title: any;
   nested?: boolean;
 }) {

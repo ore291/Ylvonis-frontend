@@ -1,6 +1,5 @@
 import React from 'react'
 import { SlBell } from 'react-icons/sl'
-import Image from 'next/image'
 import Link from 'next/link';
 
 
@@ -45,7 +44,7 @@ export  const NotificationDropdown = ()=> {
      
     </div>
     <Link href="/notifications" className="block  py-2 text-sm font-medium text-center text-white">
-      <div className="inline-flex items-center gradButton">
+      <div className="inline-flex items-center ">
         
         View all
       </div>
