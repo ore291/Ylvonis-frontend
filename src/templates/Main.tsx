@@ -1,6 +1,6 @@
 
 import type { ReactNode } from 'react';
-import Header from "../layouts/Header"
+import Header from "../layouts/header/Header";
 import Footer from '@/layouts/footer';
 import { Sidebar } from '@/layouts/footer';
 import NowPlaying from '@/layouts/nowPlaying';

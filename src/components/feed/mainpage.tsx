@@ -4,38 +4,39 @@ import { AiOutlinePicture } from 'react-icons/ai'
 import PostCard from "./PostCard";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import ArtististsListItem from '../ArtististsListItem';
+import ArtistsFeedItem from '../utils/ArtistsFeedItem';
 
 
 function MainPage() {
 
   const artists = [
-    { name: 'fave', followers: '320', following: 1 ,img:'ckay2.png'},
-    { name: 'id', followers: '459', following: 1 ,img:'ckay2.png'},
-    { name: 'mercy chinwe', followers: '909', following: 1 ,img:'ckay2.png'},
-    { name: 'victony', followers: '1', following: 1 ,img:'ckay2.png'},
-    { name: 'davido', followers: '100', following: 1 ,img:'ckay2.png'},
-    { name: 'zadok', followers: '40', following: 1 ,img:'ckay2.png'},
-    { name: 'sasaki', followers: '80', following: 1 ,img:'ckay2.png'},
-    { name: 'aurora', followers: '90', following: 1 ,img:'ckay2.png'},
-    { name: 'yui', followers: '678', following: 1 ,img:'ckay2.png'},
-    { name: 'kori', followers: '78', following: 1 ,img:'ckay2.png'},]
+    { name: 'fave', followers: '320', following: 1 ,img:'ckay1.png'},
+    { name: 'id', followers: '459', following: 1 ,img:'ckay1.png'},
+    { name: 'mercy chinwe', followers: '909', following: 1 ,img:'ckay1.png'},
+    { name: 'victony', followers: '1', following: 1 ,img:'ckay1.png'},
+    { name: 'davido', followers: '100', following: 1 ,img:'ckay1.png'},
+    { name: 'zadok', followers: '40', following: 1 ,img:'ckay1.png'},
+    { name: 'sasaki', followers: '80', following: 1 ,img:'ckay1.png'},
+    { name: 'aurora', followers: '90', following: 1 ,img:'ckay1.png'},
+    { name: 'yui', followers: '678', following: 1 ,img:'ckay1.png'},
+    { name: 'kori', followers: '78', following: 1 ,img:'ckay1.png'},]
   const users = [
-       { name: 'fave', followers: '320', following: 1, img: 'ckay2.png' },
+       { name: 'fave', followers: '320', following: 1, img: 'ckay1.png' },
     { name: 'id', followers: '459', following: 1, img: 'cool.png' },
     { name: 'mercy', followers: '909', following: 1, img: 'trumphet.png' },
     { name: 'victor anthony', followers: '1', following: 1, img: 'mercy.png' },
     { name: 'david', followers: '100', following: 1, img: 'gylain.jpg' },
     { name: 'jide', followers: '40', following: 1, img: 'beats.png' },
-    { name: 'kunle alake', followers: '80', following: 1, img: 'ckay2.png' },
-    { name: 'cyrill', followers: '90', following: 1, img: 'ckay2.png' },
-    { name: 'pator', followers: '678', following: 1, img: 'ckay2.png' },
-    { name: 'mudill', followers: '78', following: 1, img: 'ckay2.png' },
+    { name: 'kunle alake', followers: '80', following: 1, img: 'ckay1.png' },
+    { name: 'cyrill', followers: '90', following: 1, img: 'ckay1.png' },
+    { name: 'pator', followers: '678', following: 1, img: 'ckay1.png' },
+    { name: 'mudill', followers: '78', following: 1, img: 'ckay1.png' },
     ]
 
   return (
-    <main className="flex gap-1 ">
-      <section className="md:w-8/12 md:max-h-[70vh] my-6 w-full md:block">
+    <main className="flex gap-1 relative ">
+      <h1 className=" w-full text-lg absolute">Your Feed</h1>
+      <section className="md:w-8/12 md:max-h-[70vh] my-6 w-full md:block ">
 
         <div className="col-container ">
           <div className="relative w-full    p- ">
@@ -74,9 +75,11 @@ function MainPage() {
 
 
           
+        {/* main feed area */}
 
-          <div className="mt-4">
-            <PostCard profileImg="/ckay2.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg"/>
+        <div className="mt-4 max-h-[60vh] overflow-scroll">
+          <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg" />
+            <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg"/>
 
           </div>
           
@@ -92,23 +95,32 @@ function MainPage() {
            
           </TabList>
           <TabPanel>
-            {artists.map((artist, index) => (
-              <div key={index}>
-                <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
-              </div>
-              
-            ))}
-           
+
+            <div className='max-h-[60vh] overflow-scroll'>
+              {artists.map((artist, index) => (
+                <div key={index} >
+                  <ArtistsFeedItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
+                </div>
+
+              ))}
+
+
+            </div>
+            
 
 
           </TabPanel>
           <TabPanel>
-            {users.map((user, index) => (
+
+            <div className='max-h-[60vh] overflow-scroll'>
+                          {users.map((user, index) => (
               <div key={index}>
-                <ArtististsListItem name={user.name} followers={user.followers} following={user.following} img={user.img} />
+                <ArtistsFeedItem name={user.name} followers={user.followers} following={user.following} img={user.img} />
               </div>
 
             ))}
+            </div>
+
           </TabPanel>
          
         </Tabs>
