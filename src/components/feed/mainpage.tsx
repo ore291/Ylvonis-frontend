@@ -4,7 +4,7 @@ import { AiOutlinePicture } from 'react-icons/ai'
 import PostCard from "./PostCard";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import ArtististsListItem from '../utils/ArtististsListItem';
+import ArtistsFeedItem from '../utils/ArtistsFeedItem';
 
 
 function MainPage() {
@@ -99,7 +99,7 @@ function MainPage() {
             <div className='max-h-[60vh] overflow-scroll'>
               {artists.map((artist, index) => (
                 <div key={index} >
-                  <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
+                  <ArtistsFeedItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
                 </div>
 
               ))}
@@ -115,7 +115,7 @@ function MainPage() {
             <div className='max-h-[60vh] overflow-scroll'>
                           {users.map((user, index) => (
               <div key={index}>
-                <ArtististsListItem name={user.name} followers={user.followers} following={user.following} img={user.img} />
+                <ArtistsFeedItem name={user.name} followers={user.followers} following={user.following} img={user.img} />
               </div>
 
             ))}

@@ -1,4 +1,4 @@
-import ArtististsListItem from '@/components/utils/ArtististsListItem';
+import ArtistsCard from '@/components/utils/ArtistsCard';
 import React from 'react'
 import { BsListUl } from 'react-icons/bs';
 
@@ -32,7 +32,7 @@ function LikedArtists() {
         <div className='md:grid md:grid-cols-5'>
           {artists.map((artist, index) => (
             <div key={index}>
-              <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
+              <ArtistsCard name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
             </div>
 
           ))}
