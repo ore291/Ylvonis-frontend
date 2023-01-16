@@ -17,6 +17,44 @@ function DesktopHeader() {
 
   const isLoggedIn = true;
 
+  const notifications = [
+    {
+      type: "album",
+      img: "/beats.png",
+      artist: "ckay",
+      title: "yes i need you",
+      date: new Date(),
+    },
+    {
+ type: "album",
+      img: "/beats.png",
+      artist: "ckay",
+      title: "yes i need you",
+      date: new Date(),
+    },
+    {
+ type: "album",
+      img: "/erik.png",
+      artist: "Ruga",
+      title: "NOW",
+      date: new Date(),
+    },
+    {
+ type: "song",
+      img: "/cool.png",
+      artist: "Victony",
+      title: "antisocial",
+      date: new Date(),
+    },
+    {
+ type: "song",
+      img: "/austin.png",
+      artist: "rare americans",
+      title: "run the world",
+      date: new Date(),
+    },
+  ];
+
   return (
     <nav className="relative md:flex flex-wrap items-center justify-between hidden  rounded">
       <div className="container  mx-auto flex flex-wrap items-center justify-between">
@@ -59,23 +97,21 @@ function DesktopHeader() {
             </form>
           </div>
           <div className=" ml-auto pl-60">
-            <NotificationDropdown />
+            <NotificationDropdown notifications={notifications}/>
           </div>
           <div className="ml-auto ">
             {isLoggedIn ? (
               <ProfileDropdown user={user} />
             ) : (
-                <div className="flex gap-3 h-8">
-                <button
-                  className="gradButton rounded  px-2  block !text-sm  capitalize">
-                 <Link href={'/login'}>Login</Link> 
+              <div className="flex gap-3 h-8">
+                <button className="gradButton rounded  px-2  block !text-sm  capitalize">
+                  <Link href={"/login"}>Login</Link>
                 </button>
                 <button className="bg-transparent capitalize mr-2 border-purple-600 border-solid border-2 px-1   !text-sm rounded">
-                  <Link href={'/register'}>Register</Link>
+                  <Link href={"/register"}>Register</Link>
                 </button>
               </div>
             )}
-
           </div>
         </div>
 

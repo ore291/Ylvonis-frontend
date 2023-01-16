@@ -14,6 +14,7 @@ function Notifications() {
       title='Notifications'
       nested={true}
     >
+      <h1 className='text-2xl p-4'>Notifications</h1>
       {/* <MainPage /> */}
 
     </Main>

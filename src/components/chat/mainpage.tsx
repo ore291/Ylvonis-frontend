@@ -234,7 +234,7 @@ function MainPage() {
 
      {/*  */}
       <div className={`md:w-2/4 hidden md:block max-h-[68vh]`}>
-        <ChatArea img={MessagesInView?.img} name={MessagesInView?.name} date={MessagesInView?.date?.toDateString()} messages={MessagesInView?.messages} />
+        <ChatArea img={MessagesInView?.img} name={MessagesInView?.name} date={MessagesInView?.date} messages={MessagesInView?.messages} />
       
       </div>
 
