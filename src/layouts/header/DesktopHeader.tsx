@@ -34,7 +34,7 @@ function DesktopHeader() {
     },
     {
  type: "album",
-      img: "/erik.png",
+      img: "/erik.jpg",
       artist: "Ruga",
       title: "NOW",
       date: new Date(),
@@ -48,7 +48,7 @@ function DesktopHeader() {
     },
     {
  type: "song",
-      img: "/austin.png",
+      img: "/austin.jpg",
       artist: "rare americans",
       title: "run the world",
       date: new Date(),

@@ -61,8 +61,8 @@ export  const NotificationDropdown = (props:{notifications?:NotificationTypes[]}
                 <div className='ml-auto'>
                   <SlOptionsVertical size={10} className='rotate-90' />
                 </div>
-                <div className='text-xs text-gray-500 '>
-                  {notification.date.toLocaleDateString()}
+                <div className='text-xs text-gray-500 truncate '>
+                  {notification.date.toDateString()}
                 </div>
               </div>
             </div>

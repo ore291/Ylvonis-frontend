@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import SuggestedPeopleCard from '../utils/SuggestedPeopleCard';
 import Link from 'next/link';
+import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+
 
 function MainPage() {
   const user = {
@@ -27,7 +29,7 @@ function MainPage() {
     { name: 'kori', followers: '78', following: 1, img: 'ckay1.png',nation:'nigeria' },
     { name: 'kori', followers: '78', following: 1, img: 'ckay1.png',nation:'nigeria' },]
   return (
-    <main>
+    <main className='max-h-full overflow-scroll mb-10'>
       <section>
         <div className="row-container p-2 my-4  w-2/4">
           <div className=" relative h-24 w-24">
@@ -88,6 +90,33 @@ function MainPage() {
 
           ))}
         </div>
+
+      </section>
+
+      {/* section for whats at the buttom of the profile page ,the design didnt have a very clear design so i didnt do any thing  */}
+      <section>
+        <Tabs defaultFocus={true} selectedTabClassName={'bg-transparent focused-tab !relative'}>
+          <TabList className={'bg-bgGray flex items-center justify-between text-utilGray  whitespace-nowrap py-1 md:py-3 md:items-start md:justify-start'}>
+            <Tab>Song Library</Tab>
+            <Tab>Playlists</Tab>
+            <Tab>Posts/comments</Tab>
+
+
+          </TabList>
+          <TabPanel>
+
+
+          </TabPanel>
+          <TabPanel>
+           
+          </TabPanel>
+          <TabPanel>
+      
+          </TabPanel>
+
+
+        </Tabs>
+
 
       </section>
 
