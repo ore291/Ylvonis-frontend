@@ -34,8 +34,9 @@ function MainPage() {
     ]
 
   return (
-    <main className="flex gap-1 ">
-      <section className="md:w-8/12 md:max-h-[70vh] my-6 w-full md:block">
+    <main className="flex gap-1 relative ">
+      <h1 className=" w-full text-lg absolute">Your Feed</h1>
+      <section className="md:w-8/12 md:max-h-[70vh] my-6 w-full md:block ">
 
         <div className="col-container ">
           <div className="relative w-full    p- ">
@@ -74,8 +75,10 @@ function MainPage() {
 
 
           
+        {/* main feed area */}
 
-          <div className="mt-4">
+        <div className="mt-4 max-h-[60vh] overflow-scroll">
+          <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg" />
             <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg"/>
 
           </div>
@@ -92,23 +95,32 @@ function MainPage() {
            
           </TabList>
           <TabPanel>
-            {artists.map((artist, index) => (
-              <div key={index}>
-                <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
-              </div>
-              
-            ))}
-           
+
+            <div className='max-h-[60vh] overflow-scroll'>
+              {artists.map((artist, index) => (
+                <div key={index} >
+                  <ArtististsListItem name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />
+                </div>
+
+              ))}
+
+
+            </div>
+            
 
 
           </TabPanel>
           <TabPanel>
-            {users.map((user, index) => (
+
+            <div className='max-h-[60vh] overflow-scroll'>
+                          {users.map((user, index) => (
               <div key={index}>
                 <ArtististsListItem name={user.name} followers={user.followers} following={user.following} img={user.img} />
               </div>
 
             ))}
+            </div>
+
           </TabPanel>
          
         </Tabs>

@@ -1,6 +1,7 @@
 import React from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { ProfileDropdown } from "./ProfileDropdown";
+import { NotificationDropdown } from "./NotificationDropdown";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -42,7 +43,7 @@ function DesktopHeader() {
           <div className=" ">
             <form
               action=""
-              className="ml-1 h-8 rounded-2xl border-2 flex gap-1 items-center "
+              className="ml-1 h-8 rounded-2xl border-[0.5px] border-bgGray flex gap-1 items-center "
             >
               <button type="submit">
                 <BiSearchAlt size={20} className="ml-1" />
@@ -56,6 +57,9 @@ function DesktopHeader() {
                 className="bg-transparent outline-none !ring-0 !ring-none !focus:ring-0 !appearance-none  rounded-2xl w-full pt-4 h-full !text-white focus:border-0 mb-2 border-0  "
               />
             </form>
+          </div>
+          <div className=" ml-auto pl-60">
+            <NotificationDropdown />
           </div>
           <div className="ml-auto ">
             {isLoggedIn ? (
