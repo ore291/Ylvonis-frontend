@@ -1,0 +1,23 @@
+.container {
+  @apply flex flex-row items-center;
+}
+.root {
+  @apply flex gap-2 items-center w-full p-2 md:p-3;
+}
+
+.img {
+  @apply rounded;
+}
+
+.info {
+  @apply flex flex-col gap-1 w-36 md:w-80;
+}
+
+.title {
+  @apply text-xl !truncate !text-white font-semibold;
+}
+
+.artist {
+  @apply text-sm text-utilGray !truncate ;
+
+}

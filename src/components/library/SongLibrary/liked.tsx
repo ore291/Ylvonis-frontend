@@ -27,14 +27,14 @@ function LikedSongs() {
           </button>
         </nav>
       </section>
-      <section className="max-h-[70vh] overflow-scroll">
-        <div className="md:grid md:grid-cols-5 gap-2">
-          {songs.length === 0 ? (
-            <header className="text-xl text-center col-span-5 w-full mt-2 text-bold">
-              No Songs Found
-            </header>
-          ) : (
-            songs?.map((song, index) => (
+      <section className="">
+        {songs.length === 0 ? (
+          <header className="text-xl text-center col-span-5 w-full mt-2 text-bold">
+            No Songs Found
+          </header>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
+            {songs?.map((song, index) => (
               <div key={index}>
                 <SongCard
                   img={song?.img}
@@ -42,9 +42,9 @@ function LikedSongs() {
                   artist={song.artists}
                 />
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   )

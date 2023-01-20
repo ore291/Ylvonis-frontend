@@ -31,7 +31,7 @@ const Login = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-md w-full antialiased">
+    <div className="mx-auto max-w-screen-md md:max-w-lg w-full antialiased">
       <div className="py-14">
         <h1 className="gradText text-xl leading-5 font-semibold">Welcome Back,</h1>
         <h3 className="text-white font-normal text-sm leading-5 border-b border-[#343434] py-1 mb-8">

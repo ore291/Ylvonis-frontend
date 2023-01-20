@@ -28,8 +28,8 @@ function FollowedArtists() {
           </button>
         </nav>
       </section>
-      <section className="max-h-[60vh] mt-2 overflow-scroll mb-10">
-        <div className='md:grid md:grid-cols-5'>
+      <section className=" mt-2 mb-10">
+        <div className='grid grid-cols-1 md:grid-cols-5 gap-4'>
           {artists.map((artist, index) => (
             <div key={index}>
               <ArtistsCard name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />

@@ -34,13 +34,13 @@ function NowPlaying() {
             e.stopPropagation()
             setFavourited((prev) => !prev)
           }}>
-            {favourited ? <BsFillHeartFill size={30} className='text-purple-500  ' />: <BsHeart size={30}  />}
+            {favourited ? <BsFillHeartFill size={30} className='text-brand  ' />: <BsHeart size={30}  />}
             
             </button>
           <button onMouseDown={(e) => {
             e.preventDefault()
             setIsPaused((prev) => !prev)
-          }}>{isPaused ? <BsPlayCircle size={30} className='text-purple-500' /> : <BsPauseCircle size={30} className='text-purple-700 text-whit bg-clip-text' />}</button>
+          }}>{isPaused ? <BsPlayCircle size={30} className='text-brand' /> : <BsPauseCircle size={30} className='text-purple-700 text-whit bg-clip-text' />}</button>
           <div><SlOptionsVertical size={25}/></div>
 
 

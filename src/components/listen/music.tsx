@@ -34,11 +34,11 @@ function Music() {
 
 
   return (
-    <main className='overflow-scroll h-[70vh] md:h-ful mb-[5vh'>
+    <main className='overflow-scroll   md:p-2'>
       <section className='grid gap-4 '>
-        <h1 className='font-semibold text-lg p-2'>Recently played</h1>
+        <h1 className='font-semibold text-xl p-2'>Recently played</h1>
 
-        <div className='flex max-w-[100vw] justify-start  mx-2  items-center gap-5 overflow-scroll scroll-m-0 '>
+        <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4'>
           {recent.map((song, index) => (
             <div key={index}><SongCard img={song.img} songTitle={song.songTitle} artist={song.artist} /></div>
             
@@ -46,10 +46,10 @@ function Music() {
         </div>
 
       </section>
-      <section className='grid gap-4'>
+      <section className='grid gap-4 mt-5'>
         <h1 className='font-semibold text-lg p-2'>Today's Hot List</h1>
 
-        <div className='flex max-w-[100vw] justify-start mx-2 justify-evnly items-center gap-5 overflow-scroll scroll-m-0 '>
+        <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4'>
           {recent.map((song, index) => (
             <div key={index}><SongCard img={song.img} songTitle={song.songTitle} artist={song.artist} /></div>
 
@@ -57,10 +57,10 @@ function Music() {
         </div>
 
       </section>
-      <section className='grid gap-4'>
+      <section className='grid gap-4 mt-5'>
         <h1 className='font-semibold text-lg p-2'>Top Albums 2022</h1>
 
-        <div className='flex max-w-[100vw] justify-start mx-2 justify-evnly items-center gap-5 overflow-scroll scroll-m-0 '>
+        <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4'>
           {recent.map((song, index) => (
             <div key={index}><SongCard img={song.img} songTitle={song.songTitle} artist={song.artist} /></div>
 

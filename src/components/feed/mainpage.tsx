@@ -34,12 +34,13 @@ function MainPage() {
     ]
 
   return (
-    <main className="flex gap-1 relative ">
-      <h1 className=" w-full text-lg absolute">Your Feed</h1>
-      <section className="md:w-8/12 md:max-h-[70vh] my-6 w-full md:block ">
+    <main className=" ">
+      <h1 className=" font-semibold text-xl my-2 ">Your Feed</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+         <section className="md:col-span-2  w-full  ">
 
         <div className="col-container ">
-          <div className="relative w-full    p- ">
+          <div className="relative w-full     ">
             <div className="absolute text-utilGray inset-y-0 left-0 flex items-center pl-2 pr-2 pointer-events-none">
               <BiEdit size={30} />
             </div>
@@ -77,7 +78,7 @@ function MainPage() {
           
         {/* main feed area */}
 
-        <div className="mt-4 max-h-[60vh] overflow-scroll">
+        <div className="mt-4 max-h-[70vh] pb-[100px] overflow-scroll">
           <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg" />
             <PostCard profileImg="/ckay1.png" name="ckay" following={1} time={new Date().getTime()} description='music for the soul guy lets  go' image="/gylain.jpg"/>
 
@@ -87,7 +88,7 @@ function MainPage() {
       </section>
 
       {/* suggested artists/users */}
-      <section className="w-4/12 hidden md:block">
+      <section className=" hidden md:block">
         <Tabs defaultFocus={true} selectedTabClassName={'bg-transparent focused-tab !relative'}>
           <TabList className={'bg-bgGray flex items-center justify-between text-utilGray whitespace-nowrap py-1 md:py-3 md:items-start md:justify-start'}>
             <Tab>Suggested Artists </Tab>
@@ -127,6 +128,8 @@ function MainPage() {
 
 
       </section>
+      </div>
+     
     </main>
   );
 }

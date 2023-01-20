@@ -1,0 +1,7 @@
+.root {
+  @apply flex-row hidden gap-2  items-center  md:flex pl-2 ;
+}
+
+.container {
+  @apply w-24 flex items-center justify-center;
+}

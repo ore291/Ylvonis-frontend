@@ -9,6 +9,7 @@ export type RoutesType = {
   title: string,
   icon: JSX.Element
   link: string
+  activeIcon?: JSX.Element
 }
 
 function MainPage() {

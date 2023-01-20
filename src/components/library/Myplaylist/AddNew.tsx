@@ -64,7 +64,7 @@ function AddNew(props: {
                         <Button className=" gradButton  w-1/4" type="submit" >
                           Create
                         </Button>
-                        <Button className="w-1/4 bg-transparent capitalize  border-purple-600 border-solid border-2 p-1 hover:bg-purple-500 hover:text-white !text-xs rounded" onClick={() => props.setShow(false)}>
+                        <Button className="w-1/4 bg-transparent capitalize  border-purple-600 border-solid border-2 p-1 hover:bg-brand hover:text-white !text-xs rounded" onClick={() => props.setShow(false)}>
                           cancel
                         </Button>
                       </div>

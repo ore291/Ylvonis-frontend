@@ -140,7 +140,7 @@ function MainPage() {
               >
                 update profile
               </button>
-              <button className="bg-transparent capitalize mr-2 border-purple-600 border-solid border-2 p-1 hover:bg-purple-500 hover:text-white !text-xs rounded">
+              <button className="bg-transparent capitalize mr-2 border-purple-600 border-solid border-2 p-1 hover:bg-brand hover:text-white !text-xs rounded">
                 cancel
               </button>
             </div>

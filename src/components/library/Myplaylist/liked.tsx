@@ -30,20 +30,23 @@ function LikedPlaylists() {
 
         </div>
       </section>
-      <section className='grid  cursor-pointer  mb-2 md:mb-0 '>
-        <div className='md:grid md:grid-cols-5 gap-2'>
-          {playlists.length === 0 ? <header className='text-xl text-center col-span-5 w-full mt-2 text-bold'>No Playlists Found</header> :
-            playlists?.map((playlist, index) => (
+      <section className="">
+        {playlists.length === 0 ? (
+          <header className="text-xl text-center  w-full mt-2 text-bold">
+            No Playlists Found
+          </header>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
+            {playlists?.map((playlist, index) => (
               <div key={index}>
-                <PlayListCard img={playlist?.img} playListName={playlist?.name} />
+                <PlayListCard
+                  img={playlist?.img}
+                  playListName={playlist?.name}
+                />
               </div>
-
-            ))
-          }
-
-
-        </div>
-
+            ))}{' '}
+          </div>
+        )}
       </section>
     </main>
   )

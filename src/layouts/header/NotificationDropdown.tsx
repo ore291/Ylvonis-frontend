@@ -3,6 +3,7 @@ import { SlBell } from 'react-icons/sl'
 import { SlOptionsVertical } from 'react-icons/sl'
 import Link from 'next/link';
 import Image from 'next/image'
+import { BsBellFill, BsFillBellFill } from 'react-icons/bs';
 
 interface NotificationTypes{
   type?: string
@@ -23,9 +24,9 @@ export  const NotificationDropdown = (props:{notifications?:NotificationTypes[]}
   return (
     <div className="relative">
       <button id="dropdownNotificationButton" onClick={() => setDropDownOpen((prev) => !prev)} className="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400" type="button">
-        <SlBell className="text-white" size={"28px"} />
+        <BsFillBellFill className="text-white h-8 w-8"  />
     <div className="relative flex">
-      <div className="relative inline-flex w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-2 right-3 dark:border-gray-900" />
+      <div className="relative inline-flex w-2 h-2 bg-red-500  rounded-full -top-2 right-2 dark:border-gray-900" />
     </div>
   </button>
   {/* Dropdown menu */}

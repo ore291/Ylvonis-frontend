@@ -33,10 +33,13 @@ function SongCard(props: SongPropTypes) {
           </div>
         </div>
         {/* desktop playlist view */}
-        <div className='hidden md:block w-auto'>
-          <Image src={`/${props.img}`} alt='playlist image' height={130} width={130} className='!relative shadow-md w-[130px] h-[130px] object-contai rounded-md' />
+        <div className='hidden md:block '>
+          <div className="relative w-full h-[200px]">
+             <Image src={`/${props.img}`} fill alt='playlist image'  className=' shadow-md object-cover  rounded-sm' />
+          </div>
+         
 
-          <div className='w-3/4 capitalize truncate p-1 '>
+          <div className='capitalize truncate p-1 '>
             <span>{props.songName}</span>
           </div>
         </div>
