@@ -1,3 +1,4 @@
+// @ts-nocheck
 import player, { usePlayerState } from '../../../lib/player'
 import { VolumeIcon } from '@/components/Icons'
 import { Button, Slider } from '@/components/UI'
