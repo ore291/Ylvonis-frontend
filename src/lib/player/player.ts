@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { title } from "process";
 import { createPubSub } from "../pubsub";
 import { createAudio } from "./audio";
