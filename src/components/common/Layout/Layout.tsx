@@ -3,12 +3,10 @@ import React from 'react'
 import s from './Layout.module.css'
 import cn from 'clsx'
 import Navigation from '../Navigation'
-import { ThemeProvider } from 'next-themes'
 import Playlist from '@/components/Playlist'
 import Player from '@/components/Player'
 import dynamic from 'next/dynamic'
-import { ApolloProvider } from '@apollo/client'
-import { client } from '@/lib/apollo'
+
 
 const AudioSetup = dynamic(() => import('@/components/Audio'), { ssr: false })
 
@@ -39,7 +37,7 @@ const Layout: React.FC<Layoutprops> = (props) => {
   return (
     <>
       <ApolloProvider client={client}>
-        <ThemeProvider>
+       
           <Navigation />
           <AudioSetup />
           <div className={cn(s.root)}>
@@ -49,7 +47,7 @@ const Layout: React.FC<Layoutprops> = (props) => {
           */}
             <Player />
           </div>
-        </ThemeProvider>
+    
       </ApolloProvider>
     </>
   )
