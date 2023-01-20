@@ -4,7 +4,7 @@ import { ref } from 'yup'
 
 const GlobeComponent = () => {
   const [places, setPlaces] = useState([])
-  const globeRef = useRef(null)
+  const globeRef = useRef<any>(null)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
 
@@ -15,8 +15,8 @@ const GlobeComponent = () => {
       .then(({ features }) => setPlaces(features))
 
     if (globeRef.current) {
-      setWidth(globeRef.current.offsetWidth)
-      setHeight(globeRef.current.offsetHeight)
+      setWidth(globeRef?.current?.offsetWidth)
+      setHeight(globeRef?.current?.offsetHeight)
     }
   }, [])
 
