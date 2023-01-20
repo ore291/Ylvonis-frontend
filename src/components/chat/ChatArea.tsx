@@ -46,7 +46,7 @@ function ChatArea(props) {
         <div className="py-2 px-3 ">
             <div className="flex justify-center mb-2">
               <div className="rounded py-2 px-4">
-              <p className="text-sm text-white uppercase">{props.date.toDateString()}</p>
+              {/* <p className="text-sm text-white uppercase">{props.date.toDateString()}</p> */}
               </div>
             </div>
           <div className="flex justify-center items-end mb-4"></div>
