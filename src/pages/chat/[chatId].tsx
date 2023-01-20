@@ -193,7 +193,7 @@ function Chat() {
     >
       <div className=' h-[95vh] py-6'>
         <div className={`md:w-2/4  max-h-screen w-full h-full   bg-black  `}>
-          <ChatArea img={MessagesInView?.img} name={MessagesInView?.name} date="1/02/23" messages={MessagesInView?.messages} />
+          <ChatArea img={MessagesInView?.img} name={MessagesInView?.name} date={Date.now()} messages={MessagesInView?.messages} />
 
           {/* date={MessagesInView?.date?.toDateString()} */}
 
