@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react'
-
 import Globe from 'react-globe.gl'
 import { ref } from 'yup'
 
@@ -125,8 +124,8 @@ const GlobeComponent = () => {
               .toString(16)
               .padStart(6, '0')}`
           }
-          hexPolygonLabel={( features ) => `
-          <b>${features?.properties?.ADMIN} (${properties.ISO_A2})</b> 
+          hexPolygonLabel={({ properties: d } ) => `
+          <b>${d.ADMIN} (${d.ISO_A2})</b> 
          
         `}
 
