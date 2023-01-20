@@ -8,6 +8,7 @@ export interface props  {
   imgUrl : string
   id: string
   className?: string
+  children? : any
 
 }
 
@@ -25,6 +26,7 @@ const ArtistCard : React.FC<props> = (props) => {
   return (
             <div className={cn(s.root)}>
               <Image 
+              alt=""
                     className="rounded-md"
                     height='64' 
                     width='64' 
