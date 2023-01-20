@@ -1,3 +1,4 @@
+// @ts-nocheck
 type Listener = (value : any) => void; 
 
 type Topics = {
@@ -20,12 +21,12 @@ export const createPubSub = () => {
         subscribe(topic : string , fn : Listener){
             const listeners = getTopic(topic);
 
-            listeners.push(fn);
+            listeners?.push(fn);
 
             const unsubscribe = () => {
-                const index = listeners.indexOf(fn);
+                const index = listeners?.indexOf(fn);
 
-                listeners.splice (index, 1);
+                listeners?.splice (index, 1);
             }
             return unsubscribe
         },

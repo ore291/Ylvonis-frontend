@@ -3,7 +3,7 @@ import Link from 'next/link'
 import s from './PlaylistCard.module.css'
 import cn from 'clsx'
 import { Button } from '../../UI'
-import { PlayIcon, PlayingIcon } from '@components/Icons'
+import { PlayIcon, PlayingIcon } from '@/components/Icons'
 import { usePlayerState } from '../../../lib/player'
 
 export interface props {
@@ -11,6 +11,7 @@ export interface props {
   img: string
   title: string
   className?: string
+  children: any
 }
 
 const PlaylistCard: React.FC<props> = (props) => {
@@ -22,7 +23,7 @@ const PlaylistCard: React.FC<props> = (props) => {
     <div className={cn(s.root)}>
       <Link href={`/playlist/${encodeURIComponent(id)}`}>
         <a>
-          <Image className={cn(s.img)} height={1024} width={1024} src={img} />
+          <Image alt="" className={cn(s.img)} height={1024} width={1024} src={img} />
         </a>
       </Link>
       <div className={cn(s.cardInfo)}>

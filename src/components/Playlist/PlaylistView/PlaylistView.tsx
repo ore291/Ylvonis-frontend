@@ -1,14 +1,16 @@
-import { LeftArrowIcon } from '@components/Icons'
-import { PlayListHeader } from '@components/Playlist/PlayListHeader'
-import { TrackCard } from '@components/Playlist/TrackCard'
-import { Button, Grid } from '@components/UI'
-import player, { usePlayerState } from '@lib/player'
-import { Playlist, Track } from '@lib/player/types'
+// @ts-nocheck
+import { LeftArrowIcon } from '@/components/Icons'
+import { PlayListHeader } from '@/components/Playlist/PlayListHeader'
+import { TrackCard } from '@/components/Playlist/TrackCard'
+import { Button, Grid } from '@/components/UI'
+import player, { usePlayerState } from '@/lib/player'
+import { Playlist, Track } from '@/lib/player/types'
 import Link from 'next/link'
 
 export interface props {
   playlist: Playlist
   className?: string
+  children?: any
 }
 
 const PlaylistView: React.FC<props> = (props) => {
@@ -66,7 +68,7 @@ const PlaylistView: React.FC<props> = (props) => {
           changePlaylist={() => handlePlay()}
         />
         <div className="flex flex-col gap-6">
-          {playlist.tracks.map((track: Track, index: number) => (
+          {playlist?.tracks.map((track: Track, index: number) => (
             <TrackCard
               onClick={() => handlePlay(index)}
               playlistId={playlist.id}

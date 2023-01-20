@@ -1,7 +1,7 @@
 import cn from 'clsx'
 import s from './About.module.css'
-import { GithubIcon } from '@components/Icons'
-import { Button } from '@components/UI'
+import { GithubIcon } from '@/components/Icons'
+import { Button } from '@/components/UI'
 import Link from 'next/link'
 
 function About() {

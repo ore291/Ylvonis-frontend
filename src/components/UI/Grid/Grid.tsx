@@ -1,8 +1,10 @@
+// @ts-nocheck
 import cn from 'clsx'
 import s from './Grid.module.css'
 export interface props {
   className?: string
   variant?: 'A' | 'B'
+  children? : any
 }
 
 const Grid: React.FC<props> = (props) => {

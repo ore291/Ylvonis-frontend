@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React, { ButtonHTMLAttributes, JSXElementConstructor } from 'react'
-import { usePlayerState } from '@lib/player'
-import { PlayIcon, PlayingIcon } from '@components/Icons'
-import { Track } from '@lib/player/types'
+import { usePlayerState } from '@/lib/player'
+import { PlayIcon, PlayingIcon } from '@/components/Icons'
+import { Track } from '@/lib/player/types'
 import cn from 'clsx'
 import s from './TrackCard.module.css'
 

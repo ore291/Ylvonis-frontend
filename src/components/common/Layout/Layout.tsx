@@ -3,13 +3,13 @@ import s from './Layout.module.css'
 import cn from 'clsx'
 import Navigation from '../Navigation'
 import { ThemeProvider } from 'next-themes'
-import Playlist from '@components/Playlist'
-import Player from '@components/Player'
+import Playlist from '@/components/Playlist'
+import Player from '@/components/Player'
 import dynamic from 'next/dynamic'
 import { ApolloProvider } from '@apollo/client'
-import { client } from '@lib/apollo'
+import { client } from '@/lib/apollo'
 
-const AudioSetup = dynamic(() => import('@components/Audio'), { ssr: false })
+const AudioSetup = dynamic(() => import('@/components/Audio'), { ssr: false })
 
 {
   /* 
