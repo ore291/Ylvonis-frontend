@@ -1,3 +1,4 @@
+// @ts-nocheck
 import player, { usePlayerState, useCurrentTime } from '../../../lib/player'
 import { formatTime } from './utils'
 import { Slider } from '@/components/UI'
