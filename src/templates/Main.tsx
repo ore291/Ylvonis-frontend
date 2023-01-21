@@ -19,13 +19,13 @@ type IMainProps = {
 }
 
 const Main = (props: IMainProps) => (
-  <div className="w-full min-h-screen px-1 text-white antialiased relative">
+  <div className="w-full min-h-screen  text-white antialiased relative">
     {props.meta}
     <Header title={props.title} nested={props?.nested} />
 
     <div className="relative  md:grid md:grid-cols-12  w-full gap-0">
       <Sidebar />
-      <div className="md:p-2 md:col-span-10   overflow-scroll  mb-[150px] md:mb-[100px]  px-1 ">
+      <div className="md:p-2 md:col-span-10   overflow-scroll  mb-[150px] md:mb-[100px]   ">
         {props.children}
       </div>
     </div>

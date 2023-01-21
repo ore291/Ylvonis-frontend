@@ -109,13 +109,12 @@ const GlobeComponent = () => {
   }, [])
 
   return (
-
-    <div className="w-full h-full p-0.5 md:p-2" >
+    <div className="w-full h-full p-0.5 md:p-2">
       <div className="w-full flex justify-between items-center">
         <Button variant="naked" size="slim">
           <BsThreeDotsVertical className="text-white w-6 h-6" />
         </Button>
-        <h2 className="capitalize text-xl font-semibold text-white">
+        <h2 className="capitalize text-sm md:text-xl truncate max-w-max font-semibold text-white">
           {country}
         </h2>
         <Button variant="naked" size="slim">
@@ -134,47 +133,53 @@ const GlobeComponent = () => {
         </Button>
       </div>
       <div ref={globeRef}>
-         {width != 0 && (
-        <Globe
-        
-          width={width}
-          height={450}
-          backgroundColor="#000"
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
-          hexPolygonsData={places}
-          hexPolygonResolution={3}
-          hexPolygonMargin={0.3}
-          onHexPolygonClick={(polygon)=> setCountry(polygon.properties.NAME_LONG)}
-          
-          hexPolygonColor={() =>
-            `#${Math.round(Math.random() * Math.pow(2, 24))
-              .toString(16)
-              .padStart(6, '0')}`
-          }
-          hexPolygonLabel={({ properties: d }) => `
+        {width != 0 && (
+          <Globe
+            style={{
+              default: { outline: 'none' },
+              hover: { outline: 'none' },
+              pressed: { outline: 'none' },
+            }}
+            showAtmosphere={false}
+            animateIn={false}
+            width={width}
+            height={450}
+            backgroundColor="#000"
+            globeImageUrl="/map/earth-dark.jpg"
+            hexPolygonsData={places}
+            hexPolygonResolution={3}
+            hexPolygonMargin={0.3}
+            onHexPolygonClick={(polygon) =>
+              setCountry(polygon.properties.NAME_LONG)
+            }
+            hexPolygonColor={() =>
+              `#${Math.round(Math.random() * Math.pow(2, 24))
+                .toString(16)
+                .padStart(6, '0')}`
+            }
+            hexPolygonLabel={({ properties: d }) => `
           <b>${d.ADMIN} (${d.ISO_A2})</b> 
          
         `}
 
-          // width={width}
-          // height={height}
-          // labelsData={places}
-          // labelLat={(d) => d.latitude}
-          // labelLng={(d) => d.longitude}
-          // labelText={(d) => d.country}
-          // labelDotRadius={0.5}
-          // labelSize={0.7}
-          // onLabelClick={(e) => {
-          //   console.log(e)
-          // }}
-          // // labelSize={(d) => Math.sqrt(d.properties.pop_max) * 4e-4}
-          // // labelDotRadius={(d) => Math.sqrt(d.properties.pop_max) * 4e-4}
-          // labelColor={() => 'rgba(255, 165, 0, 0.75)'}
-          // labelResolution={2}
-        />
-      )}
+            // width={width}
+            // height={height}
+            // labelsData={places}
+            // labelLat={(d) => d.latitude}
+            // labelLng={(d) => d.longitude}
+            // labelText={(d) => d.country}
+            // labelDotRadius={0.5}
+            // labelSize={0.7}
+            // onLabelClick={(e) => {
+            //   console.log(e)
+            // }}
+            // // labelSize={(d) => Math.sqrt(d.properties.pop_max) * 4e-4}
+            // // labelDotRadius={(d) => Math.sqrt(d.properties.pop_max) * 4e-4}
+            // labelColor={() => 'rgba(255, 165, 0, 0.75)'}
+            // labelResolution={2}
+          />
+        )}
       </div>
-     
     </div>
   )
 }

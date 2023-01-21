@@ -25,17 +25,17 @@ const Index = () => {
         <div className="md:col-span-3 ">
           <DynamicGlobe />
         </div>
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 w-full">
           <Tabs
             defaultFocus={true}
             selectedTabClassName={'bg-transparent focused-tab !relative'}
           >
             <TabList
               className={
-                'bg-bgGray flex items-center justify-between border-b border-[#343434] text-utilGray  py-1 md:py-3'
+                'bg-bgGray text-sm truncate flex items-center justify-between border-b border-[#343434] text-utilGray  py-1 md:py-3'
               }
             >
-              <Tab>All</Tab>
+              <Tab >All</Tab>
               <Tab>Top Songs</Tab>
 
               <Tab>Hot Artists</Tab>
