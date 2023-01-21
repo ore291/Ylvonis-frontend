@@ -56,7 +56,7 @@ function DesktopHeader() {
   ]
 
   return (
-    <nav className=" container flex flex-row h-[80px] border-b border-[#343434]">
+    <nav className="hidden container md:flex flex-row h-[80px] border-b border-[#343434]">
       <Link
         href="/"
         className="flex items-center justify-center space-x-2 basis-1/6"

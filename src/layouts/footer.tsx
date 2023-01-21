@@ -82,7 +82,7 @@ function Footer() {
 
  
   return (
-    <div className="flex justify-center">
+    <div className=" flex justify-center h-[70px]">
       {" "}
       <nav
         className="w-full md:hidden justify-evenly gap-3  bg-bgGray flex border-t border-solid border-slate-700 py-2 px-

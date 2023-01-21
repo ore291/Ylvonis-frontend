@@ -20,16 +20,9 @@ function MobileHeader({
   const router = useRouter();
  
   return (
-    <nav className="relative flex flex-wrap items-center justify-between py-3 md:hidden rounded">
+    <nav className="relative flex  items-center justify-between py-3 md:hidden rounded">
       <div className="container  mx-auto flex flex-wrap items-center justify-between">
         <div className=" relative  flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
-          {/* <a
-                    className="text-sm font-bold leading-relaxed inline-block  py-2 whitespace-nowrap uppercase text-white"
-                    href="#pablo"
-                  >
-                    pink Starter Menu
-                  </a> */}
-
           {nested ? (
             <div className="flex items-center space-x-2">
               <BsChevronLeft size={28} onClick={() => router.back()} />

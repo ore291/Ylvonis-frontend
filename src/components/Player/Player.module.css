@@ -1,7 +1,8 @@
 .root {
-  @apply z-40 fixed left-0 right-0 bottom-8 md:bottom-0  w-full h-[100px] md:h-[130px];
+  @apply z-40 fixed left-0 right-0 bottom-[70px] md:bottom-0  w-full h-[70px] md:h-[100px];
   background-color: #202020;
 }
+
 
 .container {
   @apply md:grid md:items-center md:grid-cols-3 md:justify-center h-full;

@@ -16,11 +16,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Component {...pageProps} />
     <AudioSetup />
-    <Player />
-    <div className="fixed bottom-0 left-0 w-full">
-      <div className=" ">{/* <NowPlaying /> */}</div>
-      <Footer />
-    </div>
+    
   </>
 )
 

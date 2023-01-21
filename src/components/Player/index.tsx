@@ -1,13 +1,4 @@
 import React, { useState, useRef } from 'react'
-import {
-  Sheet,
-  Header,
-  Content,
-  Footer,
-  detents,
-  Portal,
-} from 'react-sheet-slide'
-import 'react-sheet-slide/style.css'
 import { usePlayerState } from '../../lib/player'
 import { PlayerVolumeControls } from './PlayerVolumeControls'
 import { Cover } from './Cover'
@@ -27,7 +18,7 @@ const Player = () => {
   }
 
   return (
-    <>
+    <div>
       <MobileView>
         <div className={cn(s.root)}>
           <div className={cn(s.container)}>
@@ -47,7 +38,7 @@ const Player = () => {
           {/* <MobileProgress /> */}
         </div>
       </BrowserView>
-    </>
+    </div>
   )
 }
 

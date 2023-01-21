@@ -17,7 +17,8 @@ export default function Header({
           <div className="w-full "> */}
         {/* mobile header view */}
         {isMobile ? (
-          <MobileHeader nested={nested} title={title} />
+          // <MobileHeader nested={nested} title={title} />
+          null
         ) : (
           <DesktopHeader />
         )}

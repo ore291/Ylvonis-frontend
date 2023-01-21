@@ -5,8 +5,9 @@ import Sidebar from '@/layouts/sidebar'
 import NowPlaying from '@/layouts/nowPlaying'
 import Player from '@/components/Player'
 import dynamic from 'next/dynamic'
+import { usePlayerState } from '@/lib/player'
 
-const AudioSetup = dynamic(() => import('@/components/Audio'), { ssr: false })
+
 
 //import { AppConfig } from '@/utils/AppConfig';
 
@@ -18,19 +19,20 @@ type IMainProps = {
 }
 
 const Main = (props: IMainProps) => (
-  <div className="w-full  px-1 text-white antialiased relative">
+  <div className="w-full min-h-screen px-1 text-white antialiased relative">
     {props.meta}
     <Header title={props.title} nested={props?.nested} />
 
-    <div className="  relative  md:grid md:grid-cols-12  w-full gap-0">
+    <div className="relative  md:grid md:grid-cols-12  w-full gap-0">
       <Sidebar />
-      <div className="md:p-2 md:col-span-10   overflow-scroll    px-1 pb-[150px]">
-      {/* md:h-[90vh] */}
+      <div className="md:p-2 md:col-span-10   overflow-scroll  mb-[150px] md:mb-[100px]  px-1 ">
         {props.children}
       </div>
     </div>
-   
-    
+    <Player />
+    <div className="z-40 fixed bottom-0 left-0 w-full">
+      <Footer />
+    </div>
   </div>
 )
 

@@ -67,7 +67,7 @@ const Cover: React.FC<props> = (props) => {
     <div className={cn(s.container)}>
       <div className={cn(s.root)}>
         {/* <PlayingIcon /> */}
-        <div className="relative w-[50px] h-[50px] md:w-[100px] md:h-[100px]">
+        <div className="relative w-[50px] h-[50px] md:w-[80px] md:h-[80px]">
           <Image alt="" className={cn(s.img)} fill src={coverUrl} />
         </div>
 
