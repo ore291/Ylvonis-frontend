@@ -29,7 +29,7 @@ const Main = (props: IMainProps) => (
         {props.children}
       </div>
     </div>
-    <Player />
+    
     <div className="z-40 fixed bottom-0 left-0 w-full">
       <Footer />
     </div>

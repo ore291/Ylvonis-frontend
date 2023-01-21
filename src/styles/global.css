@@ -94,8 +94,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-button:focus {outline:none !important;}
-button:focus {box-shadow:none !important;}
+
 
 a:hover {
   @apply border-b border-brand;
