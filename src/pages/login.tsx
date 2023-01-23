@@ -1,49 +1,59 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Meta } from '@/layouts/Meta'
 import { Main } from '@/templates/Main'
 import Link from 'next/link'
 import { FcGoogle } from 'react-icons/fc'
+import { signIn, signOut } from 'next-auth/react'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import CustomInput from '@/components/forms/CustomInput'
-import { Button, Checkbox, Label } from 'flowbite-react'
+import { Button, Checkbox, Label, Spinner } from 'flowbite-react'
+import { useRouter } from 'next/router'
 
 const Login = () => {
   const [message, setMessage] = useState('') // This will be used to show a message if the submission is successful
   const [accepted, setAccepted] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const validationSchema = yup.object({
-   
     email: yup
       .string()
       .email('Must be a valid email')
       .required('Email is required'),
-    password: yup
-      .string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Required'),
-   
+    password: yup.string().required('Required'),
   })
 
-  const handleSubmit = (values: any) => {
-    console.log(values)
+  const [loginError, setLoginError] = useState('')
+  const router = useRouter()
+
+  const handleSubmit = async (values: any) => {
+    setLoading(true)
+    const res = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      callbackUrl: `${window.location.origin}/`,
+      redirect: false,
+    })
+    setLoading(false)
+    if (res?.error) setLoginError(res.error)
+    if (res?.url) router.push(res.url)
   }
 
   return (
-    <div className="mx-auto max-w-screen-md md:max-w-lg w-full antialiased">
+    <div className="mx-auto max-w-screen-md md:max-w-lg w-full antialiased p-1">
       <div className="py-14">
-        <h1 className="gradText text-xl leading-5 font-semibold">Welcome Back,</h1>
+        <h1 className="gradText text-xl leading-5 font-semibold">
+          Welcome Back,
+        </h1>
         <h3 className="text-white font-normal text-sm leading-5 border-b border-[#343434] py-1 mb-8">
           Login below
         </h3>
         <div>
           <Formik
             initialValues={{
-             
               email: '',
               password: '',
-             
             }}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}
@@ -51,14 +61,13 @@ const Login = () => {
             {() => {
               return (
                 <Form className="w-full py-2">
-                  
                   <CustomInput name="email" label="Email" />
                   <CustomInput
                     name="password"
                     label="Password"
                     type="password"
                   />
-                 
+
                   <div className="flex items-center gap-2 my-2">
                     <Checkbox
                       id="agree"
@@ -66,18 +75,33 @@ const Login = () => {
                     />
                     <Label htmlFor="agree" className="!text-white">
                       Remember me
-                      
                     </Label>
                   </div>
 
-                  <Link href="/forgot-password"><h4 className="gradText text-center my-14 text-sm font-semibold">Forgot Password?</h4></Link>
-                  <Button className="w-full gradButton mt-10" type="submit">
-                    Login
+                  <Link href="/forgot-password">
+                    <h4 className="gradText text-center my-6 text-sm font-semibold">
+                      Forgot Password?
+                    </h4>
+                  </Link>
+                  <Button disabled={loading} className="w-full gradButton mt-10" type="submit">
+                    {!loading ? (
+                      <p>Login</p>
+                    ) : (
+                      <Spinner
+                        color="success"
+                        aria-label="Success spinner example"
+                      />
+                    )}
                   </Button>
                 </Form>
               )
             }}
           </Formik>
+          <div className={`${!loginError ? 'hidden' : ''}`}>
+            <p className="text-xs font-semibold text-left text-red-500">
+              Incorrect email or password
+            </p>
+          </div>
           <h2 className="hr-lines"> OR </h2>
           <h4 className="text-center text-xs font-medium text-white my-1">
             Continue with
@@ -117,7 +141,12 @@ const Login = () => {
             </Button>
           </div>
           <h4 className="text-center text-xs font-medium leading-5 text-white my-1">
-          Don't have an account? <Link href="/register"><span className="gradText ml-1 text-sm font-semibold">Create Account</span></Link>
+            Don't have an account?{' '}
+            <Link href="/register">
+              <span className="gradText ml-1 text-sm font-semibold">
+                Create Account
+              </span>
+            </Link>
           </h4>
         </div>
       </div>

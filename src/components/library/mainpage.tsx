@@ -13,9 +13,6 @@ export type RoutesType = {
 }
 
 function MainPage() {
-  
-
-
   const routes: RoutesType[] = [
     {
     title: 'my playlist',

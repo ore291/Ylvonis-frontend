@@ -25,6 +25,7 @@ module.exports = {
         inputBg: "#202020",
         utilGray: "#9A9A9A",
         bgGray: "#202020",
+        b2Gray: "#f5f5f5",
         chatGray:'#343434',
         gray: {
           100: "#f7fafc",

@@ -1,49 +1,127 @@
 import { useState } from 'react'
-import { Meta } from '@/layouts/Meta'
-import { Main } from '@/templates/Main'
+import ReactFlagsSelect from 'react-flags-select'
 import Link from 'next/link'
 import { FcGoogle } from 'react-icons/fc'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import CustomInput from '@/components/forms/CustomInput'
-import { Button, Checkbox, Label } from 'flowbite-react'
+import { Button, Checkbox, Label, Spinner } from 'flowbite-react'
+import axios from 'axios'
+import router from 'next/router'
+import { signIn } from 'next-auth/react'
 
 const Register = () => {
-  const [message, setMessage] = useState('') // This will be used to show a message if the submission is successful
-  const [accepted, setAccepted] = useState<boolean>(false)
+  const [loginError, setLoginError] = useState('') // This will be used to show a message if the submission is successful
+  const [loading, setLoading] = useState<boolean>(false)
+  const [location, setLocation] = useState('')
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL
 
   const validationSchema = yup.object({
-    name: yup.string().trim().required('Name is required'),
+    username: yup
+      .string()
+      .test(
+        'username-backend-validation', // Name
+        'Username taken', // Msg
+        async (username: any) => {
+          // Res from backend will be flag at res.data.success, true for
+          // username good, false otherwise
+          if (username && username.length >= 3) {
+            const {
+              data: { success },
+            } = await axios.post(base_url + 'users/validate-username', {
+              username: username,
+            })
+
+            return !success
+          }
+          return true
+        },
+      )
+      .min(3, 'Username is too short - should be 3 chars minimum.')
+      .trim()
+      .required('Username is required'),
+    firstname: yup.string().trim().required('First Name is required'),
+    lastname: yup.string().trim().required('Last Name is required'),
     email: yup
       .string()
+      .trim()
       .email('Must be a valid email')
-      .required('Email is required'),
+      .required('Email is required')
+      .test(
+        'email-backend-validation', // Name
+        'Email is already registered', // Msg
+        async (email) => {
+          // Res from backend will be flag at res.data.success, true for
+          // username good, false otherwise
+          if (email && email.length >= 3) {
+            const {
+              data: { success },
+            } = await axios.post(base_url + 'users/validate-email', {
+              email: email,
+            })
+            return !success
+          }
+          return true
+        },
+      ),
     password: yup
       .string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Required'),
+      .min(8, 'Must Contain 8 Characters')
+      .required()
+      .matches(/^(?=.*[a-z])/, ' Must Contain One Lowercase Character')
+      .matches(/^(?=.*[A-Z])/, '  Must Contain One Uppercase Character')
+      .matches(/^(?=.*[0-9])/, '  Must Contain One Number Character'),
     confirmPassword: yup
       .string()
       .required('Please confirm your password')
       .oneOf([yup.ref('password')], 'Passwords do not match'),
   })
 
-  const handleSubmit = (values: any) => {
-    console.log(values)
+  const handleSubmit = async (values: any) => {
+    setLoading(true)
+    try {
+      const res = await axios.post(base_url + 'auth/register', {
+        email: values.email,
+        password: values.password,
+        firstname: values.firstname,
+        lastname: values.lastname,
+        username: values.username,
+        location: location,
+      })
+      if (res.data.user) {
+        const res = await signIn('credentials', {
+          email: values.email,
+          password: values.password,
+          callbackUrl: `${window.location.origin}/`,
+          redirect: false,
+        })
+
+        if (res?.error) setLoginError(res.error)
+        if (res?.url) router.push(res.url)
+      }
+    } catch (error) {
+      setLoginError(error.message)
+    }
+
+    setLoading(false)
   }
 
   return (
-    <div className="mx-auto max-w-screen-md md:max-w-lg w-full antialiased">
-      <div className="py-14">
-        <h1 className="gradText text-xl leading-5 font-semibold">Welcome,</h1>
-        <h3 className="text-white font-normal text-sm leading-5 border-b border-[#343434] py-1 mb-8">
+    <div className="mx-auto max-w-screen-md md:max-w-xl w-full antialiased">
+      <div className="py-10">
+        <h1 className="gradText text-xl md:text-2xl md:font-bold leading-5 font-semibold">
+          Welcome,
+        </h1>
+        <h3 className="text-white font-normal text-sm leading-5 border-b border-[#343434] py-1 mb-5">
           Create account below
         </h3>
         <div>
           <Formik
             initialValues={{
-              name: '',
+              username: '',
+              firstname: '',
+              lastname: '',
               email: '',
               password: '',
               confirmPassword: '',
@@ -53,9 +131,27 @@ const Register = () => {
           >
             {() => {
               return (
-                <Form className="w-full py-2">
-                  <CustomInput name="name" label="Name" />
+                <Form
+                  autoComplete="off"
+                  className="w-full py-2 grid grid-cols-1 md:grid-cols-2 md:gap-5"
+                >
+                  <CustomInput name="firstname" label="First Name" />
+                  <CustomInput name="lastname" label="Last Name" />
+                  <CustomInput name="username" label="Username" />
                   <CustomInput name="email" label="Email" />
+                  <div className="mb-4 w-full md:col-span-2">
+                    <label className="block text-gray-400 text-sm pb-1 font-medium">
+                      Location
+                    </label>
+                    <ReactFlagsSelect
+                      selected={location}
+                      placeholder="Enter Location"
+                      searchable
+                      className="bg-inputBg"
+                      onSelect={(code) => setLocation(code)}
+                    />
+                  </div>
+
                   <CustomInput
                     name="password"
                     label="Password"
@@ -66,24 +162,31 @@ const Register = () => {
                     label="Confirm Password"
                     type="password"
                   />
-                  <div className="flex items-center gap-2 my-2">
+                  <div className="flex items-center gap-2 my-2 md:col-span-2">
                     <Checkbox
                       id="agree"
                       className="!w-6 !h-6  !bg-inputBg !ring-0 !outline-0 !border-0"
                     />
                     <Label htmlFor="agree" className="!text-white">
                       I have read and agree to the{' '}
-                      <Link
-                        href="/terms-and-condition"
-                        className="gradText"
-                      >
+                      <Link href="/terms-and-condition" className="gradText">
                         Terms of Service
                       </Link>
                     </Label>
                   </div>
-
-                  <Button className="w-full gradButton mt-10" type="submit">
-                    Create Account
+                  <Button
+                    disabled={loading}
+                    className="w-full gradButton mt-10 md:col-span-2"
+                    type="submit"
+                  >
+                    {!loading ? (
+                      <p>Create Account</p>
+                    ) : (
+                      <Spinner
+                        color="success"
+                        aria-label="Success spinner example"
+                      />
+                    )}
                   </Button>
                 </Form>
               )
@@ -128,7 +231,10 @@ const Register = () => {
             </Button>
           </div>
           <h4 className="text-center text-xs font-medium leading-5 text-white my-1">
-          Already have an account? <Link href="/login"><span className="gradText ml-1 text-sm font-semibold">Login</span></Link>
+            Already have an account?{' '}
+            <Link href="/login">
+              <span className="gradText ml-1 text-sm font-semibold">Login</span>
+            </Link>
           </h4>
         </div>
       </div>

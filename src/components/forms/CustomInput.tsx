@@ -17,6 +17,7 @@ const CustomInput = ({ name  , label,type,  ...props } : CustomInputProps )  => 
         {label}
       </label>
       <input
+      autoComplete='off'
         className={`${
           meta.error && meta.touched ? "border-red-500" : ""
         } shadow bg-inputBg outline-none !ring-0 !ring-none !focus:ring-0 !appearance-none  rounded-lg w-full py-3 px-3 text-white leading-tight !focus:outline-none !focus:shadow-outline !border-0`}

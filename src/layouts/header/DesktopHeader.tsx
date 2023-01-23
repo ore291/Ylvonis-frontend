@@ -4,18 +4,12 @@ import { ProfileDropdown } from './ProfileDropdown'
 import { NotificationDropdown } from './NotificationDropdown'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 function DesktopHeader() {
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const user = {
-    profileImg: '',
-    name: 'ckay ckay',
-    posts: '',
-    followers: '',
-    following: '',
-  }
+ 
 
-  const isLoggedIn = true
 
   const notifications = [
     {
@@ -54,6 +48,9 @@ function DesktopHeader() {
       date: new Date(),
     },
   ]
+  const { data: session, status } = useSession();
+
+ 
 
   return (
     <nav className="hidden container md:flex flex-row h-[80px] border-b border-[#343434]">
@@ -91,8 +88,8 @@ function DesktopHeader() {
             <NotificationDropdown notifications={notifications} />
           </div>
           <div className="ml-auto ">
-            {!isLoggedIn ? (
-              <ProfileDropdown user={user} />
+            {status !== "unauthenticated"  ? (
+              <ProfileDropdown user={session?.user} />
             ) : (
               <div className="flex space-x-3  h-8">
                 <button className="gradButton rounded  px-2  block !text-sm  capitalize">
