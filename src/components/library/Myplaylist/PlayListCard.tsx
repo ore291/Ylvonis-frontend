@@ -7,6 +7,7 @@ import { isMobile } from 'react-device-detect'
 
 //
 interface PlayListPropTypes {
+  id: string
   img?: string
   playListName: string
 }
@@ -14,37 +15,21 @@ interface PlayListPropTypes {
 function PlayListCard(props: PlayListPropTypes) {
   const [favourited, setFavourited] = useState(false)
   return isMobile ? (
-    <Link href={`/library/myplaylists/${props.playListName}`}>
-      <div className="md:hidden w-full flex justify-between items-center border-b-[0.5px] border-solid border-utilGray py-4 px-1">
-        <div className="w-1/4">
-          <MdOutlinePlaylistPlay size={32} />
+    <Link href={`/playlists/${props.id}`}>
+      <div className="md:hidden w-full flex justify-start space-x-2 items-center border-b-[0.5px] border-solid border-utilGray py-4 px-1">
+        <div className="">
+          <MdOutlinePlaylistPlay size={40} />
         </div>
-        <div className="w-2/4 capitalize">
+        <div className="text-lg font-semibold capitalize">
           <span>{props.playListName}</span>
-        </div>
-        <div className="w-1/4 ml-auto">
-          <button
-            className=" "
-            onMouseDown={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              setFavourited((prev) => !prev)
-            }}
-          >
-            {favourited ? (
-              <BsFillHeartFill size={30} className="text-brand  " />
-            ) : (
-              <BsHeart size={30} />
-            )}
-          </button>
         </div>
       </div>
     </Link>
   ) : (
-    <Link href={`/library/myplaylists/${props.playListName}`}>
+    <Link href={`/playlists/${props.id}`}>
       <div className="relative h-[200px] w-full">
         <Image
-          src={`/${props.img}`}
+          src={props?.img}
           fill
           alt="playlist image"
           className=" shadow-md w-full object-cover rounded-md"

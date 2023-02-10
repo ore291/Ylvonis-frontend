@@ -5,7 +5,7 @@ import axios from "axios";
 // import EmailProvider from "next-auth/providers/email"
 // import AppleProvider from "next-auth/providers/apple"
 
-async function refreshAccessToken(tokenObject: { refreshToken: any }) {
+async function refreshAccessToken(tokenObject: any) {
   try {
     // Get a new set of tokens with a refreshToken
     const tokenResponse = await axios.post(
@@ -74,7 +74,9 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     jwt: async ({ token, user }) => {
+
       if (user) {
+      
         token.user = user.user;
         // This will only be executed at login. Each next invocation will skip this part.
         token.accessToken = user.tokens.access.token;
@@ -100,6 +102,7 @@ const authOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       // Here we pass accessToken to the client to be used in authentication with your API
       session.accessToken = token.accessToken;
+      session.refreshToken = token.refreshToken;
       session.accessTokenExpiry = token.accessTokenExpiry;
       session.error = token.error;
       session.user = token.user;

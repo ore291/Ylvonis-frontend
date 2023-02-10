@@ -15,8 +15,7 @@ function PlayerSliderControls() {
     if (playing) {
       player.pause()
     } else {
-      // player.play()
-      player.playTrack(currentTrackIndex || 2)
+      player.play()
     }
   }
 
@@ -36,15 +35,14 @@ function PlayerSliderControls() {
       <Button variant="naked">
         <TfiControlShuffle width={30} height={30} />
       </Button>
-      {/* onClick={() => player.prev()} */}
-      <Button variant="naked" >
+
+      <Button variant="naked" onClick={() => player.prev()}>
         <PlayPrev />
       </Button>
-      <Button variant="white" onClick={() => PlayTrack(2)}>
+      <Button variant="white" onClick={() => handlePlay()}>
         {playing ? <PauseIcon /> : <PlayIcon />}
       </Button>
-      <Button variant="naked" >
-        {/* onClick={() => player.next()} */}
+      <Button variant="naked" onClick={() => player.next()}>
         <PlayNext />
       </Button>
       <Button variant="naked">

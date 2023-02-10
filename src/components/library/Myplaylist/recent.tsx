@@ -1,17 +1,18 @@
+import Loading from '@/components/utils/Loading'
+import { useGetUserPlaylistQuery } from '@/store/api/song'
 import { useState } from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
 import AddNew from './AddNew'
 import PlayListCard from './PlayListCard'
 
 export default function RecentPlayLists() {
-  const numOfPlaylist = 5
-  const playlists = [
-    { img: 'Cool.png', name: 'gospel' },
-    { img: 'cool.png', name: 'Cool Music' },
-    { img: 'beats.png', name: 'Beats' },
-    { img: 'praise.png', name: 'Worships' },
-    { img: 'worship.png', name: 'Worships' },
-  ]
+  const {
+    data: playlists,
+    error,
+    isLoading,
+    isSuccess,
+  } = useGetUserPlaylistQuery(null)
+
   const [showAddNew, setShowAddNew] = useState(false)
   return (
     <main className="">
@@ -19,7 +20,7 @@ export default function RecentPlayLists() {
       <section>
         <nav className="flex w-full justify-between px-4  py-2 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none ">
           <div className="capitalize text-utilGray">
-            {numOfPlaylist} playlists{' '}
+            {playlists && playlists.length} playlists
           </div>
           <button>
             {' '}
@@ -36,24 +37,29 @@ export default function RecentPlayLists() {
           <h1>Add new playlist</h1>
         </div>
       </section>
-      <section className="">
-        {playlists.length === 0 ? (
-          <header className="text-xl text-center  w-full mt-2 text-bold">
-            No Playlists Found
-          </header>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
-            {playlists?.map((playlist, index) => (
-              <div key={index}>
-                <PlayListCard
-                  img={playlist?.img}
-                  playListName={playlist?.name}
-                />
-              </div>
-            ))}{' '}
-          </div>
-        )}
-      </section>
+      {isLoading ? (
+        <Loading w="10" h="10" />
+      ) : (
+        <section className="">
+          {playlists.length === 0 ? (
+            <header className="text-xl text-center  w-full mt-2 text-bold">
+              No Playlists Found
+            </header>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
+              {playlists?.map((playlist: any) => (
+                <div key={playlist.id}>
+                  <PlayListCard
+                    id={playlist?.id}
+                    img={playlist?.coverArt}
+                    playListName={playlist?.name}
+                  />
+                </div>
+              ))}{' '}
+            </div>
+          )}
+        </section>
+      )}
     </main>
   )
 }

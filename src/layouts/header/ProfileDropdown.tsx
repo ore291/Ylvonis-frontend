@@ -21,7 +21,7 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
     {
       title: 'Profile',
       icon: <RxAvatar size={23} className="gradSVG" />,
-      link: '/settings/profile',
+      link: '/profile',
     },
     {
       title: 'help',
@@ -53,16 +53,16 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
         onClick={() => setDropDownOpen((prev) => !prev)}
       >
         {user?.profile_pic ? (
-          <div className="w-6 h-6  relative rounded-full text-white bg-gray-700">
+          <div className="w-6 h-6  relative rounded-full text-white bg-white">
             {' '}
-            {/* <Image
+            <Image
               src={user?.profile_pic}
               alt=""
               className="rounded-full"
               fill
               style={{ objectFit: 'contain' }}
-            /> */}
-            <FaUserCircle className="w-6 h-6 rounded-full text-white bg-gray-700" />
+            />
+            
           </div>
         ) : (
           <FaUserCircle className="w-6 h-6  rounded-full text-white bg-gray-700" />
@@ -99,7 +99,7 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
           <li>
             <div
               className="flex text-base justify-start items-center capitalize py-1 cursor-pointer gap-2"
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/login", redirect: true })}
             >
               <BsPower size={23} className="gradSVG" />
               <span className="text-white hover:text-brand">Log Out</span>

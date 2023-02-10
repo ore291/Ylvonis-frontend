@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import Globe from 'react-globe.gl'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { ref } from 'yup'
@@ -89,12 +90,12 @@ export interface Geometry {
   coordinates?: ((number[] | null)[] | null)[] | null
 }
 
-const GlobeComponent = () => {
+const GlobeComponent = ({ setCountry }: { setCountry: any }) => {
   const [places, setPlaces] = useState([])
   const globeRef = useRef<any>(null)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
-  const [country, setCountry] = useState<string>('All')
+  // const [location, setLocation] = useState<string>('All')
 
   useEffect(() => {
     // load data
@@ -108,14 +109,27 @@ const GlobeComponent = () => {
     }
   }, [])
 
+  var stringToColour = function (str) {
+    var hash = 0
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash)
+    }
+    var colour = '#'
+    for (var i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xff
+      colour += ('00' + value.toString(16)).substr(-2)
+    }
+    return colour
+  }
+
   return (
-    <div className="w-full h-full p-0.5 md:p-2">
-      <div className="w-full flex justify-between items-center">
+    <div className="w-full h-full p-0.5  md:p-2">
+      {/* <div className="w-full flex justify-between items-center">
         <Button variant="naked" size="slim">
           <BsThreeDotsVertical className="text-white w-6 h-6" />
         </Button>
         <h2 className="capitalize text-sm md:text-xl truncate max-w-max font-semibold text-white">
-          {country}
+          {location}
         </h2>
         <Button variant="naked" size="slim">
           <svg
@@ -131,7 +145,7 @@ const GlobeComponent = () => {
             />
           </svg>
         </Button>
-      </div>
+      </div> */}
       <div ref={globeRef}>
         {width != 0 && (
           <Globe
@@ -143,20 +157,27 @@ const GlobeComponent = () => {
             showAtmosphere={false}
             animateIn={false}
             width={width}
-            height={450}
+            height={isMobile ? 350 : 450}
             backgroundColor="#000"
             globeImageUrl="/map/earth-dark.jpg"
             hexPolygonsData={places}
             hexPolygonResolution={3}
             hexPolygonMargin={0.3}
-            onHexPolygonClick={(polygon) =>
-              setCountry(polygon.properties.NAME_LONG)
+            onHexPolygonClick={(polygon) => {
+              setCountry((country) => ({
+                ...country,
+                name: polygon.properties.NAME_LONG,
+                code: polygon.properties.ISO_A2,
+              }))
+            }}
+            hexPolygonColor={(polygon) =>
+              stringToColour(polygon.properties.NAME_LONG)
             }
-            hexPolygonColor={() =>
-              `#${Math.round(Math.random() * Math.pow(2, 24))
-                .toString(16)
-                .padStart(6, '0')}`
-            }
+            // hexPolygonColor={() =>
+            //   `#${Math.round(Math.random() * Math.pow(2, 24))
+            //     .toString(16)
+            //     .padStart(6, '0')}`
+            // }
             hexPolygonLabel={({ properties: d }) => `
           <b>${d.ADMIN} (${d.ISO_A2})</b> 
          

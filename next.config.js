@@ -8,7 +8,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['.'],
   },
   images: {
-    domains: ['res.cloudinary.com', 'example2.com'],
+    domains: ['res.cloudinary.com', 'loremflickr.com' ,'countryflagsapi.com'],
   },
   poweredByHeader: false,
   trailingSlash: false,

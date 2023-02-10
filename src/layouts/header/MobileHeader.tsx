@@ -1,26 +1,23 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {useRouter} from 'next/router'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { BsChevronLeft } from 'react-icons/bs'
 import { FaCog } from 'react-icons/fa'
 import { SlBell } from 'react-icons/sl'
 
-function MobileHeader({
-  
-  title,
-  nested,
-}: {
+function MobileHeader({ title, nested=false }: { title: any; nested?: boolean }) {
+  const [menuOpen, setMenuOpen] = React.useState(false)
+  const router = useRouter()
 
-  title: any;
-  nested?: boolean;
-}) {
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const router = useRouter();
- 
-  return (
-    <nav className="relative flex h-[70px] border-b border-chatGray items-center justify-between py-3 md:hidden rounded">
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return mounted ? (
+    <nav className="sticky top-0 z-50 bg-bgGray flex h-[70px] border-b border-chatGray items-center justify-between py-3 md:hidden rounded">
       <div className="container  mx-auto flex flex-wrap items-center justify-between">
         <div className=" relative  flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
           {nested ? (
@@ -52,44 +49,28 @@ function MobileHeader({
         </div>
         <div className="mr-3">
           <ul className="flex justify-evenly gap-3">
-            <li>
-              <BiSearchAlt size={"30px"} />
-            </li>
+            <Link href={"/search"}>
+              <li>
+                <BiSearchAlt size={'30px'} />
+              </li>
+            </Link>
+
             <li className="bg-white  bg-clip-text">
-              <Link href={"/notifications"}>
-                <SlBell className="text-white" size={"28px"} />
+              <Link href={'/notifications'}>
+                <SlBell className="text-white" size={'28px'} />
               </Link>
             </li>
             <li>
-              <Link href={"/settings"}>
-                <FaCog size={"30px"} />
+              <Link href={'/settings'}>
+                <FaCog size={'30px'} />
               </Link>
             </li>
           </ul>
         </div>
-        {/* <div
-                  className={
-                    'lg:flex flex-grow items-center' +
-                    (menuOpen ? ' flex' : ' hidden')
-                  }
-                  id="example-navbar-info"
-                >
-                  <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-                    <li className="nav-item">
-                      <a
-                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                        href="#pablo"
-                      >
-                        <FaGlobe className="fas fa-globe text-lg leading-lg text-white opacity-75" />
-                      </a>
-                    </li>
-                    <li><BiSearchAlt /></li>
-                    <li></li>
-
-                  </ul>
-                </div> */}
       </div>
     </nav>
+  ) : (
+    <div></div>
   )
 }
 

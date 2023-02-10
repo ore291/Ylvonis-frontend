@@ -72,8 +72,8 @@ const Cover: React.FC<props> = (props) => {
         </div>
 
         <div className={cn(s.info)}>
-          <p className={cn(s.title)}>{currentTrack.title}</p>
-          <p className={cn(s.artist)}>{currentTrack.artist?.name}</p>
+          <p className={cn(s.title)}>{currentTrack.name}</p>
+          <p className={cn(s.artist)}>{currentTrack.artist}</p>
         </div>
       </div>
       <div className="flex md:hidden space-x-1 pr-1 ">

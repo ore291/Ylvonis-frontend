@@ -1,24 +1,19 @@
+import Settings from '@/components/settings/Settings'
+import { Meta } from '@/layouts/Meta'
+import { Main } from '@/templates/Main'
 import React from 'react'
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
 
-import MainPage from  '@/components/settings/profile';
-function Profile() {
+const profile = () => {
+  
   return (
     <Main
-      meta={
-        <Meta
-          title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
-        />
-      }
-      title='Profile'
+      meta={<Meta title="Ylvonis" description="Ylvonis Music" />}
+      title="Settings"
       nested={true}
     >
-      <MainPage />
-
+      <Settings />
     </Main>
   )
 }
 
-export default Profile
+export default profile

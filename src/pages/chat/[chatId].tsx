@@ -1,207 +1,117 @@
-import React from 'react'
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
+// @ts-nocheck
+import React, { useState, useEffect, useRef } from 'react'
+import { Meta } from '@/layouts/Meta'
+import { Main } from '@/templates/Main'
 import { useRouter } from 'next/router'
 import ChatArea from '@/components/chat/ChatArea'
-import { ChatTypes } from '@/components/chat/mainpage'
+import { chatApi, useGetRoomByIdQuery } from '@/store/api/chat'
+import { io } from 'socket.io-client'
+import Loading from '@/components/utils/Loading'
+import { useSession } from 'next-auth/react'
+import { useAppDispatch } from '@/store/hooks'
+import useAuth from '@/hooks/useAuth'
 
 function Chat() {
+
+  const authenticated = useAuth(true)
   const router = useRouter()
   const { chatId } = router.query
-  const chats: ChatTypes[] = [{
-    img: 'http://localhost:3000/_next/image/?url=%2Fckay.png&w=96&q=75',
-    name: ' ckay',
-    messages: [{
-      message: 'hi!',
-      status: 'sent'
+  const {data : session} = useSession()
 
-    }, {
-      message: 'hi',
-      status: 'received'
+  const [roomId, setChatRoomId] = useState<
+    String | null | undefined | String[]
+  >(router?.query?.chatId)
 
-    },
-    {
-      message: 'hello',
-      status: 'received'
+  useEffect(() => {
+    if (!router.isReady) return
+    setChatRoomId(router?.query?.chatId)
+  }, [router.isReady])
 
-    },
-    {
-      message: 'listen to my song',
-      status: 'received'
+  const {
+    data: chat,
+    isFetching,
+    isLoading,
+    isSuccess,
+    refetch,
+  } = useGetRoomByIdQuery(roomId, {
+    // pollingInterval: 10000,
+    // refetchOnMountOrArgChange: true,
+    skip: !roomId,
+  })
+  const [users, setUsers] = useState([])
 
-    },
-    {
-      message: 'ok',
-      status: 'sent'
+  const socketRef = useRef()
 
-    },
-    {
-      message: 'ok',
-      status: 'sent'
+  const dispatch = useAppDispatch()
 
-    },
-    {
-      message: 'ok',
-      status: 'sent'
+  const [error, setError] = useState(null)
 
-    },
-    {
-      message: 'ok',
-      status: 'sent'
+  useEffect(() => {
+    if (!roomId || !session) return
+    socketRef.current = io("http://localhost:3001")
 
-    },
-    {
-      message: 'ok',
-      status: 'sent'
+    socketRef?.current?.emit(
+      'join',
+      { userId: session?.user.id, room: roomId },
+      (error) => {
+        if (error) {
+          console.log(error)
+          setError(error)
+        }
+      },
+    )
 
-    },],
-    date: new Date(),
+    return () => {
+      socketRef?.current?.disconnect()
+    }
+  }, [roomId])
 
-  },
-  {
-    img: 'http://localhost:3000/_next/image/?url=%2Fckay.png&w=96&q=75',
-    name: ' ckay',
-    messages: [{
-      message: 'hi!',
-      status: 'sent'
-
-    }, {
-      message: 'hi',
-      status: 'received'
-
-    },
-    {
-      message: 'hello',
-      status: 'received'
-
-    },
-    {
-      message: 'listen to my song',
-      status: 'received'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },],
-    date: new Date(),
-
-  },
-  {
-    img: 'http://localhost:3000/_next/image/?url=%2Fckay.png&w=96&q=75',
-    name: ' ckay',
-    messages: [{
-      message: 'hi!',
-      status: 'sent'
-
-    }, {
-      message: 'hi',
-      status: 'received'
-
-    },
-    {
-      message: 'hello',
-      status: 'received'
-
-    },
-    {
-      message: 'listen to my song',
-      status: 'received'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'ok',
-      status: 'sent'
-
-    },
-    {
-      message: 'enough',
-      status: 'received'
-
-    },
-    ],
-    date: new Date(),
-
-  },
-  {
-    img: 'https://www.famousbirthdays.com/headshots/russell-crowe-6.jpg',
-    name: ' jeff bezos',
-    messages: [{
-      message: 'hi',
-      status: 'sent'
-
-    }, {
-      message: ' jujujujujujujujujujujujujujujujujjujujujujujujujujujjujujujujujjuuujujuujjujjuujujujuj',
-      status: 'received'
-
-    },
-    {
-      message: 'hello',
-      status: 'received'
-
-    },
-    {
-      message: 'listen to my song',
-      status: 'received'
-
-    },
-    {
-      message: 'jujujujujujuj',
-      status: 'sent'
-
-    },],
-    date: new Date('28 december 2022'),
-
-  },
-  ]
-  const MessagesInView = chats[Number(chatId)]
-  return (
-     <Main
-      meta={
-        <Meta
-          title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
-        />
+  useEffect(() => {
+    socketRef?.current?.on('new message', (message) => {
+      const mes = message.message
+  
+      try {
+        dispatch(
+          chatApi.util.updateQueryData(
+            'getChatByRoom',
+            mes?.chatRoomId,
+            (draft) => {
+              draft?.push(mes)
+            },
+          ),
+        )
+      } catch {
+        ;(error) => console.log(error)
       }
-      title='Chat'
+    })
+
+    socketRef?.current?.on('roomData', ({ users }) => {
+      setUsers(users)
+    })
+  }, [roomId])
+
+  return (
+    <Main
+      meta={<Meta title="Ylvonis" description="Ylvonis Music" />}
+      title="Chat"
+     
     >
-      <div className=' h-[95vh] py-6'>
-        <div className={`md:w-2/4  max-h-screen w-full h-full   bg-black  `}>
-          <ChatArea img={MessagesInView?.img} name={MessagesInView?.name} date={Date.now()} messages={MessagesInView?.messages} />
-
-          {/* date={MessagesInView?.date?.toDateString()} */}
-
+      {isLoading ? (
+        <div className="h-[60vh] w-full flex-container">
+          <Loading w="4" h="4" />
         </div>
-      </div>
-
+      ) : chat && (
+        <div className="  py-2">
+          <div className={` max-h-full w-full h-full   bg-black  `}>
+            <ChatArea
+              currentChat={{ chatRoomId: chatId, otherUser: chat.otherUser }}
+              socket={socketRef}
+              users={users}
+            />
+          </div>
+        </div>
+      )}
     </Main>
-
   )
 }
 

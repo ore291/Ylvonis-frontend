@@ -6,6 +6,9 @@ export const createAudio = () => {
   const pubsub = createPubSub()
   let element: HTMLAudioElement
 
+
+
+
   
   let currentTime = 0
 
@@ -22,7 +25,7 @@ export const createAudio = () => {
   }
 
   const setup = () => {
-    console.log(element)
+ 
     element.addEventListener('durationchange', () =>
       setState({ duration: element.duration }),
     )
@@ -63,7 +66,7 @@ export const createAudio = () => {
     getState() {
       return state
     },
-    setInitialState(e: HTMLAudioElement) {
+    setInitialState(e : any) {
       element = e
       setup()
     },
@@ -95,6 +98,8 @@ export const createAudio = () => {
     onChangeCurrentTime(listener: (newCurrentTime: number) => void) {
       return pubsub.subscribe('change-current-time', listener)
     },
+
+
 
     onEnded(listener: () => void) {
       if (element) {

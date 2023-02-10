@@ -80,6 +80,11 @@ const Register = () => {
 
   const handleSubmit = async (values: any) => {
     setLoading(true)
+
+    if (location == '') {
+      setLoading(false)
+      return alert('Please select a country')
+    }
     try {
       const res = await axios.post(base_url + 'auth/register', {
         email: values.email,

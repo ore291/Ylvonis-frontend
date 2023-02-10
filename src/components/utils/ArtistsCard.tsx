@@ -30,7 +30,7 @@ function ArtistsCard(props: {
             )}
           </button>
         </div>
-        <div className="relative w-full h-[200px]">
+        <div className="relative w-full h-[150px] md:h-[200px]">
           <Image
             src={`/${props.img}`}
             alt="playlist image"

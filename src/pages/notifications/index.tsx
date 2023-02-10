@@ -8,7 +8,7 @@ function Notifications() {
       meta={
         <Meta
           title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+          description="Ylvonis Music"
         />
       }
       title='Notifications'

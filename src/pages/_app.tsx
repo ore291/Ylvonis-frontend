@@ -25,8 +25,8 @@ const MyApp = ({
       <Provider store={store}>
         <Component {...pageProps} />
         <RefetchHandler setInterval={setInterval} />
-        {/* <AudioSetup />
-      <Player /> */}
+        <AudioSetup />
+      <Player />
       </Provider>
     </SessionProvider>
   )

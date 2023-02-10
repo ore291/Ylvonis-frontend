@@ -2,14 +2,16 @@ import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
 import MainPage from '@/components/library/artists/mainpage';
+import useAuth from '@/hooks/useAuth';
 
 function Artists() {
+  const isAuthenticated = useAuth(true)
   return (
     <Main
       meta={
         <Meta
           title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+          description="Ylvonis Music"
         />
       }
       title='Artists'

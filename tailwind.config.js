@@ -3,10 +3,11 @@ module.exports = {
   content: [
     "./node_modules/flowbite-react/**/*.js",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-select/dist/index.esm.js",
   ],
   theme: {
     fontSize: {
-      'xsm':'10px',
+      xsm: "10px",
       xs: "0.75rem",
       sm: "0.875rem",
       base: "1rem",
@@ -26,7 +27,7 @@ module.exports = {
         utilGray: "#9A9A9A",
         bgGray: "#202020",
         b2Gray: "#f5f5f5",
-        chatGray:'#343434',
+        chatGray: "#343434",
         gray: {
           100: "#f7fafc",
           200: "#edf2f7",

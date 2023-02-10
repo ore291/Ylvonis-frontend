@@ -17,12 +17,12 @@ function MainPage() {
     {
     title: 'my playlist',
     icon: <MdOutlinePlaylistPlay size={32} />,
-    link:'/library/myplaylists'
+    link:'/playlists'
   },
     {
       title: 'song library',
       icon: <IoLibrary size={28} />,
-      link: '/library/songlibrary'
+      link: '/library/songs'
     },
     {
       title: 'artists',
@@ -30,11 +30,11 @@ function MainPage() {
       link: '/library/artists'
     }]
   return (
-    <div className='w-full md:hidden'>
+    <div className='w-full md:hidden flex flex-col space-y-2'>
       {routes.map((route:RoutesType,index:number) => (
         <Link href={route.link} key={index}>
-          <div className='flex w-full border-y justify-between items-center border-solid border-slate-700'>
-            <div className='flex gap-3 items-center text-white w-5/12'>
+          <div className='flex w-full h-16 px-2 border-y justify-between items-center border-solid border-slate-700'>
+            <div className='flex gap-3 items-center text-white flex-1'>
               {route.icon}
               
               <p className='text-white font-bold capitalize'>{route.title}</p>

@@ -11,22 +11,10 @@ export default function Header({
   nested?: boolean
 }) {
   {
-    return (
-      <>
-        {/* <div className="flex flex-wrap py-2 md:py-0 border-b border-solid border-slate-700">
-          <div className="w-full "> */}
-        {/* mobile header view */}
-        {isMobile ? (
-          <MobileHeader nested={nested} title={title} />
-        ) : (
-          <DesktopHeader />
-        )}
-
-        {/* desktop header view */}
-
-        {/* </div>
-        </div> */}
-      </>
-    )
+    if (isMobile) {
+      return <MobileHeader nested={nested} title={title} />
+    } else {
+      return <DesktopHeader />
+    }
   }
 }

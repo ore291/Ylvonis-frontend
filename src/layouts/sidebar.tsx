@@ -110,7 +110,7 @@ function Sidebar() {
           </defs>
         </svg>
       ),
-      link: '/library/myplaylists',
+      link: '/playlists',
     },
     {
       title: 'Song library',
@@ -155,7 +155,7 @@ function Sidebar() {
           </defs>
         </svg>
       ),
-      link: '/library/songlibrary',
+      link: '/library/songs',
     },
     {
       title: 'artists',

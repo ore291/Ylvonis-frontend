@@ -22,14 +22,14 @@ const Player = () => {
       <MobileView>
         <div className={cn(s.root)}>
           <div className={cn(s.container)}>
-            <Cover coverUrl={state.playlist.imageUrl} />
+            <Cover coverUrl={state?.currentTrack?.coverArt} />
           </div>
         </div>
       </MobileView>
       <BrowserView>
         <div className={cn(s.root)}>
           <div className={cn(s.container)}>
-            <Cover coverUrl={state.playlist.imageUrl} />
+            <Cover coverUrl={state?.currentTrack?.coverArt} />
             <div className="hidden md:block">
               <PlayerControls />
             </div>

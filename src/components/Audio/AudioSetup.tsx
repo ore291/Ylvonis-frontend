@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
-import player from '@/lib/player'
+import React, { useEffect, useRef } from 'react'
+import player, { usePlayerState } from '@/lib/player'
 
 function AudioSetup() {
+  const element = useRef(null)
+
   useEffect(() => {
-    const element: HTMLAudioElement = document.createElement('audio')
-    player.setInitialState(element)
-    player.loadTrack()
-    console.log('created audio')
+    // const element: HTMLAudioElement = document.createElement('audio')
+
+    player.setInitialState(element.current)
   }, [])
-  return <></>
+
+  return <audio ref={element} onEnded={player.next}></audio>
 }
 
 export default AudioSetup

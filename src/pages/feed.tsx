@@ -1,7 +1,7 @@
 import React from 'react'
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
-import MainPage from '@/components/feed/mainpage';
+import { Meta } from '@/layouts/Meta'
+import { Main } from '@/templates/Main'
+import MainPage from '@/components/feed'
 
 function Feed() {
   return (
@@ -9,12 +9,12 @@ function Feed() {
       meta={
         <Meta
           title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+          description="Ylvonis Music"
         />
       }
-      title='Feed'
+      title="Feed"
     >
-<MainPage />
+      <MainPage />
     </Main>
   )
 }

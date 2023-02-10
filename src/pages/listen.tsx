@@ -1,22 +1,45 @@
+import { Meta } from '@/layouts/Meta'
+import { Main } from '@/templates/Main'
 
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
 
-import MainPage from '@/components/listen/mainpage';
+import { useGetRecentSongsQuery } from '@/store/api/song'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import Music from '@/components/listen/music'
+import Podcasts from '@/components/listen/podcasts'
+import Trending from '@/components/listen/trending'
 
 function Listen() {
+ 
   return (
     <Main
-      meta={
-        <Meta
-          title="Ylvonis"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
-        />
-      }
-      title='Listen'
+      meta={<Meta title="Ylvonis" description="Ylvonis Music" />}
+      title="Listen"
     >
-      <MainPage />
+      <Tabs
+        defaultFocus={true}
+        selectedTabClassName={'bg-transparent focused-tab !relative'}
+      >
+        <TabList
+          className={
+            'bg-bgGray flex items-center justify-between text-utilGray  py-1 md:py-3 md:items-start md:justify-start'
+          }
+        >
+          <Tab>Music</Tab>
+          <Tab>Trending</Tab>
+          {/* the third page in the design didnt have anything, so i didn't do anything */}
+          <Tab>Podcasts</Tab>
+        </TabList>
 
+        <TabPanel>
+          <Music />
+        </TabPanel>
+        <TabPanel>
+          <Trending />
+        </TabPanel>
+        <TabPanel>
+          <Podcasts />
+        </TabPanel>
+      </Tabs>
     </Main>
   )
 }

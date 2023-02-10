@@ -20,7 +20,7 @@ function RecentArtists() {
   return (
     <main>
       <section>
-        <nav className="flex w-full justify-between px-4  py-2 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none ">
+        <nav className="flex w-full justify-between p-4 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none ">
           <div className="capitalize text-utilGray">{numOfArtists} artists </div>
           <button>
             {" "}
@@ -28,8 +28,8 @@ function RecentArtists() {
           </button>
         </nav>
       </section>
-      <section className=" mt-2 mb-10">
-        <div className='grid grid-cols-1 md:grid-cols-5 gap-4'>
+      <section className=" mt-2 mb-10 p-2">
+        <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
           {artists.map((artist, index) => (
             <div key={index}>
               <ArtistsCard name={artist.name} followers={artist.followers} following={artist.following} img={artist.img} />

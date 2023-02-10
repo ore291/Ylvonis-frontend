@@ -24,7 +24,7 @@ export  const NotificationDropdown = (props:{notifications?:NotificationTypes[]}
   return (
     <div className="relative">
       <button id="dropdownNotificationButton" onClick={() => setDropDownOpen((prev) => !prev)} className="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400" type="button">
-        <BsFillBellFill className="text-white h-8 w-8"  />
+        <BsFillBellFill className="text-white h-6 w-6"  />
     <div className="relative flex">
       <div className="relative inline-flex w-2 h-2 bg-red-500  rounded-full -top-2 right-2 dark:border-gray-900" />
     </div>

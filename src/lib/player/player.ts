@@ -9,26 +9,21 @@ const createPlayer = () => {
   const pubsub = createPubSub();
   const audio = createAudio();
 
-  let currentPlayList: Playlist = tracks.playlist;
-  // let currentPlayList: Playlist = {
-  //   id: '',
-  //   title: '',
-  //   imageUrl: '',
-  //   tracks: [],
-  // }
+  
+  let currentPlayList: Playlist = {
+    id: '',
+    title: '',
+    imageUrl: '',
+    tracks: [],
+  }
 
   let state: State = {
     ...audio.getState(),
     //tracks : [],
     // added Playlist
     playlist: currentPlayList,
-    currentTrackIndex: 2,
-    currentTrack: {
-      id: "5227663d-9493-4b52-ac57-03747e4b9290",
-      title: "Mood (Lofi)",
-      url: "https://res.cloudinary.com/dehs50yqa/video/upload/v1650561933/Songs/Mood_Lofi_cirjjc.mp3",
-      artist: { id: "3",  name: "Salem ilese" },
-    },
+    currentTrackIndex: null,
+    currentTrack: null,
   };
 
   const setState = (value: Partial<State>) => {
@@ -44,7 +39,7 @@ const createPlayer = () => {
 
 
     if (track) {
-      audio.setUrl(track.url);
+      audio.setUrl(track.fileUrl);
       audio.play();
     }
   };
@@ -54,7 +49,7 @@ const createPlayer = () => {
 
 
     if (track) {
-      audio.setUrl(track.url);
+      audio.setUrl(track.fileUrl);
       audio.play();
     }
   };
@@ -62,6 +57,8 @@ const createPlayer = () => {
 
 
   const next = () => {
+
+    console.log("ended")
     if (state.currentTrackIndex === null) {
       return;
     }
