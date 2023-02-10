@@ -14,9 +14,13 @@
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
     "commit": "cz",
+    "dokku": {
+      "predeploy": "next build"
+  },
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.1.6",
     "@radix-ui/react-progress": "^1.0.1",
     "@radix-ui/react-radio-group": "^1.1.1",
     "@radix-ui/react-slider": "^1.1.0",
@@ -45,7 +49,6 @@
     "react-icons": "^4.7.1",
     "react-multi-carousel": "^2.8.2",
     "react-redux": "^8.0.5",
-    "react-spring-bottom-sheet": "^3.4.1",
     "react-tabs": "^6.0.0",
     "react-tailwindcss-select": "^1.6.0",
     "socket.io-client": "^4.6.0",
@@ -56,7 +59,6 @@
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "@commitlint/cz-commitlint": "^17.3.0",
-    "@next/bundle-analyzer": "^13.0.6",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/git": "^10.0.1",
     "@testing-library/react": "^13.4.0",
