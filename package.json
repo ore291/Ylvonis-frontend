@@ -14,9 +14,6 @@
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
     "commit": "cz",
-    "dokku": {
-      "predeploy": "next build"
-  },
     "postbuild": "next-sitemap"
   },
   "dependencies": {
