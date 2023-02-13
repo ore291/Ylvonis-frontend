@@ -73,7 +73,7 @@ function Username() {
     if (!isSuccess) return
     setFollowing(
       status == 'authenticated' &&
-        data.user.followers.hasOwnProperty(session?.user.id.toString()),
+        data.user.followers.includes(session?.user.id.toString()),
     )
   }, [status, isSuccess])
 
@@ -131,13 +131,13 @@ function Username() {
                   </div>
                   <div className="flex flex-col justify-start items-center gap-1">
                     <h1 className="font-bold text-white text-lg md:text-2xl ">
-                      {Object.keys(data.user.followers).length}
+                      {data.user.followers.length}
                     </h1>
                     <span className="text-sm text-utilGray ">Followers</span>
                   </div>
                   <div className="flex flex-col justify-start items-center gap-1">
                     <h1 className="font-bold text-white text-lg md:text-2xl">
-                      {Object.keys(data.user.following).length}
+                      {data.user.following.length}
                     </h1>
                     <span className="text-sm text-utilGray ">Following</span>
                   </div>

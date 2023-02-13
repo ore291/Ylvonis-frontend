@@ -12,6 +12,7 @@ import { useGetDiscoveredUserQuery, useGetUserQuery } from '@/store/api/user'
 import Loading from '@/components/utils/Loading'
 import RecentSongs from '@/components/library/SongLibrary/recent'
 import RecentPlayLists from '@/components/library/Myplaylist/recent'
+import UserPost from '@/components/profile/UserPost'
 
 const user = {
   profileImg: '/ckay2.png',
@@ -116,9 +117,10 @@ function Profile() {
   const { data: session, status } = useSession()
 
   const { data, isFetching, isLoading, isError, isSuccess } = useGetUserQuery(
-    null,{
-      refetchOnMountOrArgChange : true
-    }
+    null,
+    {
+      refetchOnMountOrArgChange: true,
+    },
   )
 
   const {
@@ -139,13 +141,13 @@ function Profile() {
             <Loading w="10" h="10" />
           </div>
         ) : (
-          data.user && (
+          data && (
             <main className="max-h-full overflow-scroll mb-10">
               <section>
                 <div className="flex items-center justify-between md:justify-start md:space-x-10 p-2  my-3">
                   <div className=" relative h-24 w-24 bg-white rounded-full">
                     <Image
-                      src={data.user.profile_pic}
+                      src={data.user.profile_pic || "/user.png"}
                       alt=""
                       sizes=""
                       fill
@@ -162,13 +164,13 @@ function Profile() {
                     </div>
                     <div className="flex flex-col justify-start items-center gap-1">
                       <h1 className="font-bold text-white text-lg md:text-2xl ">
-                        {Object.keys(data.user.followers).length}
+                        {data.user.followers.length}
                       </h1>
                       <span className="text-sm text-utilGray ">Followers</span>
                     </div>
                     <div className="flex flex-col justify-start items-center gap-1">
                       <h1 className="font-bold text-white text-lg md:text-2xl">
-                        {Object.keys(data.user.following).length}
+                        {data.user.following.length}
                       </h1>
                       <span className="text-sm text-utilGray ">Following</span>
                     </div>
@@ -202,8 +204,8 @@ function Profile() {
                 ) : discovered && discovered.length > 0 ? (
                   <div className="mb-4 flex max-w-[100vw] justify-start mx-2 md:max-h-fit items-center gap-4 overflow-scroll scroll-m-0 md:grid md:mx-0 md:grid-cols-5">
                     {discovered &&
-                      discovered.map((user: any) => (
-                        <SuggestedPeopleCard key={user.id} user={user} />
+                      discovered.map((user: any, index: number) => (
+                        <SuggestedPeopleCard key={index} user={user} />
                       ))}
                   </div>
                 ) : (
@@ -230,9 +232,16 @@ function Profile() {
                     <Tab>Playlists</Tab>
                     <Tab>Posts/comments</Tab>
                   </TabList>
-                  <TabPanel><RecentSongs /></TabPanel>
-                  <TabPanel> <RecentPlayLists /></TabPanel>
-                  <TabPanel></TabPanel>
+                  <TabPanel>
+                    <RecentSongs />
+                  </TabPanel>
+                  <TabPanel>
+                    {' '}
+                    <RecentPlayLists />
+                  </TabPanel>
+                  <TabPanel>
+                    <UserPost />
+                  </TabPanel>
                 </Tabs>
               </section>
             </main>

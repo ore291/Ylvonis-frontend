@@ -1,21 +1,31 @@
 import { RoutesType } from '@/components/library/mainpage'
+import { Button } from '@/components/UI'
+import { IUser } from '@/lib/interfaces'
+import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
-  BsFillQuestionCircleFill,
-  BsPower,
-  BsChevronDown,
+  BsChevronDown, BsFillQuestionCircleFill,
+  BsPower
 } from 'react-icons/bs'
 import { FaCog, FaUserCircle } from 'react-icons/fa'
 import { RxAvatar } from 'react-icons/rx'
 import { TbUsers } from 'react-icons/tb'
-import Image from 'next/image'
-import { signOut } from 'next-auth/react'
-import { Button } from '@/components/UI'
-import { IUser } from '@/lib/interfaces'
+import listenForOutsideClick from '../../components/utils/outsideClick'
 
 export const ProfileDropdown = ({ user }: { user: IUser }) => {
   const [dropDownOpen, setDropDownOpen] = React.useState(false)
+
+  const toggle = (dropDownOpen: boolean) => {
+    return setDropDownOpen(!dropDownOpen)
+  }
+
+  const profileMenuRef = useRef(null)
+  const [listening, setListening] = useState(false)
+  useEffect(
+    listenForOutsideClick(listening, setListening, profileMenuRef, setDropDownOpen),
+  )
 
   const routes: RoutesType[] = [
     {
@@ -46,7 +56,7 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
   ]
 
   return (
-    <div className="relative">
+    <div className="relative" ref={profileMenuRef}>
       <button
         id="dropdownAvatarNameButton"
         className="flex items-center text-sm font-medium space-x-3 rounded-full bg-bgGray  p-1 capitalize px-0.5 md:mr-0 text-white"
@@ -56,7 +66,7 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
           <div className="w-6 h-6  relative rounded-full text-white bg-white">
             {' '}
             <Image
-              src={user?.profile_pic}
+              src={user.profile_pic}
               alt=""
               className="rounded-full"
               fill

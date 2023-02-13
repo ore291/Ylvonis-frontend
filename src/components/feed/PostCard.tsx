@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import Image from 'next/image'
 import {
   BsFillHeartFill,
@@ -20,8 +20,11 @@ import {
 } from '@/store/api/user'
 import Loading from '../utils/Loading'
 import { Button } from '../UI'
-import { useLikePostMutation } from '@/store/api/feed'
-import Link from "next/link"
+import { useLikePostMutation, useRepostPostMutation } from '@/store/api/feed'
+import Link from 'next/link'
+import { useAddCommentMutation } from '@/store/api/comment'
+import Comments from './Comments'
+import { toast } from 'react-toastify'
 
 function PostCard(props: {
   post: any
@@ -44,15 +47,27 @@ function PostCard(props: {
   const { data: session, status } = useSession()
 
   const [following, setFollowing] = useState(
-    props.post.user.followers.hasOwnProperty(session?.user.id.toString()),
+    props.post.user.followers.includes(session?.user.id.toString()),
   )
   const [liked, setLiked] = useState(
     props.post.likes.includes(session?.user.id.toString()),
   )
+  const [reposted, setReposted] = useState(
+    props.post.reposts.findIndex(
+      (e: { user: string; repostId: string }) =>
+        e.user == session?.user.id.toString(),
+    ) >= 0,
+  )
 
   useEffect(() => {
     setFollowing(
-      props.post.user.followers.hasOwnProperty(session?.user.id.toString()),
+      props.post.user.followers.includes(session?.user.id.toString()),
+    )
+    setReposted(
+      props.post.reposts.findIndex(
+        (e: { user: string; repostId: string }) =>
+          e.user == session?.user.id.toString(),
+      ) >= 0,
     )
     setLiked(props.post.likes.includes(session?.user.id.toString()))
   }, [])
@@ -72,6 +87,16 @@ function PostCard(props: {
     { isLoading: likingPost, isSuccess: togLiked },
   ] = useLikePostMutation()
 
+  const [
+    repost,
+    { isLoading: reposting, isSuccess: isReposted, data },
+  ] = useRepostPostMutation()
+
+  useEffect(() => {
+    if (!isReposted) return
+    toast(data?.message)
+  }, [isReposted])
+
   useEffect(() => {
     if (!followed) return
     setFollowing(true)
@@ -82,10 +107,13 @@ function PostCard(props: {
     setFollowing(false)
   }, [unfollowed])
 
-
-  const toggleLike = ()=>{
+  const toggleLike = () => {
     likePost(props.post.id)
     setLiked(!liked)
+  }
+  const toggleRepost = () => {
+    repost(props.post.id)
+    setReposted(!reposted)
   }
 
   const responsive = {
@@ -106,13 +134,32 @@ function PostCard(props: {
     },
   }
 
+  const [comment, setComment] = useState('')
+
+  const [showComments, setShowComments] = useState<boolean>(false)
+
+  const [
+    addComment, // This is the mutation trigger
+    { isLoading: isCommenting }, // This is the destructured mutation result
+  ] = useAddCommentMutation()
+
+  const handleComment = (e: FormEvent) => {
+    e.preventDefault()
+    if (comment == '') {
+      return
+    } else {
+      addComment({ post_id: props.post.id, comment: comment })
+      setComment('')
+    }
+  }
+
   return (
     <div className="w-full border-chatGray/70 border rounded-md p-2">
       <div className="w-full flex items-center justify-between  border-b  border-chatGray/70 pb-2 my-2 md:my-0 ">
         <div className="flex space-x-3 items-center">
-          <div className=" relative h-12 w-12 md:h-16 md:w-16">
+          <div className=" relative h-12 w-12 md:h-16 md:w-16 bg-white rounded-full">
             <Image
-              src={props.profileImg}
+              src={props.post.user.profile_pic}
               alt=""
               sizes=""
               fill
@@ -121,17 +168,19 @@ function PostCard(props: {
             />
           </div>
           <div className="flex flex-col gap-0">
-            <Link href={`/profile/${props.post.user.username}`}> <span className="cursor-pointer hover:underline  text-lg font-medium capitalize hover:text-brand">
-              {props.post.user.username}
-            </span>
+            <Link href={`/profile/${props.post.user.username}`}>
+              {' '}
+              <span className="cursor-pointer hover:underline  text-lg font-medium capitalize hover:text-brand">
+                {props.post.user.username}
+              </span>
             </Link>
-           
+
             <span className="text-xsm text-utilGray font-light ">
               {intlFormatDistance(new Date(props.post.posted_at), new Date())}
             </span>
           </div>
         </div>
-        {props.post.user.id.toString() !== session?.user.id.toString() ? (
+        {props.post.user.id.toString() !== session?.user?.id.toString() ? (
           <div className="  flex  gap-2 cursor-pointer  text-utilGray">
             {following ? (
               <button
@@ -140,7 +189,7 @@ function PostCard(props: {
                 onClick={() => unFollowUser(props.post.user.id)}
                 disabled={unFollowingUser}
               >
-                {unFollowingUser ? <Loading /> : 'followed'}
+                {unFollowingUser ? <Loading w="3" h="3" /> : 'followed'}
               </button>
             ) : (
               <button
@@ -149,7 +198,7 @@ function PostCard(props: {
                 onClick={() => followUser(props.post.user.id)}
                 disabled={followingUser}
               >
-                {followingUser ? <Loading /> : 'follow +'}
+                {followingUser ? <Loading w="3" h="3" /> : 'follow +'}
               </button>
             )}
           </div>
@@ -157,9 +206,12 @@ function PostCard(props: {
       </div>
       <div className="md:ml-16 max-w-xl  text-sm text-utilGray ">
         {/* post caption ,p-tag causes a weird margin */}
-        <span className="  my-7  p-3   font-medium text-white/80 text-base">
-          {props.caption}
-        </span>
+        <div className="my-5">
+          <span className="    p-3   font-medium text-white/80 text-base">
+            {props.caption}
+          </span>
+        </div>
+
         {/* attached image */}
         {props.post.post_files.length > 0 ? (
           <Carousel showDots={true} arrows={false} responsive={responsive}>
@@ -206,19 +258,38 @@ function PostCard(props: {
         </div> */}
         <div className="w-full flex justify-between !text-utilGray text-sm m-1 p-1">
           <div className="flex justify-start items-start gap-8 w-3/4">
-            <div className="flex text-sm items-center gap-1">
-              <TfiCommentAlt size={15} />
-              {song.comments}
-            </div>
-            <div className="flex text-sm items-center gap-1">
-              <RiRepeat2Fill size={15} />
-              {song.comments}
-            </div>
-            <button disabled={likingPost} className="flex text-sm items-center gap-1 cursor-pointer" onClick={()=>toggleLike()}>
+            <button
+              className="flex text-sm items-center gap-1"
+              onClick={() => setShowComments(!showComments)}
+            >
+              <TfiCommentAlt size={20} />
+              {props.post.comments.length}
+            </button>
+            
+              <button
+                onClick={() => toggleRepost()}
+                disabled={reposting || props.post.user.id.toString() == session?.user.id.toString() }
+                className="flex text-sm items-center gap-1"
+              >
+                {reposted ? (
+                  <RiRepeat2Fill size={20} className="text-brand fill-brand" />
+                ) : (
+                  <RiRepeat2Fill size={20} />
+                )}
+
+                {props.post.reposts.length}
+              </button>
+           
+
+            <button
+              disabled={likingPost}
+              className="flex text-sm items-center gap-1 cursor-pointer"
+              onClick={() => toggleLike()}
+            >
               {liked ? (
-                <BsFillHeartFill size={15} className="text-brand  " />
+                <BsFillHeartFill size={20} className="text-brand  " />
               ) : (
-                <BsHeart size={15} />
+                <BsHeart size={20} />
               )}
               {props.post.likes.length}
             </button>
@@ -226,6 +297,30 @@ function PostCard(props: {
           <div className="mr-3 py-1">
             <BsUpload size={15} />
           </div>
+        </div>
+        {showComments ? <Comments post_id={props.post.id} /> : null}
+
+        <div className="my-1 w-full h-16">
+          <form
+            onSubmit={(e) => handleComment(e)}
+            className="flex   w-full bg-bgGray   items-center px-1 "
+          >
+            <input
+              value={comment}
+              onChange={(e) => setComment(e.currentTarget.value)}
+              type="text"
+              id="comment"
+              className="flex-1 border-0   bg-bgGray   text-sm  focus:ring-0 focus:border-0 block w-full h-[50px] text-utilGray "
+              placeholder="Add a comment..."
+            />
+            <button
+              className="gradButton rounded-md !text-xs flex-container  p-2 block   capitalize"
+              type="submit"
+              disabled={isCommenting}
+            >
+              {isCommenting ? <Loading w="2" h="2" /> : 'Comment'}
+            </button>
+          </form>
         </div>
       </div>
     </div>

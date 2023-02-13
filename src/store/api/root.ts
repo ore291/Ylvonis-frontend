@@ -33,7 +33,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Post', 'Playlist', 'Song', 'User', 'Chat'],
+  tagTypes: ['Post', 'Playlist', 'Song', 'User', 'Chat', 'Comments','Replies', 'Artists'],
   endpoints: () => ({}),
   reducerPath: "api",
   //   tagTypes: ["Game"],

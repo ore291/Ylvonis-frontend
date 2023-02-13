@@ -68,7 +68,7 @@ function LikedSongs() {
           <section>
             <nav className="flex w-full justify-between p-4 border-solid border-utilGray  md:mx-0 border-b-[0.5px] md:border-none ">
               <div className="capitalize text-utilGray">
-                {data?.songs ? data.songs.length : 0} songs{' '}
+                {data && data?.songs ? data.songs.length : 0} songs{' '}
               </div>
               <button>
                 {' '}
@@ -77,13 +77,13 @@ function LikedSongs() {
             </nav>
           </section>
           <section className="">
-            {data.songs && data.songs.length === 0 ? (
+            {data && data.songs && data.songs.length === 0 ? (
               <header className="text-xl text-center col-span-5 w-full mt-2 text-bold">
                 No Songs Found
               </header>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-4">
-                {data.songs &&
+                {data && data.songs &&
                   data.songs.map((song: any, index: number) => (
                     <SongCard
                       onPlaySong={handlePlay}

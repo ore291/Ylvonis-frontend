@@ -7,8 +7,6 @@ import Player from '@/components/Player'
 import dynamic from 'next/dynamic'
 import { usePlayerState } from '@/lib/player'
 
-
-
 //import { AppConfig } from '@/utils/AppConfig';
 
 type IMainProps = {
@@ -18,22 +16,30 @@ type IMainProps = {
   nested?: boolean
 }
 
-const Main = (props: IMainProps) => (
+const Main = (props: IMainProps) => {
+  
+  const { currentTrack} = usePlayerState();
+  
+  return (
+
+
   <div className="w-full min-h-screen  text-white antialiased relative">
     {props.meta}
     <Header title={props.title} nested={props?.nested} />
 
     <div className="relative  md:grid md:grid-cols-12  w-full gap-0">
       <Sidebar />
-      <div className="md:p-2 md:col-span-10   overflow-scroll  mb-[150px] md:mb-[100px]   ">
+      <div
+        className={`md:p-2 md:col-span-10   overflow-scroll  ${currentTrack != null ? 'mb-[150px] md:mb-[100px] ' : 'mb-[100px] md:mb-[50px]'}  `}
+      >
         {props.children}
       </div>
     </div>
-    
+
     <div className="z-40 fixed bottom-0 left-0 w-full">
       <Footer />
     </div>
   </div>
-)
+)}
 
 export { Main }

@@ -30,13 +30,13 @@ function SubscribedPlaylists() {
         <Loading w="10" h="10" />
       ) : (
         <section className="">
-          {data.playlists.length === 0 ? (
+          {data && data.playlists.length === 0 ? (
             <header className="text-xl text-center  w-full mt-2 text-bold">
               No Playlists Found
             </header>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
-              {data.playlists?.map((playlist: any) => (
+              {data && data.playlists?.map((playlist: any) => (
                 <div key={playlist.id}>
                   <PlayListCard
                     id={playlist?.id}

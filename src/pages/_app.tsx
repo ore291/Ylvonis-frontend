@@ -7,6 +7,11 @@ import { SessionProvider } from 'next-auth/react'
 import { Provider } from 'react-redux'
 import { store } from '../store'
 import RefetchHandler from '../components/RefetchHandler'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
+// minified version is also included
+// import 'react-toastify/dist/ReactToastify.min.css';
 
 const AudioSetup = dynamic(() => import('@/components/Audio'), { ssr: false })
 
@@ -17,7 +22,6 @@ const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) => {
-  
   const [interval, setInterval] = useState(0)
 
   return (
@@ -26,7 +30,18 @@ const MyApp = ({
         <Component {...pageProps} />
         <RefetchHandler setInterval={setInterval} />
         <AudioSetup />
-      <Player />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <Player />
       </Provider>
     </SessionProvider>
   )

@@ -31,7 +31,7 @@ function AddNew(props: {
   useEffect(() => {
     if (!isCreated) return
 
-    isCreated && props.setShow(false);
+    isCreated && props.setShow(false)
   }, [isCreated])
 
   const formik = useFormik({
@@ -108,13 +108,20 @@ function AddNew(props: {
                     id="genre"
                     className="bg-gray-900 border border-endBrand  text-sm rounded-lg focus:ring-brand focus:border-brand block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white bg:gray-800 text-white dark:focus:ring-brand dark:focus:border-brand"
                   >
-                    <option   value="choose" selected>Choose a Genre</option>
+                    <option value="choose" selected>
+                      Choose a Genre
+                    </option>
                     {isLoading ? (
                       <Loading w="3" h="3" />
                     ) : (
+                      genres &&
                       genres.length > 0 &&
                       genres.map((genre: any) => (
-                        <option value={genre.id} key={genre.id} className="capitalize">
+                        <option
+                          value={genre.id}
+                          key={genre.id}
+                          className="capitalize"
+                        >
                           {genre.name}
                         </option>
                       ))

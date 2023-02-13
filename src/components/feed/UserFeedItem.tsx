@@ -3,18 +3,18 @@ import Image from 'next/image'
 import { artistAPi, useFollowArtistMutation } from '@/store/api/artist'
 import { useSession } from 'next-auth/react'
 
-function ArtistsFeedItem({
-  artist,
+function UserFeedItem({
+  user,
 }: {
   name?: string
   followers?: string
   following?: number
   img?: string
-  artist?: any
+  user?: any
 }) {
   const { data: session } = useSession()
   const [following, setFollowing] = useState(
-    artist.followers.includes(session?.user.id),
+    user.followers.includes(session?.user.id),
   )
 
   const [
@@ -23,13 +23,13 @@ function ArtistsFeedItem({
   ] = useFollowArtistMutation()
 
   useEffect(() => {
-    setFollowing(artist.followers.includes(session?.user.id))
+    setFollowing(user.followers.includes(session?.user.id))
   }, [])
 
 
 
   const toggleFollow = () => {
-    followArtist(artist._id)
+    followArtist(user._id)
     setFollowing(!following)
   }
 
@@ -41,7 +41,7 @@ function ArtistsFeedItem({
         <nav className="flex gap-3 w-full items-center relative pb-1">
           <div className="relative max-h-[50px] h-[50px] rounded bg-white">
             <Image
-              src={artist?.photo}
+              src={user?.profile_pic}
               height={50}
               width={50}
               style={{ objectFit: 'contain' }}
@@ -52,10 +52,10 @@ function ArtistsFeedItem({
 
           <div className="flex-col flex max-w-5/12">
             <span className=" truncate font-semibold capitalize text-white">
-              {artist.stageName}
+              {user.username}
             </span>
             <span className="text-utilGray capitalize text-xs">
-              {artist.followers.length} followers
+              {user.followers.length} followers
             </span>
           </div>
           <div className="ml-auto mr-5  flex  gap-2 cursor-pointer  text-utilGray">
@@ -76,4 +76,4 @@ function ArtistsFeedItem({
   )
 }
 
-export default ArtistsFeedItem
+export default UserFeedItem

@@ -13,23 +13,31 @@ const Contacts = ({
   const router = useRouter()
   return (
     <div className="w-full h-[20rem] overflow-y-auto">
-      {contacts.map((contact: any) => (
-        <ChatItem
-          key={contact._id}
-          id={contact._id}
-          avatar={contact.otherUser.profile_pic}
-          alt={''}
-          title={`${contact.otherUser.firstname} ${contact.otherUser.lastname}`}
-          subtitle={contact.message.messageText}
-          onClick={() => {
-            !isMobile
-              ? onChatClick(contact)
-              : router.replace(`/chat/${contact.chatRoomId}`)
-          }}
-          date={contact.createdAt}
-          unread={1}
-        />
-      ))}
+      {contacts.length > 0 ? (
+        contacts.map((contact: any) => (
+          <ChatItem
+            key={contact._id}
+            id={contact._id}
+            avatar={contact.otherUser.profile_pic}
+            alt={''}
+            title={`${contact.otherUser.firstname} ${contact.otherUser.lastname}`}
+            subtitle={contact.message.messageText}
+            onClick={() => {
+              !isMobile
+                ? onChatClick(contact)
+                : router.replace(`/chat/${contact.chatRoomId}`)
+            }}
+            date={contact.createdAt}
+            unread={1}
+          />
+        ))
+      ) : (
+        <div className="w-full flex-container py-2">
+          <span className="text-center font-medium text-lg">
+            No New Messages
+          </span>
+        </div>
+      )}
     </div>
   )
 }

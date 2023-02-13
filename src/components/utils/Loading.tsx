@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loading = ({ w, h }: { w: string; h: string }) => {
+const Loading = ({ w, h }: { w?: string; h?: string }) => {
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div role="status">
