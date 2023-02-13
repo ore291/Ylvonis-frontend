@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { artistAPi, useFollowArtistMutation } from '@/store/api/artist'
 import { useSession } from 'next-auth/react'
+import { useFollowUserMutation, useUnFollowUserMutation } from '@/store/api/user'
+import Loading from '../utils/Loading'
 
 function UserFeedItem({
   user,
@@ -18,9 +20,14 @@ function UserFeedItem({
   )
 
   const [
-    followArtist,
+    followUser,
     { isLoading: followingUser, isSuccess: followed },
-  ] = useFollowArtistMutation()
+  ] = useFollowUserMutation()
+
+  const [
+    unFollowUser,
+    { isLoading: unFollowingUser, isSuccess: unfollowed },
+  ] = useUnFollowUserMutation()
 
   useEffect(() => {
     setFollowing(user.followers.includes(session?.user.id))
@@ -28,10 +35,15 @@ function UserFeedItem({
 
 
 
-  const toggleFollow = () => {
-    followArtist(user._id)
-    setFollowing(!following)
-  }
+  useEffect(() => {
+    if (!followed) return
+    setFollowing(true)
+  }, [followed])
+
+  useEffect(() => {
+    if (!unfollowed) return
+    setFollowing(false)
+  }, [unfollowed])
 
   return (
     // also used for users too
@@ -59,14 +71,26 @@ function UserFeedItem({
             </span>
           </div>
           <div className="ml-auto mr-5  flex  gap-2 cursor-pointer  text-utilGray">
-            <button
-              className="gradButton rounded-md !text-sm  px-2 py-1 block   capitalize"
-              type="button"
-              onClick={() => toggleFollow()}
-              disabled={followingUser}
-            >
-              {following ? 'followed' : 'follow +'}
-            </button>
+          {following ? (
+              <button
+                className="gradButton rounded-md !text-sm  px-2 py-1 block   capitalize"
+                type="button"
+                onClick={() => unFollowUser(user._id)}
+                disabled={unFollowingUser}
+              >
+                {unFollowingUser ? <Loading w="3" h="3" /> : 'followed'}
+              </button>
+            ) : (
+              <button
+                className="gradButton rounded-md !text-sm  px-2 py-1 block   capitalize"
+                type="button"
+                onClick={() => followUser(user._id)}
+                disabled={followingUser}
+              >
+                {followingUser ? <Loading w="3" h="3" /> : 'follow +'}
+              </button>
+            )}
+            
           </div>
         </nav>
       </div>
