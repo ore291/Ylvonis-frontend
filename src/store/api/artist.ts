@@ -7,6 +7,14 @@ export const artistAPi = api.injectEndpoints({
       query: (size) => `artists/?size=${size}`,
       providesTags: ["Artists"],
     }),
+    getLikedArtists: builder.query<any, any>({
+      query: () => `artists/liked`,
+      providesTags: ["Artists"],
+    }),
+    getFollowedArtists: builder.query<any, any>({
+      query: () => `artists/followed`,
+      providesTags: ["Artists"],
+    }),
     likeArtist: builder.mutation<{}, string>({
       query: (data) => ({
         url: `artists/${data}/like`,
@@ -28,4 +36,6 @@ export const {
   useGetArtistsQuery,
   useLikeArtistMutation,
   useFollowArtistMutation,
+  useGetFollowedArtistsQuery,
+  useGetLikedArtistsQuery
 } = artistAPi;

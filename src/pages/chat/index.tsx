@@ -50,7 +50,8 @@ function Chat() {
     { page: 1, limit: 100 },
     {
       // pollingInterval: 10000,
-      // refetchOnMountOrArgChange: true,
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true
       // skip: false,
     },
   )

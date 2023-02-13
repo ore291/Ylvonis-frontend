@@ -21,14 +21,14 @@ const Contacts = ({
             avatar={contact.otherUser.profile_pic}
             alt={''}
             title={`${contact.otherUser.firstname} ${contact.otherUser.lastname}`}
-            subtitle={contact.message.messageText}
+            subtitle={contact.message.messageText ? contact.message.messageText : null}
             onClick={() => {
               !isMobile
                 ? onChatClick(contact)
                 : router.replace(`/chat/${contact.chatRoomId}`)
             }}
             date={contact.createdAt}
-            unread={1}
+           
           />
         ))
       ) : (

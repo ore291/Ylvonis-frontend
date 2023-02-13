@@ -7,6 +7,10 @@ export const chatApi = api.injectEndpoints({
       query: ({ page = 1, limit = 100 }) => `chats`,
       providesTags: ["Chat"],
     }),
+    getChatLengths: builder.query({
+      query: () => `chats/length`,
+      providesTags: ["Chat"],
+    }),
     getChatByRoom: builder.query({
       query: (roomId) => `chats/${roomId}`,
     }),
@@ -64,5 +68,6 @@ export const {
   useGetChatByRoomQuery,
   useSendMessageMutation,
   useGetRoomByIdQuery,
-  useInitiateChatMutation
+  useInitiateChatMutation,
+  useGetChatLengthsQuery
 } = chatApi;

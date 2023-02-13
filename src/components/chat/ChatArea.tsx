@@ -344,25 +344,28 @@ function ChatArea({
           <ul className="space-y-2">
             {messages &&
               messages.length > 0 &&
-              messages.map((message, index) => (
-                <div key={index} ref={scrollRef}>
-                  <MessageBox
-                    className="child:!bg-chatGray child:!text-white child:!capitalize"
-                    position={
-                      session?.user?.id !=
-                      (message.postedByUser.id
-                        ? message.postedByUser.id
-                        : message.postedByUser._id)
-                        ? 'left'
-                        : 'right'
-                    }
-                    type={'text'}
-                    date={message.createdAt}
-                    text={message.message.messageText}
-                    notch={true}
-                  />
-                </div>
-              ))}
+              messages.map(
+                (message, index) =>
+                  message.message !== '' ? (
+                    <div key={index} ref={scrollRef}>
+                      <MessageBox
+                        className="child:!bg-chatGray child:!text-white child:!capitalize"
+                        position={
+                          session?.user?.id !=
+                          (message.postedByUser.id
+                            ? message.postedByUser.id
+                            : message.postedByUser._id)
+                            ? 'left'
+                            : 'right'
+                        }
+                        type={'text'}
+                        date={message.createdAt}
+                        text={message.message.messageText}
+                        notch={true}
+                      />
+                    </div>
+                  ) :  null,
+              )}
           </ul>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { RoutesType } from '@/components/library/mainpage'
-import { BsNewspaper, BsChat } from 'react-icons/bs'
+import { BsNewspaper, BsChat, BsChatFill } from 'react-icons/bs'
 import { MdOutlinePlaylistPlay } from 'react-icons/md'
 import { TbPlaylist } from 'react-icons/tb'
 import { TiHome } from 'react-icons/ti'
@@ -10,6 +10,7 @@ import { IoLibrary } from 'react-icons/io5'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { sideBarActive } from '@/utils/helpers'
+import { useGetChatLengthsQuery } from '@/store/api/chat'
 function Sidebar() {
   const router = useRouter()
   const libraryRoutes = [
@@ -469,6 +470,11 @@ function Sidebar() {
       link: '/listen',
     },
   ]
+
+  const { data: length, isFetching, isLoading } = useGetChatLengthsQuery(null, {
+    refetchOnMountOrArgChange: true,
+    skip: false,
+  })
   return (
     <aside
       className="  hidden md:block  col-span-2 h-screen sticky top-0 border-r-[0.5px] border-gray-700 "
@@ -476,23 +482,58 @@ function Sidebar() {
     >
       <div className="px-3 py-4 overflow-y-auto   ">
         <ul className="flex flex-col space-y-4 items-start justify-center  p-2 list-none">
-          {routes.map((route: RoutesType, index: number) => (
-            <li key={index}>
-              <Link href={route.link}>
-                <div className="flex items-center  capitalize   !hover:text-gradLinkNew font-normal   ">
-                  {router.asPath === route.link ? route.activeIcon : route.icon}
-                  <span
-                    className={`ml-3 text-xl font-semibold whitespace-nowrap ${sideBarActive(
-                      router,
-                      route.link,
-                    )}`}
-                  >
-                    {route.title}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
+          {routes.map((route: RoutesType, index: number) =>
+            route.link === '/chat' ? (
+              <li key={index}>
+                <Link href={route.link}>
+                  <div className="flex items-center  capitalize  ">
+                    {/* {router.asPath === route.link ? route.activeIcon : route.icon} */}
+                    <div className="relative">
+                      {length && length > 0 ? (
+                        <div className="bg-[#E54335] text-xsm absolute font-bold -top-1 -right-1 w-5 h-5 flex-container rounded-full p-1 border-[0.5px] border-black">
+                          1
+                        </div>
+                      ) : null}
+
+                      <BsChatFill
+                        className={` w-8 h-8 ${
+                          router.asPath === route.link
+                            ? 'text-brand'
+                            : 'text-[#9a9a9a]'
+                        }`}
+                      />
+                    </div>
+                    <span
+                      className={`ml-3 text-lg font-semibold whitespace-nowrap ${sideBarActive(
+                        router,
+                        route.link,
+                      )}`}
+                    >
+                      {route.title}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ) : (
+              <li key={index}>
+                <Link href={route.link}>
+                  <div className="flex items-center  capitalize  ">
+                    {router.asPath === route.link
+                      ? route.activeIcon
+                      : route.icon}
+                    <span
+                      className={`ml-3 text-lg font-semibold whitespace-nowrap ${sideBarActive(
+                        router,
+                        route.link,
+                      )}`}
+                    >
+                      {route.title}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ),
+          )}
           <li>
             <div>
               <div className="flex items-center  mt-2    text-[#9a9a9a]">
@@ -500,23 +541,46 @@ function Sidebar() {
               </div>
             </div>
           </li>
-          {libraryRoutes.map((route: RoutesType, index: number) => (
-            <li key={index}>
-              <Link href={route.link}>
-                <div className="flex items-center  capitalize  ">
-                  {router.asPath === route.link ? route.activeIcon : route.icon}
-                  <span
-                    className={`ml-3 text-lg font-semibold whitespace-nowrap ${sideBarActive(
-                      router,
-                      route.link,
-                    )}`}
-                  >
-                    {route.title}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
+          {libraryRoutes.map((route: RoutesType, index: number) =>
+            route.link === '/chat' ? (
+              <li key={index}>
+                <Link href={route.link}>
+                  <div className="flex items-center  capitalize  ">
+                    {/* {router.asPath === route.link ? route.activeIcon : route.icon} */}
+                    <div className="relative">
+                      <BsChatFill />
+                    </div>
+                    <span
+                      className={`ml-3 text-lg font-semibold whitespace-nowrap ${sideBarActive(
+                        router,
+                        route.link,
+                      )}`}
+                    >
+                      {route.title}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ) : (
+              <li key={index}>
+                <Link href={route.link}>
+                  <div className="flex items-center  capitalize  ">
+                    {router.asPath === route.link
+                      ? route.activeIcon
+                      : route.icon}
+                    <span
+                      className={`ml-3 text-lg font-semibold whitespace-nowrap ${sideBarActive(
+                        router,
+                        route.link,
+                      )}`}
+                    >
+                      {route.title}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </div>
     </aside>
