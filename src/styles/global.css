@@ -109,6 +109,17 @@ a:hover {
   @apply my-6;
 }
 
+.react-input-emoji--button svg {
+    fill: #bc238b !important;
+    height : 30px;
+    width : 30px;
+}
+
+.react-input-emoji--button {
+  padding: 0 0 0 8px !important;
+}
+
+
 .gradButton {
   @apply bg-gradient-to-r from-brand to-endBrand text-white text-xl font-medium;
 }

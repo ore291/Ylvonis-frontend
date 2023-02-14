@@ -18,9 +18,10 @@ import { io } from 'socket.io-client'
 import { useAppDispatch } from '@/store/hooks'
 import Link from 'next/link'
 
-const Picker = dynamic(
+
+const InputEmoji = dynamic(
   () => {
-    return import('emoji-picker-react')
+    return import('react-input-emoji')
   },
   { ssr: false },
 )
@@ -63,6 +64,8 @@ function ChatArea({
   //   }
   // }, [currentChat])
 
+  const [message, setMessage] = useState('')
+
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
 
   const emojiScrollRef = useRef()
@@ -74,8 +77,9 @@ function ChatArea({
   }, [showEmojiPicker])
 
   const handleEmojiClick = (event, emojiObject) => {
-    let newMessage = message + emojiObject.emoji
-    setMessage(newMessage)
+    console.log(emojiObject)
+    // setMessage(prevInput => prevInput + emojiObject.emoji);
+    setShowEmojiPicker(false);
   }
   const {
     data: messages,
@@ -110,7 +114,7 @@ function ChatArea({
     )
   }, [posted])
 
-  const [message, setMessage] = useState('')
+
 
   const handleSubmit = () => {
     let roomId = currentChat.chatRoomId
@@ -375,18 +379,9 @@ function ChatArea({
         ref={emojiScrollRef}
         className="bg-grey-lighter px-4 py-4 flex items-center relative"
       >
-        {/* {showEmojiPicker && (
-          <div className="absolute bottom-1">
-            <Picker
-              className="dark:bg-gray-900"
-              width={250}
-              height={350}
-              onEmojiClick={handleEmojiClick}
-            />
-          </div>
-        )} */}
+        
         <div className="flex items-center space-x-2">
-          <button
+          {/* <button
             onClick={(e) => {
               setShowEmojiPicker(!showEmojiPicker)
             }}
@@ -416,7 +411,7 @@ function ChatArea({
                 </linearGradient>
               </defs>
             </svg>
-          </button>
+          </button> */}
           <button>
             <svg
               width="32"
@@ -444,15 +439,32 @@ function ChatArea({
               </defs>
             </svg>
           </button>
+          {/* {showEmojiPicker && (
+          <div className="absolute bottom-1">
+            <Picker
+              className="dark:bg-gray-900"
+              pickerStyle={{ width: '100%' }}
+              onEmojiClick={handleEmojiClick}
+            />
+          </div>
+        )} */}
         </div>
         <div className="flex-1 mx-2 ">
-          <input
+        <InputEmoji
+          value={message}
+          onChange={setMessage}
+          cleanOnEnter
+          onEnter={handleSubmit}
+          className="w-full !text-white bg-[#343434] border border-gray-700 focus:ring-0 focus:border-0 rounded-xl px-2 py-2"
+          placeholder="Type a message"
+        />
+          {/* <input
             onKeyDown={(event) => onKeyDown(event)}
             value={message}
             onChange={(e) => setMessage(e.currentTarget.value)}
             className="w-full !text-white bg-[#343434] border border-gray-700 focus:ring-0 focus:border-0 rounded-xl px-2 py-2"
             type="text"
-          />
+          /> */}
         </div>
         <button onClick={() => handleSubmit()}>
           <RiSendPlaneFill className="text-brand w-8 h-8 " />

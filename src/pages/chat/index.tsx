@@ -62,9 +62,9 @@ function Chat() {
   }, [isSuccess])
 
   useEffect(() => {
-    if (!currentChat) return
+    if (!currentChat) return;
 
-    socketRef.current = io(process.env.NEXT_PUBLIC_BASE_URL)
+    socketRef.current = io(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001')
 
     socketRef?.current?.emit(
       'join',
