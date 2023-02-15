@@ -53,12 +53,12 @@ export const chatApi = api.injectEndpoints({
       // },
    
     }),
-    likePost: builder.mutation<{}, string>({
-      query: (data) => ({
-        url: `posts/${data}/like`,
-        method: "PUT",
-      }),
-    }),
+    // likePost: builder.mutation<{}, string>({
+    //   query: (data) => ({
+    //     url: `posts/${data}/like`,
+    //     method: "PUT",
+    //   }),
+    // }),
   }),
   overrideExisting: true,
 });
