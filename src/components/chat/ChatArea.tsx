@@ -2,11 +2,14 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { MessageBox } from 'react-chat-elements'
+import { toast } from 'react-toastify'
 import Image from 'next/image'
 import {
   chatApi,
+  useDeleteMediaMutation,
   useGetChatByRoomQuery,
   useSendMessageMutation,
+  useUploadMutation,
 } from '@/store/api/chat'
 import Message from './Message'
 import { useSession } from 'next-auth/react'
@@ -15,9 +18,11 @@ import Loading from '../utils/Loading'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import dynamic from 'next/dynamic'
 import { io } from 'socket.io-client'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
-
+import { Progress } from 'flowbite-react'
+import { MdClose } from 'react-icons/md'
+import { setUploadProgress } from '@/store/slices/search'
 
 const InputEmoji = dynamic(
   () => {
@@ -39,48 +44,61 @@ function ChatArea({
 }) {
   const { data: session } = useSession()
 
+  const progress = useAppSelector((state) => state.search.uploadProgress)
+
   const [error, setError] = useState(null)
 
   const scrollRef = useRef()
 
-  // const socket = useRef()
+  const mediaRef = useRef()
 
-  // useEffect(() => {
-  //   socket.current = io('http://localhost:3001')
+  const [file, setFile] = useState(null)
+  const [uploadField, setUploadField] = useState(false)
+  const [fileData, setFileData] = useState({
+    post_file: '',
+    post_file_id: '',
+    type: '',
+  })
 
-  //   socket?.current?.emit(
-  //     'join',
-  //     { userId: session?.user.id, room: currentChat.chatRoomId },
-  //     (error) => {
-  //       if (error) {
-  //         console.log(error)
-  //         setError(error)
-  //       }
-  //     },
-  //   )
+  const [uploadMedia, { isSuccess: uploaded, data: res }] = useUploadMutation()
+  const handleUpload = async (e: InputEvent) => {
+    e.preventDefault()
 
-  //   return () => {
-  //     socket?.current?.disconnect()
-  //   }
-  // }, [currentChat])
+    setUploadField(true)
+
+    const uploadFile = e.currentTarget.files[0]
+
+    if (uploadFile) {
+      setFile(uploadFile.name)
+
+      setFileData({ ...fileData, type: uploadFile.type.split('/')[0] })
+
+      const formData = new FormData()
+
+      formData.append('file', uploadFile)
+
+      // these are args passed to the queryFn
+      await uploadMedia({
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/chats/upload`,
+        data: formData,
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (!uploaded) return
+
+    setFileData({
+      ...fileData,
+      post_file: res.fileUrl,
+      post_file_id: res.fileId,
+    })
+  }, [uploaded])
 
   const [message, setMessage] = useState('')
 
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
-
-  const emojiScrollRef = useRef()
-
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    emojiScrollRef.current?.scrollIntoView()
-  }, [showEmojiPicker])
-
-  const handleEmojiClick = (event, emojiObject) => {
-    console.log(emojiObject)
-    // setMessage(prevInput => prevInput + emojiObject.emoji);
-    setShowEmojiPicker(false);
-  }
   const {
     data: messages,
     isFetching,
@@ -104,6 +122,11 @@ function ChatArea({
     { isLoading: isUpdating, isSuccess: posted, data: result }, // This is the destructured mutation result
   ] = useSendMessageMutation()
 
+  const [
+    deleteMedia, // This is the mutation trigger
+    { isLoading: isDeleting, isSuccess: deleted }, // This is the destructured mutation result
+  ] = useDeleteMediaMutation()
+
   useEffect(() => {
     if (!posted) return
 
@@ -114,23 +137,37 @@ function ChatArea({
     )
   }, [posted])
 
-
-
   const handleSubmit = () => {
     let roomId = currentChat.chatRoomId
 
-    sendMessage({ roomId, message })
+    if (file && fileData.post_file === '') {
+      return toast.error('File upload in progress')
+    }
+
+    if (file !== null) {
+      // const formData = new FormData()
+      // Object.entries(fileData).forEach((entry) => {
+      //   const [key, value] = entry
+
+      //   formData.append(key, value)
+      // })
+
+      sendMessage({ roomId, message, fileData: fileData })
+      setUploadField(false)
+    } else {
+      const formData = new FormData()
+      sendMessage({ roomId, message, fileData: {} })
+    }
 
     setMessage('')
   }
 
-  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      event.stopPropagation()
-      handleSubmit()
-    }
+  const handleDelete = () => {
+    deleteMedia(fileData.post_file_id)
+    setFile(null)
+    setFileData({ post_file: '', post_file_id: '', type: '' })
+    setUploadField(false)
+    dispatch(setUploadProgress(0))
   }
 
   return (
@@ -348,9 +385,9 @@ function ChatArea({
           <ul className="space-y-2">
             {messages &&
               messages.length > 0 &&
-              messages.map(
-                (message, index) =>
-                  message.message !== '' ? (
+              messages.map((message, index) =>
+                message.message !== '' ? (
+                  message.type == 'text' ? (
                     <div key={index} ref={scrollRef}>
                       <MessageBox
                         className="child:!bg-chatGray child:!text-white child:!capitalize"
@@ -368,51 +405,90 @@ function ChatArea({
                         notch={true}
                       />
                     </div>
-                  ) :  null,
+                  ) : message.type == 'image' ? (
+                    <div key={index} ref={scrollRef}>
+                      <MessageBox
+                        className="child:!bg-chatGray child:!text-white child:!capitalize"
+                        position={
+                          session?.user?.id !=
+                          (message.postedByUser.id
+                            ? message.postedByUser.id
+                            : message.postedByUser._id)
+                            ? 'left'
+                            : 'right'
+                        }
+                        type={'photo'}
+                        date={message.createdAt}
+                        text={message.message.messageText}
+                        
+                        data={{
+                          width: 230,
+                          height: 180,
+                          uri: message.post_file,
+                          status: {
+                            click : true,
+                          download: true,
+                          loading: 0,
+                        },
+                        }}
+                        notch={true}
+                      />
+                    </div>
+                  ) : (
+                    <div key={index} ref={scrollRef}>
+                      <MessageBox
+                        className="child:!bg-chatGray child:!text-white child:!capitalize"
+                        position={
+                          session?.user?.id !=
+                          (message.postedByUser.id
+                            ? message.postedByUser.id
+                            : message.postedByUser._id)
+                            ? 'left'
+                            : 'right'
+                        }
+                        data={{
+                          uri: message.post_file,
+                          status: {
+                              click : true,
+                            download: false,
+                            loading: 0,
+                          },
+                        }}
+                        type={message.type}
+                        date={message.createdAt}
+                        text={message.message.messageText}
+                        notch={true}
+                      />
+                    </div>
+                  )
+                ) : null,
               )}
           </ul>
         </div>
       )}
+      {uploadField && (
+        <div className=" p-2 relative">
+          <div
+            onClick={() => handleDelete()}
+            className="absolute right-3 transform transition-all cursor-pointer hover:scale-105  -top-7  flex-container rounded-full p-1 bg-white shadow-lg"
+          >
+            <MdClose className="w-5 h-5 text-red-500 " />
+          </div>
+
+          <Progress
+            progress={progress}
+            color="purple"
+            label={`${progress < 100 ? 'Uploading...' : file ? file : ''}`}
+            labelPosition="outside"
+            labelProgress={true}
+          />
+        </div>
+      )}
 
       {/* Input */}
-      <div
-        ref={emojiScrollRef}
-        className="bg-grey-lighter px-4 py-4 flex items-center relative"
-      >
-        
+      <div className="bg-grey-lighter px-4 py-4 flex items-center relative">
         <div className="flex items-center space-x-2">
-          {/* <button
-            onClick={(e) => {
-              setShowEmojiPicker(!showEmojiPicker)
-            }}
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 44 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M22 0C17.6488 0 13.3953 1.29028 9.77746 3.70767C6.15958 6.12506 3.33979 9.56099 1.67466 13.581C0.00953226 17.6009 -0.426141 22.0244 0.422734 26.292C1.27161 30.5596 3.3669 34.4796 6.44366 37.5563C9.52041 40.6331 13.4404 42.7284 17.708 43.5773C21.9756 44.4261 26.3991 43.9905 30.419 42.3253C34.439 40.6602 37.8749 37.8404 40.2923 34.2225C42.7097 30.6047 44 26.3512 44 22C43.9888 16.1687 41.6674 10.5794 37.544 6.456C33.4206 2.33262 27.8313 0.0111819 22 0ZM29.6154 15.2308C30.1174 15.2308 30.6082 15.3796 31.0257 15.6586C31.4431 15.9375 31.7685 16.334 31.9606 16.7978C32.1527 17.2616 32.203 17.772 32.1051 18.2645C32.0071 18.7569 31.7654 19.2092 31.4104 19.5642C31.0553 19.9192 30.603 20.161 30.1106 20.2589C29.6182 20.3569 29.1078 20.3066 28.644 20.1145C28.1801 19.9223 27.7837 19.597 27.5047 19.1795C27.2258 18.7621 27.0769 18.2713 27.0769 17.7692C27.0769 17.096 27.3444 16.4503 27.8204 15.9743C28.2965 15.4982 28.9421 15.2308 29.6154 15.2308ZM14.3846 15.2308C14.8867 15.2308 15.3775 15.3796 15.7949 15.6586C16.2124 15.9375 16.5377 16.334 16.7299 16.7978C16.922 17.2616 16.9723 17.772 16.8743 18.2645C16.7764 18.7569 16.5346 19.2092 16.1796 19.5642C15.8246 19.9192 15.3723 20.161 14.8799 20.2589C14.3874 20.3569 13.877 20.3066 13.4132 20.1145C12.9494 19.9223 12.5529 19.597 12.274 19.1795C11.995 18.7621 11.8462 18.2713 11.8462 17.7692C11.8462 17.096 12.1136 16.4503 12.5897 15.9743C13.0657 15.4982 13.7114 15.2308 14.3846 15.2308ZM32.2596 27.9231C31.22 29.7242 29.7245 31.2198 27.9236 32.2597C26.1226 33.2996 24.0796 33.8471 22 33.8471C19.9204 33.8471 17.8774 33.2996 16.0765 32.2597C14.2755 31.2198 12.78 29.7242 11.7404 27.9231C11.6079 27.7309 11.5167 27.5135 11.4723 27.2844C11.4279 27.0552 11.4314 26.8194 11.4826 26.5917C11.5337 26.364 11.6314 26.1494 11.7695 25.9613C11.9076 25.7731 12.0831 25.6156 12.285 25.4985C12.4869 25.3815 12.7108 25.3075 12.9427 25.2811C13.1746 25.2548 13.4094 25.2767 13.6324 25.3455C13.8554 25.4142 14.0618 25.5284 14.2386 25.6807C14.4153 25.8331 14.5587 26.0203 14.6596 26.2308C15.4049 27.5176 16.4754 28.5858 17.7637 29.3285C19.052 30.0711 20.513 30.462 22 30.462C23.487 30.462 24.948 30.0711 26.2363 29.3285C27.5246 28.5858 28.5951 27.5176 29.3404 26.2308C29.5821 25.8801 29.9472 25.6334 30.3629 25.54C30.7785 25.4467 31.214 25.5135 31.5825 25.7271C31.951 25.9408 32.2254 26.2855 32.3509 26.6925C32.4764 27.0996 32.4438 27.539 32.2596 27.9231Z"
-                fill="url(#paint0_linear_595_306)"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_595_306"
-                  x1="44"
-                  y1="0"
-                  x2="0"
-                  y2="44"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#BC238B" />
-                  <stop offset="1" stopColor="#A823BC" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </button> */}
-          <button>
+          <button onClick={() => mediaRef.current.click()}>
             <svg
               width="32"
               height="32"
@@ -439,32 +515,24 @@ function ChatArea({
               </defs>
             </svg>
           </button>
-          {/* {showEmojiPicker && (
-          <div className="absolute bottom-1">
-            <Picker
-              className="dark:bg-gray-900"
-              pickerStyle={{ width: '100%' }}
-              onEmojiClick={handleEmojiClick}
-            />
-          </div>
-        )} */}
+          <input
+            type="file"
+            hidden
+            onChange={(e) => handleUpload(e)}
+            ref={mediaRef}
+            accept="audio/*,video/*,image/*"
+          />
         </div>
+
         <div className="flex-1 mx-2 ">
-        <InputEmoji
-          value={message}
-          onChange={setMessage}
-          cleanOnEnter
-          onEnter={handleSubmit}
-          className="w-full !text-white bg-[#343434] border border-gray-700 focus:ring-0 focus:border-0 rounded-xl px-2 py-2"
-          placeholder="Type a message"
-        />
-          {/* <input
-            onKeyDown={(event) => onKeyDown(event)}
+          <InputEmoji
             value={message}
-            onChange={(e) => setMessage(e.currentTarget.value)}
+            onChange={setMessage}
+            cleanOnEnter
+            onEnter={handleSubmit}
             className="w-full !text-white bg-[#343434] border border-gray-700 focus:ring-0 focus:border-0 rounded-xl px-2 py-2"
-            type="text"
-          /> */}
+            placeholder="Type a message"
+          />
         </div>
         <button onClick={() => handleSubmit()}>
           <RiSendPlaneFill className="text-brand w-8 h-8 " />

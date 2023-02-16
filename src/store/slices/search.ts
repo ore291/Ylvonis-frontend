@@ -1,25 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  title : ""
-}
-
+  title: "",
+  uploadProgress: 0,
+};
 
 const searchSlice = createSlice({
-  name : 'search',
+  name: "search",
   initialState,
   reducers: {
-    searchDb : (state, action)=>{
-      state.title = action.payload
+    searchDb: (state, action) => {
+      state.title = action.payload;
     },
-    clearTitle: (state) =>{
+    clearTitle: (state) => {
       state.title = "";
-    }
-  }
-})
+    },
+    setUploadProgress: (state, action) => {
+      state.uploadProgress = action.payload;
+    },
+  },
+});
 
-export const {clearTitle, searchDb} = searchSlice.actions
-
-
+export const { clearTitle, searchDb, setUploadProgress } = searchSlice.actions;
 
 export default searchSlice.reducer;

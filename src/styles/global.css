@@ -79,8 +79,6 @@
   --text-secondary: #a6b2b9;
 }
 
-
-
 a {
   @apply text-blue-700 decoration-transparent;
 }
@@ -100,7 +98,6 @@ a:hover {
   @apply border-b border-brand;
 }
 
-
 .content p {
   @apply my-6;
 }
@@ -109,16 +106,17 @@ a:hover {
   @apply my-6;
 }
 
+
+
 .react-input-emoji--button svg {
-    fill: #bc238b !important;
-    height : 30px;
-    width : 30px;
+  fill: #bc238b !important;
+  height: 30px;
+  width: 30px;
 }
 
 .react-input-emoji--button {
   padding: 0 0 0 8px !important;
 }
-
 
 .gradButton {
   @apply bg-gradient-to-r from-brand to-endBrand text-white text-xl font-medium;
@@ -137,7 +135,7 @@ a:hover {
 }
 
 .rce-mbox-right {
-  background-color: #BC238B !important;
+  background-color: #bc238b !important;
 }
 
 .gradSVG {
@@ -199,23 +197,20 @@ a:hover {
 }
 
 .rce-mbox-left-notch {
-  fill : #343434 !important;
+  fill: #343434 !important;
 }
 .rce-mbox-right-notch {
-  fill: #A823BC !important;
+  fill: #a823bc !important;
 }
 
-
 .rce-mbox-time {
-  color : #bcbcbc !important;
+  color: #bcbcbc !important;
   font-size: 8px !important;
 }
 
 .rce-mbox-right {
   @apply !bg-gradient-to-r from-brand to-endBrand text-white !capitalize;
 }
-
-
 
 .rce-mbox-received > div {
   @apply bg-gradient-to-r from-brand to-endBrand text-white !capitalize;
@@ -237,7 +232,6 @@ a:hover {
   width: 100%;
 }
 
-
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -245,6 +239,6 @@ a:hover {
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

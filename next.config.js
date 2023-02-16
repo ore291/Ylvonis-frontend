@@ -8,7 +8,8 @@ module.exports = withBundleAnalyzer({
     dirs: ['.'],
   },
   images: {
-    domains: ['res.cloudinary.com', 'loremflickr.com' ,'countryflagsapi.com'],
+    remotePatterns: [{protocol : "https", hostname: "**"}],
+    // remotePatterns: ['res.cloudinary.com', 'loremflickr.com' ,'countryflagsapi.com'],
   },
   poweredByHeader: false,
   trailingSlash: false,

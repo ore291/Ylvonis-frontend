@@ -64,7 +64,7 @@ function Chat() {
   }, [isSuccess])
 
   useEffect(() => {
-    if (!currentChat) return;
+    if (!currentChat && !session) return;
 
     socketRef.current = io(process.env.NEXT_PUBLIC_SOCKET_URL)
 

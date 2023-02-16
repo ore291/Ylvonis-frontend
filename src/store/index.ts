@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from "./slices/auth"
 import searchReducer from './slices/search'
 import { api } from './api/root'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 
 export const store = configureStore({
@@ -12,6 +13,8 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({}).concat(api.middleware),
 })
+
+setupListeners(store.dispatch);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
