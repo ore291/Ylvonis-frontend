@@ -14,7 +14,7 @@ import { signIn } from 'next-auth/react'
 const Register = () => {
   const [loginError, setLoginError] = useState('') // This will be used to show a message if the submission is successful
   const [loading, setLoading] = useState<boolean>(false)
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState('US')
   const base_url = process.env.NEXT_PUBLIC_BASE_URL
 
   const validationSchema = yup.object({
@@ -105,7 +105,7 @@ const Register = () => {
         if (res?.error) setLoginError(res.error)
         if (res?.url) router.push(res.url)
       }
-    } catch (error) {
+    } catch (error : any) {
       setLoginError(error.message)
     }
 
@@ -144,7 +144,7 @@ const Register = () => {
                   <CustomInput name="lastname" label="Last Name" />
                   <CustomInput name="username" label="Username" />
                   <CustomInput name="email" label="Email" />
-                  <div className="mb-4 w-full md:col-span-2">
+                  {/* <div className="mb-4 w-full md:col-span-2">
                     <label className="block text-gray-400 text-sm pb-1 font-medium">
                       Location
                     </label>
@@ -155,7 +155,7 @@ const Register = () => {
                       className="bg-inputBg"
                       onSelect={(code) => setLocation(code)}
                     />
-                  </div>
+                  </div> */}
 
                   <CustomInput
                     name="password"

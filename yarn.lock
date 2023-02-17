@@ -6542,10 +6542,10 @@ rc@1.2.8, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-chat-elements@^12.0.6:
-  version "12.0.6"
-  resolved "https://registry.yarnpkg.com/react-chat-elements/-/react-chat-elements-12.0.6.tgz#a7cb7995afe731cf81b89c0e15c718a92d47ef73"
-  integrity sha512-X3yXhIks845a+Z9XYiLaCTXPUmduI5IzDvwoVcpOjsRy9YfaJStOsJaS+BW42zmVFb9HpfqwzD03ybDzI4OZtQ==
+react-chat-elements@^12.0.8:
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/react-chat-elements/-/react-chat-elements-12.0.8.tgz#1ed64a010befeb50ae1824473cdabb421ce64a2e"
+  integrity sha512-wAQ974rL1zHGp12kjafsQDaEp/MK9wHSX1s6V5HR1f0uB3eBQmqi/y02Vu4wDPDScXrjbdV1nC+8eHCWsAqj0g==
   dependencies:
     classnames "^2.2.5"
     progressbar.js "^1.1.0"

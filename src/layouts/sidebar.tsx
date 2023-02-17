@@ -471,7 +471,7 @@ function Sidebar() {
     },
   ]
 
-  const { data: length, isFetching, isLoading } = useGetChatLengthsQuery(null, {
+  const { data, isFetching, isLoading } = useGetChatLengthsQuery(null, {
     refetchOnMountOrArgChange: true,
     skip: false,
   })
@@ -489,9 +489,9 @@ function Sidebar() {
                   <div className="flex items-center  capitalize  ">
                     {/* {router.asPath === route.link ? route.activeIcon : route.icon} */}
                     <div className="relative">
-                      {length && length > 0 ? (
+                      {data && data.chats  > 0 ? (
                         <div className="bg-[#E54335] text-xsm absolute font-bold -top-1 -right-1 w-5 h-5 flex-container rounded-full p-1 border-[0.5px] border-black">
-                          1
+                          {data.chats}
                         </div>
                       ) : null}
 

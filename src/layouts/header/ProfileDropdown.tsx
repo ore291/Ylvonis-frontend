@@ -88,7 +88,7 @@ export const ProfileDropdown = ({ user }: { user: IUser }) => {
         id="dropdownAvatarName"
         className={`z-10 ${
           dropDownOpen ? 'absolute' : 'hidden'
-        } bg-bgGray text-white top-9 divide-y left-[-40px] rounded shadow w-44 `}
+        } bg-bgGray text-white top-9 divide-y left-[-60px] rounded shadow w-44 `}
       >
         <ul
           className="py-2 px-2 text-sm flex flex-col space-y-3"

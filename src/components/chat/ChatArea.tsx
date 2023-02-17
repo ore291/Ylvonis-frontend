@@ -420,46 +420,76 @@ function ChatArea({
                         type={'photo'}
                         date={message.createdAt}
                         text={message.message.messageText}
-                        
                         data={{
                           width: 230,
                           height: 180,
                           uri: message.post_file,
                           status: {
-                            click : true,
-                          download: true,
-                          loading: 0,
-                        },
+                            click: true,
+                            download: true,
+                            loading: 0,
+                          },
                         }}
                         notch={true}
                       />
                     </div>
                   ) : (
-                    <div key={index} ref={scrollRef}>
-                      <MessageBox
-                        className="child:!bg-chatGray child:!text-white child:!capitalize"
-                        position={
-                          session?.user?.id !=
-                          (message.postedByUser.id
-                            ? message.postedByUser.id
-                            : message.postedByUser._id)
-                            ? 'left'
-                            : 'right'
-                        }
-                        data={{
-                          uri: message.post_file,
-                          status: {
-                              click : true,
-                            download: false,
-                            loading: 0,
-                          },
-                        }}
-                        type={message.type}
-                        date={message.createdAt}
-                        text={message.message.messageText}
-                        notch={true}
-                      />
-                    </div>
+                    <>
+                      {message.type == 'audio' ? (
+                        <div key={index} ref={scrollRef}>
+                          <MessageBox
+                            className="child:!bg-chatGray child:!text-white child:!capitalize"
+                            position={
+                              session?.user?.id !=
+                              (message.postedByUser.id
+                                ? message.postedByUser.id
+                                : message.postedByUser._id)
+                                ? 'left'
+                                : 'right'
+                            }
+                            data={{
+                              audioURL: message.post_file,
+                              status: {
+                                click: true,
+                                download: true,
+                                loading: 0.5,
+                              },
+                            }}
+                            
+                            type={'audio'}
+                            date={message.createdAt}
+                            text={message.message.messageText}
+                            notch={true}
+                          />
+                        </div>
+                      ) : (
+                        <div key={index} ref={scrollRef}>
+                          <MessageBox
+                            className="child:!bg-chatGray child:!text-white child:!capitalize"
+                            position={
+                              session?.user?.id !=
+                              (message.postedByUser.id
+                                ? message.postedByUser.id
+                                : message.postedByUser._id)
+                                ? 'left'
+                                : 'right'
+                            }
+                            data={{
+                              videoURL: message.post_file,
+                              status: {
+                                click: true,
+                                download: true,
+                                loading: 0.5,
+                              },
+                            }}
+                            type={message.type}
+                            date={message.createdAt}
+                            text={message.message.messageText}
+                            notch={true}
+                          />
+                        </div>
+                      )}
+                    </>
                   )
                 ) : null,
               )}
