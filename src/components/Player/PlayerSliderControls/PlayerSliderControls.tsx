@@ -31,7 +31,7 @@ function PlayerSliderControls() {
   }
 
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <div className="w-full justify-between md:justify-center flex flex-row gap-2 items-center">
       <Button variant="naked">
         <TfiControlShuffle width={30} height={30} />
       </Button>

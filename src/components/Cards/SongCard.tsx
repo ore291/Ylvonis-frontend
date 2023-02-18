@@ -73,7 +73,9 @@ const SongCard = ({
 
   return (
     <div className="w-full h-[70px] place-content-center p-2 flex items-center space-x-2 cursor-pointer border-b border-chatGray">
-      <div className="basis-1/5 relative w-full h-full rounded-md">
+      <div
+        className="basis-1/5 relative w-full h-full rounded-md"
+      >
         <Image
           fill
           alt={song.name}
@@ -81,6 +83,7 @@ const SongCard = ({
           className="object-cover"
         />
       </div>
+
       <div className="basis-4/5 flex items-center justify-between px-1">
         <div className="flex flex-col justify-center space-y-2 w-full">
           <p className="text-lg truncate w-[90%] font-semibold text-white">

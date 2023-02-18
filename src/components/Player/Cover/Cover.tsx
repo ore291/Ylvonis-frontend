@@ -7,7 +7,11 @@ import { PlayingIcon, PlayIcon, PauseIcon } from '../../Icons'
 import { Button } from '../../UI'
 import { FaRegHeart } from 'react-icons/fa'
 import { BsFillHeartFill, BsHeart, BsThreeDotsVertical } from 'react-icons/bs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { isMobile } from 'react-device-detect'
+import { useRouter } from 'next/router'
+import { useLikeSongMutation } from '@/store/api/song'
+import { useSession } from 'next-auth/react'
 
 export interface props {
   coverUrl?: string
@@ -42,15 +46,12 @@ const Cover: React.FC<props> = (props) => {
   // }
 
   const PlayTrack = (index: number = 2) => {
-    console.log("gotten here...")
     if (playing && index === currentTrackIndex) {
-     
       player.pause()
     } else if (index !== currentTrackIndex) {
       player.playTrack(index)
       player.play()
     } else {
-     
       player.play()
     }
   }
@@ -60,12 +61,46 @@ const Cover: React.FC<props> = (props) => {
   }
 
   const [heart, setHeart] = useState<boolean>(false)
-  {
-    /* <Link href={`/playlist/${encodeURIComponent(playlist.id)}`}> */
+
+  const { data: session, status } = useSession()
+
+  const [liked, setLiked] = useState(
+    currentTrack?.likes.includes(session?.user?.id),
+  )
+
+  const [
+    likeSong, // This is the mutation trigger
+    { isLoading: isLiking, isSuccess: isLiked, data: likedData }, // This is the destructured mutation result
+  ] = useLikeSongMutation()
+
+  const handleLike = (id: string) => {
+    likeSong(id)
+    setLiked(!liked)
   }
+
+  useEffect(() => {
+    if (!isLiked) return
+
+    if (likedData?.message === 'liked') {
+      setLiked(true)
+    } else {
+      setLiked(false)
+    }
+  }, [isLiked])
+
+  const router = useRouter()
+
+
+
+  const handleSong = () => {
+    if (isMobile) {
+      router.push(`/song/${currentTrack.id}`)
+    }
+  }
+
   return (
     <div className={cn(s.container)}>
-      <div className={cn(s.root)}>
+      <div onClick={() => handleSong()} className={cn(s.root)}>
         {/* <PlayingIcon /> */}
         <div className="relative w-[50px] h-[50px] md:w-[80px] md:h-[80px]">
           <Image alt="" className={cn(s.img)} fill src={coverUrl} />
@@ -77,19 +112,23 @@ const Cover: React.FC<props> = (props) => {
         </div>
       </div>
       <div className="flex md:hidden space-x-1 pr-1 ">
-        <Button variant="naked" size="slim" onClick={() => setHeart(!heart)}>
-          {heart ? (
+        <Button
+          variant="naked"
+          size="slim"
+          onClick={() => handleLike(currentTrack?.id)}
+        >
+          {liked ? (
             <BsFillHeartFill size={30} className="text-brand  " />
           ) : (
             <BsHeart size={30} />
           )}
         </Button>
         {playing ? (
-          <Button variant="ghost" size="slim" onClick={() => PlayTrack(2)}>
+          <Button variant="ghost" size="slim" onClick={() => PlayTrack()}>
             <PauseIcon />
           </Button>
         ) : (
-          <Button variant="ghost" size="slim" onClick={()=>PlayTrack(2)}>
+          <Button variant="ghost" size="slim" onClick={() => PlayTrack()}>
             <PlayIcon />
           </Button>
         )}

@@ -15,7 +15,7 @@
 }
 
 .track {
-  @apply bg-zinc-500 bg-opacity-10 relative flex-grow rounded-full h-1;
+  @apply !bg-zinc-500 bg-opacity-50 relative flex-grow rounded-full h-2;
 }
 
 .range {

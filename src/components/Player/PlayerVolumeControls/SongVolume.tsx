@@ -8,44 +8,27 @@ import { FaRegHeart } from 'react-icons/fa'
 import { useState } from 'react'
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs'
 
-const PlayerVolumeControls = () => {
+const SongVolume = () => {
   const state = usePlayerState()
 
-  const [heart, setHeart] = useState<boolean>(false)
+
 
   return (
-    <div className="hidden md:flex items-center justify-center space-x-1 h-full">
-      {heart ? (
-        <Button variant="naked" size="slim" onClick={() => setHeart(!heart)}>
-          <BsFillHeartFill size={24} className="text-brand  " />
-        </Button>
-      ) : (
-        <Button variant="naked" size="slim" onClick={() => setHeart(!heart)}>
-          <BsHeart size={24} />
-        </Button>
-      )}
+    <div className="flex items-center  space-x-2 h-full pt-4">
+     
 
-      <Button variant="naked" size="large">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 38 38"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g clipPath="url(#clip0_524_366)">
-            <path
-              d="M24.2632 5H-1V9.14286H24.2632V5ZM24.2632 13.2857H-1V17.4286H24.2632V13.2857ZM-1 25.7143H15.8421V21.5714H-1V25.7143ZM28.4737 5V21.9546C27.8105 21.7164 27.1158 21.5714 26.3684 21.5714C22.8842 21.5714 20.0526 24.3575 20.0526 27.7857C20.0526 31.2139 22.8842 34 26.3684 34C29.8526 34 32.6842 31.2139 32.6842 27.7857V9.14286H39V5H28.4737Z"
-              fill="white"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_524_366">
-              <rect width="38" height="38" fill="white" />
-            </clipPath>
-          </defs>
-        </svg>
-      </Button>
+      <div className="flex items-center flex-1">
+        <VolumeIcon />
+
+        <div className="w-[70%] flex items-center justify-center">
+          <Slider
+            min={0}
+            max={1}
+            value={state.volume}
+            handleChange={(value) => player.volume(value[0])}
+          />
+        </div>
+      </div>
       <Button variant="naked" size="large">
         <svg
           width="24"
@@ -60,20 +43,8 @@ const PlayerVolumeControls = () => {
           />
         </svg>
       </Button>
-      <div className={cn(s.root)}>
-        <VolumeIcon />
-
-        <div className={cn(s.container)}>
-          <Slider
-            min={0}
-            max={1}
-            value={state.volume}
-            handleChange={(value) => player.volume(value[0])}
-          />
-        </div>
-      </div>
     </div>
   )
 }
 
-export default PlayerVolumeControls
+export default SongVolume

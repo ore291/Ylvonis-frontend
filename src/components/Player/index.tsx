@@ -9,6 +9,8 @@ import { MobileProgress } from './MobileProgress'
 import { BrowserView, MobileView } from 'react-device-detect'
 import { Button } from '../UI'
 import { FaRegHeart } from 'react-icons/fa'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Player = () => {
   const { currentTrack } = usePlayerState()
@@ -17,14 +19,20 @@ const Player = () => {
     return null
   }
 
+  const router = useRouter()
+
+
+
   return (
     <div>
       <MobileView>
-        <div className={cn(s.root)}>
-          <div className={cn(s.container)}>
-            <Cover coverUrl={state?.currentTrack?.coverArt} />
+        {router.pathname !== '/song/[id]' && (
+          <div  className={cn(s.root)}>
+            <div className={cn(s.container)}>
+              <Cover coverUrl={state?.currentTrack?.coverArt} />
+            </div>
           </div>
-        </div>
+        )}
       </MobileView>
       <BrowserView>
         <div className={cn(s.root)}>
