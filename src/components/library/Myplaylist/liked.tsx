@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
 import PlayListCard from './PlayListCard'
-import AddNew from './AddNew'
+import dynamic from 'next/dynamic'
+
+const AddNew = dynamic( () => import('./AddNew'), { ssr: false } )
 import { useGetUserLikedPlaylistQuery } from '@/store/api/song'
 import Loading from '@/components/utils/Loading'
 
@@ -9,6 +11,8 @@ function LikedPlaylists() {
   const { data, error, isLoading, isSuccess } = useGetUserLikedPlaylistQuery(
     null,
   )
+
+
   return (
     // ignore some of the tailwind classes i dont know what's working
     <main>

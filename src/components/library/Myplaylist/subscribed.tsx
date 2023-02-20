@@ -2,7 +2,9 @@ import Loading from '@/components/utils/Loading'
 import { useGetUserSubscribedPlaylistQuery } from '@/store/api/song'
 import { useState } from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
-import AddNew from './AddNew'
+import dynamic from 'next/dynamic'
+
+const AddNew = dynamic(() => import('./AddNew'), { ssr: false })
 import PlayListCard from './PlayListCard'
 
 function SubscribedPlaylists() {
@@ -36,15 +38,16 @@ function SubscribedPlaylists() {
             </header>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-1 md:gap-4">
-              {data && data.playlists?.map((playlist: any) => (
-                <div key={playlist.id}>
-                  <PlayListCard
-                    id={playlist?.id}
-                    img={playlist?.coverArt}
-                    playListName={playlist?.name}
-                  />
-                </div>
-              ))}{' '}
+              {data &&
+                data.playlists?.map((playlist: any) => (
+                  <div key={playlist.id}>
+                    <PlayListCard
+                      id={playlist?.id}
+                      img={playlist?.coverArt}
+                      playListName={playlist?.name}
+                    />
+                  </div>
+                ))}{' '}
             </div>
           )}
         </section>

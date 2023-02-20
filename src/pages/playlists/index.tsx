@@ -7,7 +7,7 @@ import SubscribedPlaylists from '@/components/library/Myplaylist/subscribed'
 import LikedPlaylists from '@/components/library/Myplaylist/liked'
 import useAuth from '@/hooks/useAuth'
 
-function MyPlaylist() {
+const  MyPlaylist = () => {
 
   const isAuthenticated = useAuth(true)
   return (
@@ -21,7 +21,7 @@ function MyPlaylist() {
       title="My Playlists"
       nested={true}
     >
-      <div>
+      
         <Tabs
           defaultFocus={true}
           selectedTabClassName={'bg-transparent focused-tab !relative'}
@@ -45,7 +45,7 @@ function MyPlaylist() {
             <LikedPlaylists />
           </TabPanel>
         </Tabs>
-      </div>
+    
     </Main>
   )
 }

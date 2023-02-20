@@ -2,8 +2,10 @@ import Loading from '@/components/utils/Loading'
 import { useGetUserPlaylistQuery } from '@/store/api/song'
 import { useState } from 'react'
 import { BsListUl, BsPlus } from 'react-icons/bs'
-import AddNew from './AddNew'
 import PlayListCard from './PlayListCard'
+import dynamic from 'next/dynamic'
+
+const AddNew = dynamic( () => import('./AddNew'), { ssr: false } )
 
 export default function RecentPlayLists() {
   const {
@@ -12,6 +14,7 @@ export default function RecentPlayLists() {
     isLoading,
     isSuccess,
   } = useGetUserPlaylistQuery(null)
+
 
   const [showAddNew, setShowAddNew] = useState(false)
   return (

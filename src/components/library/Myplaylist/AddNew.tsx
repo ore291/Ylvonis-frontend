@@ -47,7 +47,7 @@ function AddNew(props: {
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
 
-    if (e.currentTarget.files?.length > 0) {
+    if (e?.currentTarget?.files?.length > 0) {
       const image = e?.currentTarget?.files[0]
       setFile(image)
     }
