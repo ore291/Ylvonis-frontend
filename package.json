@@ -14,7 +14,7 @@
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
     "commit": "cz",
-    "postbuild": "next-sitemap"
+    "postbuild": "npm run build && next-sitemap"
   },
   "engines": {
     "node": ">=0.10.3 <19",
