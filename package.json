@@ -13,11 +13,12 @@
     "format": "next lint --fix && prettier '**/*.{json,yaml}' --write",
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
-    "commit": "cz"
+    "commit": "cz",
+    "postinstall": "next-sitemap"
   },
   "engines": {
     "node": ">=0.10.3 <19",
-    "npm": ">=8.19.3"
+    "yarn": ">=1.22.19"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.1.6",
