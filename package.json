@@ -27,6 +27,7 @@
     "@radix-ui/react-slider": "^1.1.0",
     "@react-spring/web": "9",
     "@reduxjs/toolkit": "^1.9.1",
+    "@types/node": "^18.14.0",
     "@types/three": "^0.148.0",
     "@use-gesture/react": "10",
     "axios": "^1.2.3",
@@ -61,7 +62,6 @@
   },
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
-    "@types/node": "^18.14.0",
     "@types/react": "18.0.28",
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
