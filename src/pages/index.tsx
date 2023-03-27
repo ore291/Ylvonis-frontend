@@ -13,6 +13,10 @@ import { Button } from '@/components/UI'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Loading from '@/components/utils/Loading'
 import player, { usePlayerState } from '@/lib/player'
+import { getServerSession } from 'next-auth'
+import { IncomingMessage, ServerResponse } from 'http'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { authOptions } from './api/auth/[...nextauth]'
 
 // import Globe from '../components/Globe'
 
@@ -133,10 +137,10 @@ const Index = () => {
               {isLoading ? (
                 <div className="w-full h-20 flex items-center justify-center">
                   <Loading w="6" h="6" />
-                  <TabPanel/>
-                  <TabPanel/>
-                  <TabPanel/>
-                  <TabPanel/>
+                  <TabPanel />
+                  <TabPanel />
+                  <TabPanel />
+                  <TabPanel />
                 </div>
               ) : (
                 <>
@@ -231,3 +235,25 @@ const Index = () => {
 }
 
 export default Index
+
+export async function getServerSideProps(context: {
+  req:
+    | any
+    | NextApiRequest
+    | (IncomingMessage & { cookies: Partial<{ [key: string]: string }> })
+  res: any | ServerResponse<IncomingMessage> | NextApiResponse<any>
+}) {
+  const session = await getServerSession(context.req, context.res, authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/login`,
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {},
+  }
+}

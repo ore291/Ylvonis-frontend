@@ -29,7 +29,7 @@ async function refreshAccessToken(tokenObject: any) {
   }
 }
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
